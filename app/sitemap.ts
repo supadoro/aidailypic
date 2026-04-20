@@ -1,6 +1,6 @@
-import type { MetadataRoute } from "next";
+﻿import type { MetadataRoute } from "next";
 
-import { categoryLabels, feedArticles, featuredArticle } from "@/src/data/mock-content";
+import { feedArticles, featuredArticle, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
 
 const SITE_URL = "https://aidailypick.com";
 
@@ -15,6 +15,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${SITE_URL}/news`,
+      lastModified: now,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/tools`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/search?q=ai`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -22,10 +34,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const categoryRoutes: MetadataRoute.Sitemap = Object.keys(categoryLabels).map((slug) => ({
-    url: `${SITE_URL}/category/${slug}`,
+  const sectionRoutes: MetadataRoute.Sitemap = Object.keys(topCategoryLabels).map((slug) => ({
+    url: `${SITE_URL}/section/${slug}`,
     lastModified: now,
     changeFrequency: "daily",
+    priority: 0.8,
+  }));
+
+  const toolRoutes: MetadataRoute.Sitemap = Object.keys(toolCategoryLabels).map((slug) => ({
+    url: `${SITE_URL}/tools/${slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
     priority: 0.8,
   }));
 
@@ -36,5 +55,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...articleRoutes];
+  return [...staticRoutes, ...sectionRoutes, ...toolRoutes, ...articleRoutes];
 }

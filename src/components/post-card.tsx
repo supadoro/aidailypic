@@ -24,7 +24,7 @@ export function PostCard(props: { article: ArticleItem; variant: CardVariant }) 
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/10" />
             <div className="absolute bottom-6 left-6 right-6">
               <span className="mb-3 inline-flex rounded bg-[#5148d8] px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white">
-                {article.category}
+                {article.topCategory}
               </span>
               <h1 className="text-3xl font-extrabold leading-tight text-white md:text-4xl">{article.title}</h1>
             </div>
@@ -48,7 +48,9 @@ export function PostCard(props: { article: ArticleItem; variant: CardVariant }) 
           />
         </Link>
         <div className="flex-1">
-          <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-[#5148d8]">{article.category}</p>
+          <p className="mb-1 text-[10px] font-black uppercase tracking-widest text-[#5148d8]">
+            {article.topCategory} / {article.toolCategory}
+          </p>
           <Link className="text-xl font-bold text-slate-900 hover:text-[#5148d8]" href={`/article/${article.slug}`}>
             {article.title}
           </Link>
@@ -77,7 +79,9 @@ export function PostCard(props: { article: ArticleItem; variant: CardVariant }) 
           width={480}
         />
         <div className="p-5">
-          <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-[#5148d8]">{article.category}</p>
+          <p className="mb-2 text-[10px] font-black uppercase tracking-widest text-[#5148d8]">
+            {article.topCategory} / {article.toolCategory}
+          </p>
           <h3 className="text-xl font-bold text-slate-900 transition-colors group-hover:text-[#5148d8]">{article.title}</h3>
           <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">{article.excerpt}</p>
           <span className="mt-4 inline-flex text-sm font-bold text-[#5148d8] group-hover:underline">Continue Reading</span>

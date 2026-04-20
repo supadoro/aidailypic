@@ -35,12 +35,14 @@ export default async function SearchPage({
     (item) =>
       item.title.toLowerCase().includes(keyword) ||
       item.excerpt.toLowerCase().includes(keyword) ||
-      item.category.toLowerCase().includes(keyword) ||
-      item.categorySlug.toLowerCase().includes(keyword)
+      item.topCategory.toLowerCase().includes(keyword) ||
+      item.topCategorySlug.toLowerCase().includes(keyword) ||
+      item.toolCategory.toLowerCase().includes(keyword) ||
+      item.toolCategorySlug.toLowerCase().includes(keyword)
   );
 
   const currentPage = Math.max(1, Number(page || "1"));
-  const pageSize = 3;
+  const pageSize = 4;
   const totalPages = Math.max(1, Math.ceil(results.length / pageSize));
   const normalizedPage = Math.min(currentPage, totalPages);
   const start = (normalizedPage - 1) * pageSize;
@@ -77,4 +79,3 @@ export default async function SearchPage({
     </MainLayout>
   );
 }
-

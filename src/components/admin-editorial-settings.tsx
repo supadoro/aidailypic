@@ -8,7 +8,7 @@ import {
   normalizeEditorialConfig,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
-import { categoryLabels, feedArticles, featuredArticle, type CategoryKey } from "@/src/data/mock-content";
+import { feedArticles, featuredArticle, toolCategoryLabels, type ToolCategoryKey } from "@/src/data/mock-content";
 
 export function AdminEditorialSettings() {
   const allArticles = useMemo(() => [featuredArticle, ...feedArticles], []);
@@ -27,8 +27,8 @@ export function AdminEditorialSettings() {
 
   const [featuredSlug, setFeaturedSlug] = useState<string>(initial.featuredSlug);
   const [pickSlugs, setPickSlugs] = useState<string[]>(initial.pickSlugs.length ? initial.pickSlugs : defaults.pickSlugs);
-  const [categoryOrder, setCategoryOrder] = useState<CategoryKey[]>(initial.categoryOrder);
-  const [hiddenCategories, setHiddenCategories] = useState<CategoryKey[]>(initial.hiddenCategories);
+  const [toolCategoryOrder, setToolCategoryOrder] = useState<ToolCategoryKey[]>(initial.toolCategoryOrder);
+  const [hiddenToolCategories, setHiddenToolCategories] = useState<ToolCategoryKey[]>(initial.hiddenToolCategories);
   const [notice, setNotice] = useState<string>("");
 
   const togglePick = (slug: string) => {
@@ -39,12 +39,12 @@ export function AdminEditorialSettings() {
     });
   };
 
-  const toggleCategoryVisibility = (slug: CategoryKey) => {
-    setHiddenCategories((prev) => (prev.includes(slug) ? prev.filter((item) => item !== slug) : [...prev, slug]));
+  const toggleToolVisibility = (slug: ToolCategoryKey) => {
+    setHiddenToolCategories((prev) => (prev.includes(slug) ? prev.filter((item) => item !== slug) : [...prev, slug]));
   };
 
-  const moveCategory = (slug: CategoryKey, direction: "up" | "down") => {
-    setCategoryOrder((prev) => {
+  const moveToolCategory = (slug: ToolCategoryKey, direction: "up" | "down") => {
+    setToolCategoryOrder((prev) => {
       const index = prev.indexOf(slug);
       if (index < 0) return prev;
       const target = direction === "up" ? index - 1 : index + 1;
@@ -59,21 +59,21 @@ export function AdminEditorialSettings() {
     const payload = normalizeEditorialConfig({
       featuredSlug,
       pickSlugs: pickSlugs.length ? pickSlugs : defaults.pickSlugs,
-      categoryOrder,
-      hiddenCategories,
+      toolCategoryOrder,
+      hiddenToolCategories,
     });
 
     window.localStorage.setItem(EDITORIAL_CONFIG_KEY, JSON.stringify(payload));
-    setNotice("적용 완료: 홈/헤더/사이드바에 카테고리 설정이 반영됩니다.");
+    setNotice("적용 완료: 홈/헤더/사이드바에 툴 분류 설정이 반영됩니다.");
   };
 
   const reset = () => {
     window.localStorage.removeItem(EDITORIAL_CONFIG_KEY);
     setFeaturedSlug(defaults.featuredSlug);
     setPickSlugs(defaults.pickSlugs);
-    setCategoryOrder(defaults.categoryOrder);
-    setHiddenCategories(defaults.hiddenCategories);
-    setNotice("초기화 완료: 기본 추천/카테고리 구성이 복원되었습니다.");
+    setToolCategoryOrder(defaults.toolCategoryOrder);
+    setHiddenToolCategories(defaults.hiddenToolCategories);
+    setNotice("초기화 완료: 기본 추천/툴 분류 구성이 복원되었습니다.");
   };
 
   return (
@@ -84,7 +84,7 @@ export function AdminEditorialSettings() {
         </p>
         <h1 className="text-3xl font-extrabold text-slate-900">홈 편집 설정</h1>
         <p className="text-sm text-slate-600">
-          Featured 카드, Editor&apos;s Picks, 카테고리 노출/순서를 직접 관리할 수 있습니다.
+          Featured 카드, Editor&apos;s Picks, 툴 하위 분류 노출/순서를 직접 관리할 수 있습니다.
         </p>
       </header>
 
@@ -106,7 +106,7 @@ export function AdminEditorialSettings() {
                 type="radio"
               />
               <div>
-                <p className="text-xs font-black uppercase tracking-wider text-[#5148d8]">{article.category}</p>
+                <p className="text-xs font-black uppercase tracking-wider text-[#5148d8]">{article.toolCategory}</p>
                 <p className="text-sm font-bold text-slate-900">{article.title}</p>
               </div>
             </label>
@@ -131,7 +131,7 @@ export function AdminEditorialSettings() {
                 type="checkbox"
               />
               <div>
-                <p className="text-xs font-black uppercase tracking-wider text-[#5148d8]">{article.category}</p>
+                <p className="text-xs font-black uppercase tracking-wider text-[#5148d8]">{article.topCategory}</p>
                 <p className="text-sm font-bold text-slate-900">{article.title}</p>
               </div>
             </label>
@@ -141,29 +141,29 @@ export function AdminEditorialSettings() {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-sm font-black uppercase tracking-wide text-slate-700">Category Visibility & Order</h2>
+        <h2 className="text-sm font-black uppercase tracking-wide text-slate-700">Tool Subcategory Visibility & Order</h2>
         <div className="space-y-2 rounded-xl bg-slate-50 p-3">
-          {categoryOrder.map((slug, index) => {
-            const visible = !hiddenCategories.includes(slug);
+          {toolCategoryOrder.map((slug, index) => {
+            const visible = !hiddenToolCategories.includes(slug);
             return (
               <div className="flex items-center justify-between rounded-lg bg-white px-3 py-2" key={slug}>
                 <div>
-                  <p className="text-sm font-bold text-slate-900">{categoryLabels[slug]}</p>
+                  <p className="text-sm font-bold text-slate-900">{toolCategoryLabels[slug]}</p>
                   <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">/{slug}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
                     className="rounded bg-slate-200 px-2 py-1 text-xs font-bold text-slate-700 disabled:opacity-40"
                     disabled={index === 0}
-                    onClick={() => moveCategory(slug, "up")}
+                    onClick={() => moveToolCategory(slug, "up")}
                     type="button"
                   >
                     Up
                   </button>
                   <button
                     className="rounded bg-slate-200 px-2 py-1 text-xs font-bold text-slate-700 disabled:opacity-40"
-                    disabled={index === categoryOrder.length - 1}
-                    onClick={() => moveCategory(slug, "down")}
+                    disabled={index === toolCategoryOrder.length - 1}
+                    onClick={() => moveToolCategory(slug, "down")}
                     type="button"
                   >
                     Down
@@ -172,7 +172,7 @@ export function AdminEditorialSettings() {
                     <input
                       checked={visible}
                       className="h-4 w-4 accent-[#5148d8]"
-                      onChange={() => toggleCategoryVisibility(slug)}
+                      onChange={() => toggleToolVisibility(slug)}
                       type="checkbox"
                     />
                     Show

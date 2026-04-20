@@ -6,11 +6,11 @@ import { useMemo, useState } from "react";
 import {
   EDITORIAL_CONFIG_KEY,
   getDefaultEditorialConfig,
-  getVisibleCategoryOrder,
+  getVisibleToolCategoryOrder,
   normalizeEditorialConfig,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
-import { categoryLabels, feedArticles } from "@/src/data/mock-content";
+import { feedArticles, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
 
 function SidebarAdSlot(props: { heightClassName?: string; label?: string }) {
   const { heightClassName = "h-56", label = "Advertisement" } = props;
@@ -56,21 +56,26 @@ export function Sidebar() {
     }
   });
 
-  const visibleCategoryOrder = useMemo(() => getVisibleCategoryOrder(config), [config]);
-  const visibleSet = useMemo(() => new Set(visibleCategoryOrder), [visibleCategoryOrder]);
+  const visibleToolCategoryOrder = useMemo(() => getVisibleToolCategoryOrder(config), [config]);
+  const visibleToolSet = useMemo(() => new Set(visibleToolCategoryOrder), [visibleToolCategoryOrder]);
 
   const popularLinks = useMemo(
     () =>
       feedArticles
-        .filter((article) => visibleSet.has(article.categorySlug))
+        .filter((article) => visibleToolSet.has(article.toolCategorySlug))
         .slice(0, 3)
         .map((article) => ({ title: article.title, href: `/article/${article.slug}` })),
-    [visibleSet]
+    [visibleToolSet]
   );
 
-  const categoryLinks = useMemo(
-    () => visibleCategoryOrder.map((slug) => ({ title: categoryLabels[slug], href: `/category/${slug}` })),
-    [visibleCategoryOrder]
+  const topSectionLinks = useMemo(
+    () => Object.entries(topCategoryLabels).map(([slug, label]) => ({ title: label, href: `/section/${slug}` })),
+    []
+  );
+
+  const toolLinks = useMemo(
+    () => visibleToolCategoryOrder.map((slug) => ({ title: toolCategoryLabels[slug], href: `/tools/${slug}` })),
+    [visibleToolCategoryOrder]
   );
 
   return (
@@ -86,7 +91,8 @@ export function Sidebar() {
       </form>
 
       <SidebarGroup links={popularLinks} title="Popular Posts" />
-      <SidebarGroup links={categoryLinks} title="Categories" />
+      <SidebarGroup links={topSectionLinks} title="Top Sections" />
+      <SidebarGroup links={toolLinks} title="Tool Subcategories" />
 
       <section className="rounded-xl bg-[#f0f4f7] p-6">
         <h3 className="mb-4 text-sm font-extrabold uppercase tracking-widest text-slate-700">Trending</h3>

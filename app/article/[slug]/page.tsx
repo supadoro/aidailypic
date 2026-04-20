@@ -33,15 +33,20 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   const tocItems = articleBodySections.map((section) => ({ id: section.id, label: section.heading }));
-  const related = feedArticles.filter((item) => item.categorySlug === article.categorySlug && item.slug !== article.slug).slice(0, 2);
+  const related = feedArticles.filter((item) => item.toolCategorySlug === article.toolCategorySlug && item.slug !== article.slug).slice(0, 2);
 
   return (
     <MainLayout>
       <article className="space-y-8 rounded-2xl bg-white p-8 shadow-sm">
         <header className="space-y-4">
-          <p className="inline-flex rounded-full bg-[#eaeff2] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
-            {article.category}
-          </p>
+          <div className="flex flex-wrap gap-2">
+            <p className="inline-flex rounded-full bg-[#eaeff2] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
+              {article.topCategory}
+            </p>
+            <p className="inline-flex rounded-full bg-[#f0f4f7] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
+              {article.toolCategory}
+            </p>
+          </div>
           <h1 className="text-4xl font-extrabold leading-tight text-slate-900">{article.title}</h1>
           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
             {article.author} / {article.date} / {article.readMinutes} min read
@@ -91,4 +96,3 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     </MainLayout>
   );
 }
-
