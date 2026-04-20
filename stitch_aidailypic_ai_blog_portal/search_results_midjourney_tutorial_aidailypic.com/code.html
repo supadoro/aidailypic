@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Daily Pic | Search Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#2c3437",
+                        "secondary-dim": "#525166",
+                        "secondary-container": "#e3e0f9",
+                        "on-background": "#2c3437",
+                        "inverse-surface": "#0b0f10",
+                        "background": "#f7f9fb",
+                        "on-tertiary-fixed-variant": "#704e72",
+                        "tertiary-fixed": "#fed2fd",
+                        "on-primary-fixed": "#ffffff",
+                        "error-container": "#f97386",
+                        "on-surface-variant": "#596064",
+                        "tertiary": "#765377",
+                        "inverse-primary": "#8681ff",
+                        "secondary-fixed": "#e3e0f9",
+                        "surface": "#f7f9fb",
+                        "on-primary": "#fbf7ff",
+                        "on-secondary-fixed-variant": "#5b596e",
+                        "on-primary-fixed-variant": "#f6f2ff",
+                        "outline": "#747c80",
+                        "on-primary-container": "#000000",
+                        "on-secondary-container": "#515064",
+                        "on-secondary": "#fbf7ff",
+                        "secondary": "#5e5d72",
+                        "tertiary-container": "#fed2fd",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary": "#fff7fa",
+                        "surface-dim": "#d4dbdf",
+                        "primary-fixed": "#6f68f7",
+                        "on-secondary-fixed": "#3e3d51",
+                        "tertiary-dim": "#69486b",
+                        "surface-container-highest": "#dce4e8",
+                        "primary-dim": "#453acc",
+                        "primary": "#5148d8",
+                        "surface-container-high": "#e3e0f9",
+                        "error-dim": "#6b0221",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#eaeff2",
+                        "tertiary-fixed-dim": "#efc4ee",
+                        "secondary-fixed-dim": "#d5d2eb",
+                        "surface-variant": "#dce4e8",
+                        "primary-container": "#6f68f7",
+                        "primary-fixed-dim": "#625bea",
+                        "error": "#a8364b",
+                        "inverse-on-surface": "#9a9d9f",
+                        "outline-variant": "#acb3b7",
+                        "on-tertiary-container": "#654568",
+                        "on-tertiary-fixed": "#513254",
+                        "surface-container-low": "#f0f4f7",
+                        "surface-tint": "#5148d8",
+                        "on-error": "#fff7f7",
+                        "on-error-container": "#6e0523"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; color: #2c3437; }
+        h1, h2, h3 { font-family: 'Manrope', sans-serif; letter-spacing: -0.02em; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-sm dark:shadow-none h-20 flex justify-between items-center px-6 md:px-12 max-w-full">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-extrabold tracking-tighter text-indigo-600 dark:text-indigo-400">AI Daily Pic</span>
+<div class="hidden md:flex gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 transition-colors" href="#">Gallery</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 transition-colors" href="#">Analysis</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 transition-colors" href="#">Archive</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 transition-colors" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary w-64 transition-all" type="text" value="Midjourney tutorial"/>
+</div>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-6 py-2 rounded-md font-medium text-sm transition-transform active:scale-95">Subscribe</button>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col lg:flex-row gap-12">
+<!-- Left Content Area -->
+<div class="flex-1">
+<!-- Search Header -->
+<section class="mb-12">
+<div class="bg-surface-container-low p-1 rounded-xl flex items-center shadow-sm mb-6">
+<div class="flex-1 flex items-center px-4">
+<span class="material-symbols-outlined text-primary mr-3">search</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-xl font-medium placeholder:text-outline-variant" type="text" value="Midjourney tutorial"/>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-semibold transition-all hover:bg-primary-dim">Search</button>
+</div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<h2 class="text-on-surface-variant font-medium">12 results for '<span class="text-on-surface font-bold">Midjourney tutorial</span>'</h2>
+</div>
+<div class="flex items-center gap-4 text-sm">
+<div class="flex items-center gap-2">
+<span class="text-outline">Sort by:</span>
+<select class="bg-transparent border-none font-semibold text-primary focus:ring-0 cursor-pointer">
+<option>Relevance</option>
+<option>Newest</option>
+<option>Oldest</option>
+</select>
+</div>
+<div class="h-4 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-2">
+<span class="text-outline">Filter:</span>
+<div class="flex gap-2">
+<span class="bg-primary text-on-primary px-3 py-1 rounded-full text-xs font-medium cursor-pointer">All</span>
+<span class="bg-surface-container-high text-on-secondary-container px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:bg-secondary-container transition-colors">Guides</span>
+<span class="bg-surface-container-high text-on-secondary-container px-3 py-1 rounded-full text-xs font-medium cursor-pointer hover:bg-secondary-container transition-colors">News</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Results List -->
+<div class="space-y-12">
+<!-- Result Card 1 -->
+<article class="group flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-64 h-48 rounded-xl overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Dreamy surreal digital art of a celestial landscape with glowing nebulas and floating islands in vibrant violet and indigo tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZgPC3hXDGPwkweSxiE0Qs2MTDEazMv8iT2ckNCnRWoE0b72q4l75U3Uf_7cVAIS42ulgPNO-G74YXSMR6YuA4U0X0HkiB5qq0TdtQsVUQ-zzSEzQpfFlycsa5f6y6bGxC6HWQs0S5lAfN0QGN-lU9Reg3mT_PrHb9-mwQFIfrGuaNKYvWHCs-9d12Inf2qXXutUBomNpdlT_DdiK7JAALvcL-8rAgHDtyv6egAbkSYkXlzTFHbVwrCAA0NNIREuNoz3fmGZVYF29W"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-3">
+<span class="text-[10px] font-bold tracking-widest uppercase text-primary bg-primary-container/10 px-2 py-0.5 rounded">GUIDE</span>
+<span class="text-xs text-on-surface-variant font-medium">Oct 12, 2024</span>
+</div>
+<h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Mastering Lighting: A Comprehensive <span class="bg-primary-container/30 text-primary px-1 rounded">Midjourney</span> Tutorial for Cinematic Results</h3>
+<p class="text-on-surface-variant leading-relaxed mb-4 line-clamp-2">
+                            In this deep dive, we explore how to manipulate virtual photons. This <span class="font-semibold text-on-surface underline decoration-primary/30">Midjourney</span> tutorial covers everything from rim lighting to volumetric fog...
+                        </p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+<span class="text-xs font-semibold text-on-surface">Elena Vance</span>
+</div>
+</div>
+</article>
+<!-- Result Card 2 -->
+<article class="group flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-64 h-48 rounded-xl overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A futuristic portrait of a woman wearing high-tech glass visor with data streams reflecting on the surface, soft cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyM8g0HZZ0b0sxvQIzg2Awxgzd8fajTdfypCnh00QrI2Thbrd7bfMAmyqwaq-utDXIze1jKIGxew9UhlUQfxDbngNACqbvcbCnA9R-D0DshHueO9TribNVGDwsHtL4cRcLICVE0pio-4wUu1JTMvNbdLj24iA1tUXAKQv6ND5kTKB3qpT2w6mX1aPJ7Ul-cZwoTiLn7ZmehK-QBvGBihuQsSBGmP9Oz0YrBomOc6FxuV96KhhC8oPnoA4yYxdQEWDq4uBT3ss4Qnjp"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-3">
+<span class="text-[10px] font-bold tracking-widest uppercase text-primary bg-primary-container/10 px-2 py-0.5 rounded">REVIEWS</span>
+<span class="text-xs text-on-surface-variant font-medium">Oct 09, 2024</span>
+</div>
+<h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">V6 vs V5.2: Comparing the New <span class="bg-primary-container/30 text-primary px-1 rounded">Midjourney</span> Tutorial Workflow</h3>
+<p class="text-on-surface-variant leading-relaxed mb-4 line-clamp-2">
+                            The latest update changes how prompts are parsed. We've updated our flagship <span class="font-semibold text-on-surface underline decoration-primary/30">Midjourney</span> tutorial to reflect the shift towards natural language processing...
+                        </p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+<span class="text-xs font-semibold text-on-surface">Marcus Thorne</span>
+</div>
+</div>
+</article>
+<!-- Result Card 3 -->
+<article class="group flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-64 h-48 rounded-xl overflow-hidden shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract 3D render of flowing silk-like structures in monochromatic blue, soft shadows and high detail depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxzlZ4NH2a68oHtUPmwFsw9nnik0hy2agZXqkaEZSweCChFJyR1Bagk6OY1t97oO-JekZHnT5QJARNlAQSBjL0Xe1ZiJDt0Un_aRze8aRHnv8f6XIjnFJCJMcqZhFRTJ37B-Fe7MoBT4Q5NvBEmstK7vDj1DEVwFHT_i-y1n_wvIyg0FNGJuOXrvZDSgfILj0D15R_WxUGNytpU_Aw-VSHKftpZmsNIvrg9ftmsNNTYEftWiy_7JBHkhfkfXktI9syKR6BdHOeOpjS"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-3">
+<span class="text-[10px] font-bold tracking-widest uppercase text-primary bg-primary-container/10 px-2 py-0.5 rounded">NEWS</span>
+<span class="text-xs text-on-surface-variant font-medium">Oct 05, 2024</span>
+</div>
+<h3 class="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Why Your <span class="bg-primary-container/30 text-primary px-1 rounded">Midjourney</span> Tutorial Strategy Needs to Pivot Now</h3>
+<p class="text-on-surface-variant leading-relaxed mb-4 line-clamp-2">
+                            Industry experts discuss the ethics and efficiency of AI generation. If you follow a standard <span class="font-semibold text-on-surface underline decoration-primary/30">Midjourney</span> tutorial, you might be missing these key updates...
+                        </p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest"></div>
+<span class="text-xs font-semibold text-on-surface">Sarah Chen</span>
+</div>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-2">
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">2</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">3</button>
+<span class="px-2 text-outline-variant">...</span>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">8</button>
+<button class="w-10 h-10 rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Sidebar -->
+<aside class="w-full lg:w-80 shrink-0 space-y-12">
+<!-- Sponsored Ad -->
+<section class="bg-surface-container rounded-xl p-6">
+<span class="text-[10px] font-bold text-outline mb-4 block tracking-widest uppercase">SPONSORED</span>
+<div class="aspect-[4/5] bg-surface-container-highest rounded-lg mb-4 relative overflow-hidden group cursor-pointer">
+<img class="w-full h-full object-cover" data-alt="Sophisticated minimalist software interface mock-up on a high-end tablet screen, clean lines and premium aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCprOYwG7nQ_SgtpZdca6TFKQc3VKBTTSLCeoSLj2KDyYblczrGMUA5iQIhqo6ohNcDXvPFOyAGwAOisKkE9GAXgiy0HkN6v6pmkOM3hBTZ_nKVyMUkqhfcclC4qglwd7JCZQdesF7284LovCVxUB7FMuRsnckyQ7MasZcRKKiUnt7laZIcYJsBWMLtP0_ZryPgP2nnRuf1o5xYKfuB_zl9kKSVyCAcDHFjOLf2fP0V7aGb2pYge--AAJxag3hXPV1DSsqgVRvNJVt8"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<h4 class="font-bold text-lg mb-2">Build Better AI Prompts</h4>
+<p class="text-sm text-on-surface-variant mb-4">Get the ultimate prompt engineering toolkit for creators.</p>
+<button class="w-full py-2 border-2 border-primary text-primary font-bold rounded-lg hover:bg-primary hover:text-on-primary transition-all">Learn More</button>
+</section>
+<!-- Most Popular -->
+<section>
+<h3 class="text-xl font-extrabold mb-6 flex items-center gap-2">
+<span class="w-8 h-1 bg-primary rounded-full"></span>
+                    Most Popular
+                </h3>
+<div class="space-y-6">
+<div class="flex gap-4 items-center group cursor-pointer">
+<span class="text-3xl font-black text-surface-container-highest group-hover:text-primary-container transition-colors">01</span>
+<div>
+<h4 class="font-bold text-sm leading-tight group-hover:text-primary transition-colors">How to Use Niji Mode for Anime Style</h4>
+<span class="text-[10px] text-outline uppercase font-bold tracking-tighter">Tutorials</span>
+</div>
+</div>
+<div class="flex gap-4 items-center group cursor-pointer">
+<span class="text-3xl font-black text-surface-container-highest group-hover:text-primary-container transition-colors">02</span>
+<div>
+<h4 class="font-bold text-sm leading-tight group-hover:text-primary transition-colors">The Best AI Video Tools of 2024</h4>
+<span class="text-[10px] text-outline uppercase font-bold tracking-tighter">Reviews</span>
+</div>
+</div>
+<div class="flex gap-4 items-center group cursor-pointer">
+<span class="text-3xl font-black text-surface-container-highest group-hover:text-primary-container transition-colors">03</span>
+<div>
+<h4 class="font-bold text-sm leading-tight group-hover:text-primary transition-colors">Understanding Style Tuner Settings</h4>
+<span class="text-[10px] text-outline uppercase font-bold tracking-tighter">Guides</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Card -->
+<section class="bg-primary text-on-primary p-8 rounded-2xl shadow-xl shadow-primary/20">
+<h3 class="text-xl font-extrabold mb-2">Curated Intelligence</h3>
+<p class="text-sm opacity-90 mb-6">Weekly insights on the AI art revolution delivered to your inbox.</p>
+<input class="w-full bg-white/10 border-white/20 rounded-lg py-3 px-4 mb-3 placeholder:text-white/50 text-white focus:ring-white" placeholder="Email address" type="email"/>
+<button class="w-full py-3 bg-white text-primary font-bold rounded-lg hover:bg-on-primary transition-colors">Join 50k+ Readers</button>
+</section>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 dark:bg-slate-950 w-full py-16">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 px-6 md:px-12 max-w-7xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<span class="text-xl font-bold tracking-tighter text-slate-900 dark:text-slate-50">AI Daily Pic</span>
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500 dark:text-slate-400">© 2024 AI Daily Pic. The Digital Curator.</p>
+</div>
+<div class="flex gap-8">
+<a class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" href="#">Terms of Service</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" href="#">Contact</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" href="#">Advertise</a>
+</div>
+</div>
+</footer>
+</body></html>

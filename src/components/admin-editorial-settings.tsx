@@ -1,0 +1,199 @@
+﻿"use client";
+
+import { useMemo, useState } from "react";
+
+import {
+  EDITORIAL_CONFIG_KEY,
+  getDefaultEditorialConfig,
+  normalizeEditorialConfig,
+  type EditorialConfig,
+} from "@/src/data/editorial-config";
+import { categoryLabels, feedArticles, featuredArticle, type CategoryKey } from "@/src/data/mock-content";
+
+export function AdminEditorialSettings() {
+  const allArticles = useMemo(() => [featuredArticle, ...feedArticles], []);
+  const defaults = useMemo(() => getDefaultEditorialConfig(), []);
+
+  const initial = useMemo(() => {
+    if (typeof window === "undefined") return defaults;
+    const raw = window.localStorage.getItem(EDITORIAL_CONFIG_KEY);
+    if (!raw) return defaults;
+    try {
+      return normalizeEditorialConfig(JSON.parse(raw) as Partial<EditorialConfig>);
+    } catch {
+      return defaults;
+    }
+  }, [defaults]);
+
+  const [featuredSlug, setFeaturedSlug] = useState<string>(initial.featuredSlug);
+  const [pickSlugs, setPickSlugs] = useState<string[]>(initial.pickSlugs.length ? initial.pickSlugs : defaults.pickSlugs);
+  const [categoryOrder, setCategoryOrder] = useState<CategoryKey[]>(initial.categoryOrder);
+  const [hiddenCategories, setHiddenCategories] = useState<CategoryKey[]>(initial.hiddenCategories);
+  const [notice, setNotice] = useState<string>("");
+
+  const togglePick = (slug: string) => {
+    setPickSlugs((prev) => {
+      if (prev.includes(slug)) return prev.filter((item) => item !== slug);
+      if (prev.length >= 4) return prev;
+      return [...prev, slug];
+    });
+  };
+
+  const toggleCategoryVisibility = (slug: CategoryKey) => {
+    setHiddenCategories((prev) => (prev.includes(slug) ? prev.filter((item) => item !== slug) : [...prev, slug]));
+  };
+
+  const moveCategory = (slug: CategoryKey, direction: "up" | "down") => {
+    setCategoryOrder((prev) => {
+      const index = prev.indexOf(slug);
+      if (index < 0) return prev;
+      const target = direction === "up" ? index - 1 : index + 1;
+      if (target < 0 || target >= prev.length) return prev;
+      const copy = [...prev];
+      [copy[index], copy[target]] = [copy[target], copy[index]];
+      return copy;
+    });
+  };
+
+  const apply = () => {
+    const payload = normalizeEditorialConfig({
+      featuredSlug,
+      pickSlugs: pickSlugs.length ? pickSlugs : defaults.pickSlugs,
+      categoryOrder,
+      hiddenCategories,
+    });
+
+    window.localStorage.setItem(EDITORIAL_CONFIG_KEY, JSON.stringify(payload));
+    setNotice("적용 완료: 홈/헤더/사이드바에 카테고리 설정이 반영됩니다.");
+  };
+
+  const reset = () => {
+    window.localStorage.removeItem(EDITORIAL_CONFIG_KEY);
+    setFeaturedSlug(defaults.featuredSlug);
+    setPickSlugs(defaults.pickSlugs);
+    setCategoryOrder(defaults.categoryOrder);
+    setHiddenCategories(defaults.hiddenCategories);
+    setNotice("초기화 완료: 기본 추천/카테고리 구성이 복원되었습니다.");
+  };
+
+  return (
+    <section className="space-y-8 rounded-2xl bg-white p-8 shadow-sm">
+      <header className="space-y-2">
+        <p className="inline-flex rounded-full bg-[#eaeff2] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
+          Editorial Admin
+        </p>
+        <h1 className="text-3xl font-extrabold text-slate-900">홈 편집 설정</h1>
+        <p className="text-sm text-slate-600">
+          Featured 카드, Editor&apos;s Picks, 카테고리 노출/순서를 직접 관리할 수 있습니다.
+        </p>
+      </header>
+
+      <div className="space-y-4">
+        <h2 className="text-sm font-black uppercase tracking-wide text-slate-700">Featured Hero</h2>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {allArticles.map((article) => (
+            <label
+              className={`flex cursor-pointer items-start gap-3 rounded-xl p-4 transition ${
+                featuredSlug === article.slug ? "bg-[#eaeff2]" : "bg-slate-50"
+              }`}
+              key={article.slug}
+            >
+              <input
+                checked={featuredSlug === article.slug}
+                className="mt-1 h-4 w-4 accent-[#5148d8]"
+                name="featured"
+                onChange={() => setFeaturedSlug(article.slug)}
+                type="radio"
+              />
+              <div>
+                <p className="text-xs font-black uppercase tracking-wider text-[#5148d8]">{article.category}</p>
+                <p className="text-sm font-bold text-slate-900">{article.title}</p>
+              </div>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-sm font-black uppercase tracking-wide text-slate-700">Editor&apos;s Picks (max 4)</h2>
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {allArticles.map((article) => (
+            <label
+              className={`flex cursor-pointer items-start gap-3 rounded-xl p-4 transition ${
+                pickSlugs.includes(article.slug) ? "bg-[#f0f4f7]" : "bg-slate-50"
+              }`}
+              key={`pick-${article.slug}`}
+            >
+              <input
+                checked={pickSlugs.includes(article.slug)}
+                className="mt-1 h-4 w-4 accent-[#5148d8]"
+                onChange={() => togglePick(article.slug)}
+                type="checkbox"
+              />
+              <div>
+                <p className="text-xs font-black uppercase tracking-wider text-[#5148d8]">{article.category}</p>
+                <p className="text-sm font-bold text-slate-900">{article.title}</p>
+              </div>
+            </label>
+          ))}
+        </div>
+        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">{pickSlugs.length}/4 selected</p>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-sm font-black uppercase tracking-wide text-slate-700">Category Visibility & Order</h2>
+        <div className="space-y-2 rounded-xl bg-slate-50 p-3">
+          {categoryOrder.map((slug, index) => {
+            const visible = !hiddenCategories.includes(slug);
+            return (
+              <div className="flex items-center justify-between rounded-lg bg-white px-3 py-2" key={slug}>
+                <div>
+                  <p className="text-sm font-bold text-slate-900">{categoryLabels[slug]}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">/{slug}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    className="rounded bg-slate-200 px-2 py-1 text-xs font-bold text-slate-700 disabled:opacity-40"
+                    disabled={index === 0}
+                    onClick={() => moveCategory(slug, "up")}
+                    type="button"
+                  >
+                    Up
+                  </button>
+                  <button
+                    className="rounded bg-slate-200 px-2 py-1 text-xs font-bold text-slate-700 disabled:opacity-40"
+                    disabled={index === categoryOrder.length - 1}
+                    onClick={() => moveCategory(slug, "down")}
+                    type="button"
+                  >
+                    Down
+                  </button>
+                  <label className="ml-2 flex items-center gap-1 text-xs font-bold uppercase text-slate-600">
+                    <input
+                      checked={visible}
+                      className="h-4 w-4 accent-[#5148d8]"
+                      onChange={() => toggleCategoryVisibility(slug)}
+                      type="checkbox"
+                    />
+                    Show
+                  </label>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap gap-3">
+        <button className="rounded-md bg-[#5148d8] px-4 py-2 text-sm font-bold text-white" onClick={apply} type="button">
+          적용하기
+        </button>
+        <button className="rounded-md bg-slate-200 px-4 py-2 text-sm font-bold text-slate-700" onClick={reset} type="button">
+          기본값 복원
+        </button>
+      </div>
+
+      {notice ? <p className="rounded-lg bg-[#f0f4f7] px-4 py-3 text-sm font-semibold text-slate-700">{notice}</p> : null}
+    </section>
+  );
+}

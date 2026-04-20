@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Tutorials &amp; Guides | AI Daily Pic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#fed2fd",
+                      "outline-variant": "#acb3b7",
+                      "secondary-container": "#e3e0f9",
+                      "on-tertiary": "#fff7fa",
+                      "on-primary": "#fbf7ff",
+                      "surface-container-high": "#e3e9ed",
+                      "tertiary-dim": "#69486b",
+                      "primary-fixed": "#6f68f7",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#fbf7ff",
+                      "secondary-dim": "#525166",
+                      "on-primary-container": "#000000",
+                      "on-tertiary-container": "#654568",
+                      "on-secondary-fixed-variant": "#5b596e",
+                      "secondary-fixed": "#e3e0f9",
+                      "surface-container-highest": "#dce4e8",
+                      "primary-container": "#6f68f7",
+                      "inverse-primary": "#8681ff",
+                      "background": "#f7f9fb",
+                      "surface-container": "#eaeff2",
+                      "on-error": "#fff7f7",
+                      "secondary": "#5e5d72",
+                      "on-error-container": "#6e0523",
+                      "surface-dim": "#d4dbdf",
+                      "secondary-fixed-dim": "#d5d2eb",
+                      "surface-bright": "#f7f9fb",
+                      "on-primary-fixed-variant": "#f6f2ff",
+                      "on-primary-fixed": "#ffffff",
+                      "inverse-on-surface": "#9a9d9f",
+                      "primary": "#5148d8",
+                      "outline": "#747c80",
+                      "error": "#a8364b",
+                      "on-tertiary-fixed-variant": "#704e72",
+                      "surface-tint": "#5148d8",
+                      "on-secondary-fixed": "#3e3d51",
+                      "primary-fixed-dim": "#625bea",
+                      "on-tertiary-fixed": "#513254",
+                      "tertiary-fixed-dim": "#efc4ee",
+                      "surface": "#f7f9fb",
+                      "tertiary": "#765377",
+                      "on-background": "#2c3437",
+                      "on-secondary-container": "#515064",
+                      "tertiary-fixed": "#fed2fd",
+                      "on-surface-variant": "#596064",
+                      "surface-container-low": "#f0f4f7",
+                      "error-container": "#f97386",
+                      "surface-variant": "#dce4e8",
+                      "error-dim": "#6b0221",
+                      "primary-dim": "#453acc",
+                      "on-surface": "#2c3437",
+                      "inverse-surface": "#0b0f10"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; color: #2c3437; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; letter-spacing: -0.02em; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-nav { font-variation-settings: 'FILL' 1; }
+        .gradient-btn { background: linear-gradient(135deg, #5148d8 0%, #6f68f7 100%); }
+        .no-line-card { transition: transform 0.3s ease; }
+        .no-line-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-50/80 backdrop-blur-xl dark:bg-slate-900/80 shadow-[0_20px_40px_rgba(44,52,55,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<a class="text-2xl font-black tracking-tighter text-slate-900 dark:text-slate-50 font-['Manrope']" href="/">aidailypic.com</a>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 font-['Manrope'] tracking-tight font-bold transition-all duration-300" href="#">Latest</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 font-['Manrope'] tracking-tight font-bold transition-all duration-300" href="#">Generative Art</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 font-['Manrope'] tracking-tight font-bold transition-all duration-300" href="#">LLMs</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-indigo-500 font-['Manrope'] tracking-tight font-bold transition-all duration-300" href="#">Ethics</a>
+<a class="text-indigo-600 dark:text-indigo-400 border-b-2 border-indigo-600 dark:border-indigo-400 pb-1 font-['Manrope'] tracking-tight font-bold transition-all duration-300" href="#">Tutorials</a>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">search</button>
+<button class="gradient-btn text-on-primary px-6 py-2 rounded-md font-bold text-sm tracking-wide scale-95 active:scale-90 transition-transform">Subscribe</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-8 max-w-screen-2xl mx-auto">
+<!-- Category Header -->
+<header class="mb-16 md:w-2/3">
+<div class="flex items-center gap-2 mb-4">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">Learning Hub</span>
+</div>
+<h1 class="text-5xl md:text-6xl font-extrabold text-on-surface mb-6 leading-tight">AI Tutorials &amp; Guides</h1>
+<p class="text-xl text-on-surface-variant leading-relaxed font-body">Master the tools of tomorrow. From prompt engineering to fine-tuning large language models, our expert-led guides help you navigate the rapidly evolving landscape of artificial intelligence.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Main Content Area -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Featured Layout Article -->
+<article class="no-line-card bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0_20px_40px_rgba(44,52,55,0.06)]">
+<div class="grid md:grid-cols-2">
+<div class="h-64 md:h-full relative overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up of a high-tech robotic hand holding a glowing blue stylus over a sleek tablet surface with soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm1MHK9sfYtidI-xqeb1jBbPKFSfTo1N2XtjHw5kwkeNzW2ZuoZccnU0l42r45ala2GeCoPBR3KmoGechj99nRuiYR7zSyznr5JnN74j9MmADHY1RJq1FhqMgwpAgAln4GE26R2hqJcW_0UF1Dd6Nug-0HJFAqp7H_Qk1hy68gThFqoF67Rr67qCNxotU1oN6C3YrSoBcCkWbY_IqXRKaNkj5_Cd-Mrw1HIPXorDWH0ZSIW1WYJJ0TRvDu5Ea65xkAgtywSuMlGPof"/>
+</div>
+<div class="p-8 flex flex-col justify-center">
+<div class="flex items-center gap-4 mb-4 text-xs font-medium text-on-surface-variant">
+<span>MAY 24, 2024</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>12 MIN READ</span>
+</div>
+<h2 class="text-3xl font-bold text-on-surface mb-4 leading-snug">The Ultimate Guide to Mastering Stable Diffusion XL</h2>
+<p class="text-on-surface-variant mb-6 leading-relaxed">Unlock the full potential of SDXL with advanced prompting techniques, LoRA integration, and professional upscaling workflows for cinematic results.</p>
+<a class="text-primary font-bold flex items-center gap-2 hover:underline transition-all" href="#">
+                                Continue Reading <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</article>
+<!-- Grid Articles -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Article 2 -->
+<article class="bg-surface-container-lowest rounded-xl p-6 no-line-card shadow-[0_20px_40px_rgba(44,52,55,0.04)]">
+<div class="h-48 rounded-lg mb-6 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="vibrant abstract composition of code snippets floating in a sea of deep purple and neon pink light representing programming" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyEijyBW7_r94xy4euw9G2px0G9oVc7m2fMsmnZb7j2GzTU49zassKm6Rh8txDfKnmyUA9y1QJKci2TIY_WTHSpJjvvpAmxd6BvFBGnWWIupcImwWDH9upszCZA9TZEBFZ-CYo65f3fjYBldcPKfXHrai4Hu-bS567OpYMMCnbPws4jX1v8LY_QIqkmgt5Sy0KPjPExRsPbvv1Wnays_AKMxsc1cXkHkcG-EPT9LVyGJXwM9SoEeXWOFQ6raE1JSZIrLNvMfgae7Hv"/>
+</div>
+<div class="flex items-center gap-3 mb-3 text-xs text-on-surface-variant uppercase font-bold tracking-widest">
+<span>LLM Architecture</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Building Custom RAG Pipelines with Python</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-3">Learn how to connect your private data to GPT-4 using LangChain and vector databases for precise, context-aware AI applications.</p>
+<div class="flex items-center justify-between mt-auto pt-4">
+<span class="text-[10px] font-bold text-outline">8 MIN READ</span>
+<a class="text-primary text-sm font-bold" href="#">Read Guide</a>
+</div>
+</article>
+<!-- Article 3 -->
+<article class="bg-surface-container-lowest rounded-xl p-6 no-line-card shadow-[0_20px_40px_rgba(44,52,55,0.04)]">
+<div class="h-48 rounded-lg mb-6 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="macro photo of a crystal prism refracting rainbow light onto a clean white surface minimalist and elegant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuALKk92pKpCCl3ALDFqfFyHa_KWM6IMqOwJ9yIQKqPV0NThnC124JZKrFO_smUo3ebPaTs1hJOEf6tMtaPv4WXbeIm5DQLR1VGGYVkiC7ezf8yP-XcynyU5Cjv9J244J7IUaf7EDq3yw7EhzP_zeZTiTp9P2PfClbhOGmVrLdnbw29bh8J7kCO15MI8KjvHK6DaXJATwk3g1IyBqive1MZYaCtzbUnyhHhUUT16_nvJomxx6bv0hkg_CKkMmmpqFDh_X6s-2tvi4Ns6"/>
+</div>
+<div class="flex items-center gap-3 mb-3 text-xs text-on-surface-variant uppercase font-bold tracking-widest">
+<span>Ethics &amp; Safety</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Auditing AI Outputs for Bias: A Framework</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-3">A practical tutorial on implementing safety layers and bias detection in your generative AI workflows for responsible creation.</p>
+<div class="flex items-center justify-between mt-auto pt-4">
+<span class="text-[10px] font-bold text-outline">15 MIN READ</span>
+<a class="text-primary text-sm font-bold" href="#">Read Guide</a>
+</div>
+</article>
+<!-- Article 4 -->
+<article class="bg-surface-container-lowest rounded-xl p-6 no-line-card shadow-[0_20px_40px_rgba(44,52,55,0.04)]">
+<div class="h-48 rounded-lg mb-6 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="sleek modern workspace with a curved ultra-wide monitor displaying complex neural network diagrams in a dim room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEditydpC8K4ra8VvwIvxs2MzrJhXiO_-MuqrDJ2Un7FJExZZhU06KqJRzqdxiuVmg55cULYFqdZCgkntjTfreeBQkXSyWhzMataLbwBmEoep0lEj01KYdxURnKLrXPNzEyVmqAR48txHuDLtctRsgHE-nzhQNvjfTBzEqoqPAdyznzFnkx_ElNgpRxgadtFfefbXt8AzNqXcVjAmVRiDuYM9eRh9bSUPgGPdBBlBMNxNWCekcYMar4G-VItBxNNC1gsdtLzwHGtlm"/>
+</div>
+<div class="flex items-center gap-3 mb-3 text-xs text-on-surface-variant uppercase font-bold tracking-widest">
+<span>Creative Tools</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Midjourney v6: Parameter Deep Dive</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-3">From --stylize to --weird, we break down every parameter in the latest Midjourney release to give you total creative control.</p>
+<div class="flex items-center justify-between mt-auto pt-4">
+<span class="text-[10px] font-bold text-outline">10 MIN READ</span>
+<a class="text-primary text-sm font-bold" href="#">Read Guide</a>
+</div>
+</article>
+<!-- Article 5 -->
+<article class="bg-surface-container-lowest rounded-xl p-6 no-line-card shadow-[0_20px_40px_rgba(44,52,55,0.04)]">
+<div class="h-48 rounded-lg mb-6 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="detailed close-up of a high-end camera lens with blue and amber light reflections from a digital screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-8cAo7b3fo6XtebaHT6gEs8kjqf8cbXydBSWBjtKC2MQDU3SVroxeMkoHsJ-HueBm6dIKKpwRDpPcCcXTwTItoHXMwgRmWjOOlU5nXBg8wVC0KHtGIbIeRr7AlkjQ4g9alxrQpQhlxb6WW-2sPYRin9zrCOXbcvWddyZtqACUqd1IRBJJi_BI45JGehHUmFYd5VRTowFvDxfjlYvss3LUQ35SIYjg55lBqdKg69opNuB91TLosxEJSw_hcZZFVOaeBDKsnmNdHQ2M"/>
+</div>
+<div class="flex items-center gap-3 mb-3 text-xs text-on-surface-variant uppercase font-bold tracking-widest">
+<span>Video AI</span>
+</div>
+<h3 class="text-xl font-bold mb-3">Sora-Ready Prompting for Cinematic Video</h3>
+<p class="text-sm text-on-surface-variant mb-4 line-clamp-3">Master the art of temporal prompting to ensure consistency and cinematic quality in your AI-generated video projects.</p>
+<div class="flex items-center justify-between mt-auto pt-4">
+<span class="text-[10px] font-bold text-outline">6 MIN READ</span>
+<a class="text-primary text-sm font-bold" href="#">Read Guide</a>
+</div>
+</article>
+</div>
+<!-- Pagination -->
+<nav class="flex items-center justify-center gap-2 pt-12">
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold" href="#">1</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors font-medium" href="#">2</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors font-medium" href="#">3</a>
+<span class="px-2 text-outline-variant">...</span>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors font-medium" href="#">12</a>
+<a class="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</a>
+</nav>
+</div>
+<!-- Sidebar -->
+<aside class="lg:col-span-4 space-y-10">
+<!-- Search -->
+<div class="bg-surface-container-low p-1 rounded-lg">
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-4 bg-surface-container-lowest rounded-md outline outline-variant/15 border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body" placeholder="Search tutorials..." type="text"/>
+</div>
+</div>
+<!-- Trending -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h3 class="text-lg font-extrabold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+                        Trending in Tutorials
+                    </h3>
+<ul class="space-y-6">
+<li class="group">
+<a class="flex gap-4" href="#">
+<span class="text-3xl font-black text-outline-variant/30 group-hover:text-primary transition-colors">01</span>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors leading-tight mb-1">Advanced Prompt Engineering: The Chain-of-Thought Method</h4>
+<span class="text-[10px] text-outline font-bold">4.2k READS</span>
+</div>
+</a>
+</li>
+<li class="group">
+<a class="flex gap-4" href="#">
+<span class="text-3xl font-black text-outline-variant/30 group-hover:text-primary transition-colors">02</span>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors leading-tight mb-1">Optimizing Local LLMs with Quantization</h4>
+<span class="text-[10px] text-outline font-bold">3.8k READS</span>
+</div>
+</a>
+</li>
+<li class="group">
+<a class="flex gap-4" href="#">
+<span class="text-3xl font-black text-outline-variant/30 group-hover:text-primary transition-colors">03</span>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors leading-tight mb-1">ControlNet Mastery for Architectural Rendering</h4>
+<span class="text-[10px] text-outline font-bold">2.9k READS</span>
+</div>
+</a>
+</li>
+</ul>
+</div>
+<!-- Ad Unit -->
+<div class="bg-surface-container p-4 rounded-xl flex flex-col items-center">
+<span class="text-[10px] font-bold text-outline mb-4 tracking-[0.2em] uppercase">Sponsored Content</span>
+<div class="w-[300px] h-[600px] bg-surface-container-high rounded-lg flex items-center justify-center relative overflow-hidden group">
+<img class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700" data-alt="clean minimal abstract 3d background with floating spheres in shades of lavender and silver representing cloud computing technology" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHTg3HQQmZyy2ELnm1136tOh8doiWM5KskCM9x-r_2YcUIbeZ4x8T2mW0KFWgLOOFZRqk0RKhV1O4GfEMhgLOCgDc59ryVbY2tigejxsAwpIgnPhSQgfMUacxOLnaMy-3Lr-ymK-ruaLTThksXOm78MytTp1Fq6OscbSgaCnoHGeQ8SBBcGXvqFsZYhmaee7bIHYF28rcaUrs42J4HQhiYmha3z4Bj651Kzo99fSlyuaF6C_yksYnt3FEZX6qfRQaO3egevu_yKm8F"/>
+<div class="relative z-10 text-center p-8 bg-surface-container-lowest/40 backdrop-blur-md mx-4 rounded-xl">
+<h5 class="text-2xl font-black text-on-surface mb-2">Build Your Own AI Agent</h5>
+<p class="text-sm font-medium mb-6">Start your free trial today with NeuroForge.</p>
+<button class="gradient-btn text-on-primary px-8 py-3 rounded-md font-bold text-xs uppercase tracking-widest">Learn More</button>
+</div>
+</div>
+</div>
+<!-- Newsletter Mini-CTA -->
+<div class="bg-primary p-8 rounded-xl text-on-primary">
+<h3 class="text-xl font-bold mb-2">Fresh Tutorials Daily</h3>
+<p class="text-on-primary/80 text-sm mb-6">Join 45,000+ developers and creators getting the latest AI guides in their inbox.</p>
+<div class="flex flex-col gap-3">
+<input class="bg-white/10 border-white/20 rounded-md py-3 px-4 placeholder:text-white/50 text-white focus:ring-white/30 focus:border-white/40" placeholder="Your email address" type="email"/>
+<button class="bg-white text-primary font-bold py-3 rounded-md hover:bg-slate-50 transition-colors">Subscribe Now</button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full pt-16 pb-8 bg-slate-100 dark:bg-slate-950 border-t border-slate-200/10">
+<div class="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center">
+<div class="mb-8 md:mb-0">
+<span class="font-['Manrope'] font-bold text-lg text-slate-900 dark:text-slate-100">aidailypic.com</span>
+<p class="font-['Inter'] text-sm leading-relaxed text-slate-500 dark:text-slate-400 mt-2">© 2024 AI Daily Pic. Curating the future of intelligence.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 underline-offset-4 hover:underline transition-colors duration-200" href="#">About</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 underline-offset-4 hover:underline transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 underline-offset-4 hover:underline transition-colors duration-200" href="#">Contact</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 underline-offset-4 hover:underline transition-colors duration-200" href="#">Archive</a>
+<a class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 hover:text-indigo-500 underline-offset-4 hover:underline transition-colors duration-200" href="#">Newsletter</a>
+</div>
+</div>
+</footer>
+</body></html>
