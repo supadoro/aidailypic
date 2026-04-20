@@ -16,8 +16,11 @@ export async function generateMetadata({
   const { q } = await searchParams;
   const keyword = q || "ai";
   return {
-    title: `Search: ${keyword} | AI Daily Pic`,
+    title: `Search: ${keyword}`,
     description: `${keyword} 관련 튜토리얼, 분석, 운영 가이드를 검색합니다.`,
+    alternates: {
+      canonical: `/search?q=${encodeURIComponent(keyword)}`,
+    },
   };
 }
 

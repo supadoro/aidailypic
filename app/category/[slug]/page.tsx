@@ -16,8 +16,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const title = getCategoryLabel(slug);
   return {
-    title: `${title} | AI Daily Pic`,
+    title,
     description: `${title} 관련 스토리, 튜토리얼, 운영 가이드를 모아봅니다.`,
+    alternates: {
+      canonical: `/category/${slug}`,
+    },
   };
 }
 

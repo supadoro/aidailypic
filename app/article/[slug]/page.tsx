@@ -17,10 +17,13 @@ function getArticleBySlug(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
-  if (!article) return { title: "Article Not Found | AI Daily Pic" };
+  if (!article) return { title: "Article Not Found" };
   return {
-    title: `${article.title} | AI Daily Pic`,
+    title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: `/article/${slug}`,
+    },
   };
 }
 
