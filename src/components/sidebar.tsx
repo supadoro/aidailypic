@@ -4,10 +4,8 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import {
-  EDITORIAL_CONFIG_KEY,
-  getDefaultEditorialConfig,
   getVisibleToolCategoryOrder,
-  normalizeEditorialConfig,
+  readEditorialConfigFromStorage,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
 import { feedArticles, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
@@ -46,14 +44,7 @@ function SidebarGroup(props: { title: string; links: Array<{ title: string; href
 
 export function Sidebar() {
   const [config] = useState<EditorialConfig>(() => {
-    if (typeof window === "undefined") return getDefaultEditorialConfig();
-    const raw = window.localStorage.getItem(EDITORIAL_CONFIG_KEY);
-    if (!raw) return getDefaultEditorialConfig();
-    try {
-      return normalizeEditorialConfig(JSON.parse(raw) as Partial<EditorialConfig>);
-    } catch {
-      return getDefaultEditorialConfig();
-    }
+    return readEditorialConfigFromStorage();
   });
 
   const visibleToolCategoryOrder = useMemo(() => getVisibleToolCategoryOrder(config), [config]);

@@ -4,14 +4,13 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import { AdSlot } from "@/src/components/ad-slot";
+import { ContentSection } from "@/src/components/content-section";
 import { PageHeader } from "@/src/components/page-header";
+import { PostList } from "@/src/components/post-list";
 import { PostCard } from "@/src/components/post-card";
-import { SectionTitle } from "@/src/components/section-title";
 import {
-  EDITORIAL_CONFIG_KEY,
-  getDefaultEditorialConfig,
   getVisibleToolCategoryOrder,
-  normalizeEditorialConfig,
+  readEditorialConfigFromStorage,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
 import { feedArticles, featuredArticle, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
@@ -21,15 +20,7 @@ export function HomeFeed() {
   const articleBySlug = useMemo(() => new Map(allArticles.map((article) => [article.slug, article])), [allArticles]);
 
   const [config] = useState<EditorialConfig>(() => {
-    if (typeof window === "undefined") return getDefaultEditorialConfig();
-    const raw = window.localStorage.getItem(EDITORIAL_CONFIG_KEY);
-    if (!raw) return getDefaultEditorialConfig();
-
-    try {
-      return normalizeEditorialConfig(JSON.parse(raw) as Partial<EditorialConfig>);
-    } catch {
-      return getDefaultEditorialConfig();
-    }
+    return readEditorialConfigFromStorage();
   });
 
   const visibleToolCategoryOrder = getVisibleToolCategoryOrder(config);
@@ -67,17 +58,15 @@ export function HomeFeed() {
 
       <PostCard article={activeFeatured} variant="hero" />
 
-      <section>
-        <SectionTitle ctaLabel="All Tools" href="/tools" title="Editor's Picks" />
+      <ContentSection ctaLabel="All Tools" href="/tools" title="Editor's Picks">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {filledPicks.map((article) => (
             <PostCard key={article.slug} article={article} variant="featured" />
           ))}
         </div>
-      </section>
+      </ContentSection>
 
-      <section>
-        <SectionTitle title="Top Sections" />
+      <ContentSection title="Top Sections">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {Object.entries(topCategoryLabels).map(([slug, label]) => (
             <Link
@@ -89,10 +78,9 @@ export function HomeFeed() {
             </Link>
           ))}
         </div>
-      </section>
+      </ContentSection>
 
-      <section>
-        <SectionTitle title="Tool Subcategories" />
+      <ContentSection title="Tool Subcategories">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {visibleToolCategoryOrder.map((slug) => (
             <Link
@@ -104,18 +92,13 @@ export function HomeFeed() {
             </Link>
           ))}
         </div>
-      </section>
+      </ContentSection>
 
       <AdSlot heightClassName="h-28" label="Mid Feed Sponsor" />
 
-      <section>
-        <SectionTitle ctaLabel="News Hub" href="/news" title="The Feed" />
-        <div className="space-y-5">
-          {latestFeed.map((article) => (
-            <PostCard key={article.slug} article={article} variant="list" />
-          ))}
-        </div>
-      </section>
+      <ContentSection ctaLabel="News Hub" href="/news" title="The Feed">
+        <PostList articles={latestFeed} />
+      </ContentSection>
 
       <AdSlot heightClassName="h-32" label="Sponsored Content" />
     </div>

@@ -3,9 +3,10 @@
 import { useMemo, useState } from "react";
 
 import {
-  EDITORIAL_CONFIG_KEY,
+  clearEditorialConfigFromStorage,
   getDefaultEditorialConfig,
-  normalizeEditorialConfig,
+  readEditorialConfigFromStorage,
+  writeEditorialConfigToStorage,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
 import { feedArticles, featuredArticle, toolCategoryLabels, type ToolCategoryKey } from "@/src/data/mock-content";
@@ -14,16 +15,7 @@ export function AdminEditorialSettings() {
   const allArticles = useMemo(() => [featuredArticle, ...feedArticles], []);
   const defaults = useMemo(() => getDefaultEditorialConfig(), []);
 
-  const initial = useMemo(() => {
-    if (typeof window === "undefined") return defaults;
-    const raw = window.localStorage.getItem(EDITORIAL_CONFIG_KEY);
-    if (!raw) return defaults;
-    try {
-      return normalizeEditorialConfig(JSON.parse(raw) as Partial<EditorialConfig>);
-    } catch {
-      return defaults;
-    }
-  }, [defaults]);
+  const initial = useMemo(() => readEditorialConfigFromStorage(), []);
 
   const [featuredSlug, setFeaturedSlug] = useState<string>(initial.featuredSlug);
   const [pickSlugs, setPickSlugs] = useState<string[]>(initial.pickSlugs.length ? initial.pickSlugs : defaults.pickSlugs);
@@ -56,19 +48,17 @@ export function AdminEditorialSettings() {
   };
 
   const apply = () => {
-    const payload = normalizeEditorialConfig({
+    writeEditorialConfigToStorage({
       featuredSlug,
       pickSlugs: pickSlugs.length ? pickSlugs : defaults.pickSlugs,
       toolCategoryOrder,
       hiddenToolCategories,
     });
-
-    window.localStorage.setItem(EDITORIAL_CONFIG_KEY, JSON.stringify(payload));
     setNotice("적용 완료: 홈/헤더/사이드바에 툴 분류 설정이 반영됩니다.");
   };
 
   const reset = () => {
-    window.localStorage.removeItem(EDITORIAL_CONFIG_KEY);
+    clearEditorialConfigFromStorage();
     setFeaturedSlug(defaults.featuredSlug);
     setPickSlugs(defaults.pickSlugs);
     setToolCategoryOrder(defaults.toolCategoryOrder);

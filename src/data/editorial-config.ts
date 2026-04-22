@@ -1,4 +1,5 @@
-﻿import { feedArticles, featuredArticle, toolCategoryLabels, type ToolCategoryKey } from "@/src/data/mock-content";
+﻿import { feedArticles, featuredArticle, toolCategoryLabels } from "@/src/data/mock-content";
+import type { ToolCategoryKey } from "@/src/data/content-types";
 
 export type EditorialConfig = {
   featuredSlug: string;
@@ -46,4 +47,32 @@ export function normalizeEditorialConfig(input?: Partial<EditorialConfig> | null
 export function getVisibleToolCategoryOrder(config: EditorialConfig): ToolCategoryKey[] {
   const visible = config.toolCategoryOrder.filter((slug) => !config.hiddenToolCategories.includes(slug));
   return visible.length ? visible : DEFAULT_TOOL_CATEGORY_ORDER;
+}
+
+export function readEditorialConfigFromStorage(): EditorialConfig {
+  const defaults = getDefaultEditorialConfig();
+  if (typeof window === "undefined") return defaults;
+
+  const raw = window.localStorage.getItem(EDITORIAL_CONFIG_KEY);
+  if (!raw) return defaults;
+
+  try {
+    return normalizeEditorialConfig(JSON.parse(raw) as Partial<EditorialConfig>);
+  } catch {
+    return defaults;
+  }
+}
+
+export function writeEditorialConfigToStorage(config: Partial<EditorialConfig>): EditorialConfig {
+  const normalized = normalizeEditorialConfig(config);
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(EDITORIAL_CONFIG_KEY, JSON.stringify(normalized));
+  }
+  return normalized;
+}
+
+export function clearEditorialConfigFromStorage(): void {
+  if (typeof window !== "undefined") {
+    window.localStorage.removeItem(EDITORIAL_CONFIG_KEY);
+  }
 }
