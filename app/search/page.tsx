@@ -1,12 +1,12 @@
 ﻿import type { Metadata } from "next";
 
 import { AdSlot } from "@/src/components/ad-slot";
+import { ContentSection } from "@/src/components/content-section";
 import { MainLayout } from "@/src/components/main-layout";
 import { Pagination } from "@/src/components/pagination";
 import { PageHeader } from "@/src/components/page-header";
-import { PostCard } from "@/src/components/post-card";
-import { SectionTitle } from "@/src/components/section-title";
-import { feedArticles } from "@/src/data/mock-content";
+import { PostList } from "@/src/components/post-list";
+import { searchFeedArticles } from "@/src/data/content-queries";
 
 export async function generateMetadata({
   searchParams,
@@ -31,15 +31,7 @@ export default async function SearchPage({
 }) {
   const { q, page } = await searchParams;
   const keyword = (q || "ai").toLowerCase().trim();
-  const results = feedArticles.filter(
-    (item) =>
-      item.title.toLowerCase().includes(keyword) ||
-      item.excerpt.toLowerCase().includes(keyword) ||
-      item.topCategory.toLowerCase().includes(keyword) ||
-      item.topCategorySlug.toLowerCase().includes(keyword) ||
-      item.toolCategory.toLowerCase().includes(keyword) ||
-      item.toolCategorySlug.toLowerCase().includes(keyword)
-  );
+  const results = searchFeedArticles(keyword);
 
   const currentPage = Math.max(1, Number(page || "1"));
   const pageSize = 4;
@@ -60,21 +52,10 @@ export default async function SearchPage({
 
         <AdSlot heightClassName="h-[90px]" label="Search Sponsor" />
 
-        <section>
-          <SectionTitle title="Search Results" />
-          {paged.length ? (
-            <div className="space-y-5">
-              {paged.map((article) => (
-                <PostCard key={article.slug} article={article} variant="list" />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-xl bg-white p-6 text-sm font-medium text-slate-600 shadow-sm">
-              검색 결과가 없습니다. 다른 키워드로 다시 시도해보세요.
-            </div>
-          )}
+        <ContentSection title="Search Results">
+          <PostList articles={paged} emptyMessage="검색 결과가 없습니다. 다른 키워드로 다시 시도해보세요." />
           <Pagination basePath="/search" currentPage={normalizedPage} query={{ q: keyword }} totalPages={totalPages} />
-        </section>
+        </ContentSection>
       </div>
     </MainLayout>
   );

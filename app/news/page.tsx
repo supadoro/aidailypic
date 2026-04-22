@@ -1,10 +1,11 @@
 ﻿import type { Metadata } from "next";
 
+import { AdSlot } from "@/src/components/ad-slot";
+import { ContentSection } from "@/src/components/content-section";
 import { MainLayout } from "@/src/components/main-layout";
 import { PageHeader } from "@/src/components/page-header";
-import { PostCard } from "@/src/components/post-card";
-import { SectionTitle } from "@/src/components/section-title";
-import { feedArticles } from "@/src/data/mock-content";
+import { PostList } from "@/src/components/post-list";
+import { getArticlesByTopCategory } from "@/src/data/content-queries";
 
 export const metadata: Metadata = {
   title: "AI News Hub",
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
-  const news = feedArticles.filter((article) => article.topCategorySlug === "ai-news");
+  const news = getArticlesByTopCategory("ai-news");
 
   return (
     <MainLayout>
@@ -27,14 +28,13 @@ export default function NewsPage() {
           meta={`${news.length} stories`}
         />
 
-        <section>
-          <SectionTitle title="Latest News" />
-          <div className="space-y-5">
-            {news.map((article) => (
-              <PostCard key={article.slug} article={article} variant="list" />
-            ))}
-          </div>
-        </section>
+        <AdSlot heightClassName="h-[90px]" label="Top Banner" />
+
+        <ContentSection title="Latest News">
+          <PostList articles={news} />
+        </ContentSection>
+
+        <AdSlot heightClassName="h-28" label="End of News Sponsor" />
       </div>
     </MainLayout>
   );

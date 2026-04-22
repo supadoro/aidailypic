@@ -1,10 +1,11 @@
 ﻿import type { Metadata } from "next";
-import Link from "next/link";
 
+import { AdSlot } from "@/src/components/ad-slot";
+import { ContentSection } from "@/src/components/content-section";
 import { MainLayout } from "@/src/components/main-layout";
 import { PageHeader } from "@/src/components/page-header";
-import { SectionTitle } from "@/src/components/section-title";
-import { toolProfiles } from "@/src/data/mock-content";
+import { ToolProfileCard } from "@/src/components/tool-profile-card";
+import { getAllToolProfiles } from "@/src/data/content-queries";
 
 export const metadata: Metadata = {
   title: "AI Tool Directory",
@@ -15,32 +16,29 @@ export const metadata: Metadata = {
 };
 
 export default function ToolsPage() {
+  const toolProfiles = getAllToolProfiles();
+
   return (
     <MainLayout>
       <div className="space-y-10">
         <PageHeader
           badge="Tool Directory"
-          title="AI Tools"
           description="기사형 콘텐츠 외에도 툴별 핵심 정보 페이지를 자산형으로 축적합니다."
           meta={`${toolProfiles.length} tools`}
+          title="AI Tools"
         />
 
-        <section>
-          <SectionTitle title="Tool Profiles" />
+        <AdSlot heightClassName="h-[90px]" label="Top Banner" />
+
+        <ContentSection title="Tool Profiles">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {toolProfiles.map((tool) => (
-              <article className="rounded-xl bg-white p-6 shadow-sm" key={tool.slug}>
-                <p className="text-xs font-black uppercase tracking-widest text-[#5148d8]">{tool.slug}</p>
-                <h2 className="mt-2 text-2xl font-extrabold text-slate-900">{tool.name}</h2>
-                <p className="mt-2 text-sm font-semibold text-slate-600">{tool.tagline}</p>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{tool.summary}</p>
-                <Link className="mt-4 inline-flex text-sm font-bold text-[#5148d8] hover:underline" href={`/tools/${tool.slug}`}>
-                  Open Profile
-                </Link>
-              </article>
+              <ToolProfileCard key={tool.slug} tool={tool} />
             ))}
           </div>
-        </section>
+        </ContentSection>
+
+        <AdSlot heightClassName="h-28" label="Directory Sponsor" />
       </div>
     </MainLayout>
   );

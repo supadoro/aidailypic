@@ -2,18 +2,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { AdSlot } from "@/src/components/ad-slot";
+import { ContentSection } from "@/src/components/content-section";
 import { MainLayout } from "@/src/components/main-layout";
 import { PostCard } from "@/src/components/post-card";
-import { SectionTitle } from "@/src/components/section-title";
-import { feedArticles, featuredArticle, toolProfiles } from "@/src/data/mock-content";
-
-function getToolBySlug(slug: string) {
-  return toolProfiles.find((tool) => tool.slug === slug);
-}
+import { getArticlesBySlugs, getToolProfileBySlug } from "@/src/data/content-queries";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const tool = getToolBySlug(slug);
+  const tool = getToolProfileBySlug(slug);
   if (!tool) return { title: "Tool Not Found" };
 
   return {
@@ -27,13 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ToolDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const tool = getToolBySlug(slug);
+  const tool = getToolProfileBySlug(slug);
   if (!tool) notFound();
 
-  const allArticles = [featuredArticle, ...feedArticles];
-  const related = tool.relatedArticleSlugs
-    .map((itemSlug) => allArticles.find((article) => article.slug === itemSlug))
-    .filter((article): article is NonNullable<typeof article> => Boolean(article));
+  const related = getArticlesBySlugs(tool.relatedArticleSlugs);
 
   return (
     <MainLayout>
@@ -48,8 +42,9 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
           </Link>
         </header>
 
-        <section>
-          <SectionTitle title="Strengths" />
+        <AdSlot heightClassName="h-[90px]" label="Top Banner" />
+
+        <ContentSection title="Strengths">
           <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {tool.strengths.map((item) => (
               <li className="rounded-lg bg-[#f0f4f7] px-4 py-3 text-sm font-semibold text-slate-700" key={item}>
@@ -57,10 +52,11 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
               </li>
             ))}
           </ul>
-        </section>
+        </ContentSection>
 
-        <section>
-          <SectionTitle title="Best For" />
+        <AdSlot heightClassName="h-28" label="Mid Content Sponsor" />
+
+        <ContentSection title="Best For">
           <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {tool.bestFor.map((item) => (
               <li className="rounded-lg bg-[#eaeff2] px-4 py-3 text-sm font-semibold text-slate-700" key={item}>
@@ -68,16 +64,17 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
               </li>
             ))}
           </ul>
-        </section>
+        </ContentSection>
 
-        <section>
-          <SectionTitle title="Related Articles" />
+        <ContentSection title="Related Articles">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {related.map((article) => (
               <PostCard article={article} key={article.slug} variant="featured" />
             ))}
           </div>
-        </section>
+        </ContentSection>
+
+        <AdSlot heightClassName="h-28" label="End of Directory Sponsor" />
       </div>
     </MainLayout>
   );

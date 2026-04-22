@@ -1,18 +1,15 @@
 ﻿import type { Metadata } from "next";
 
+import { AdSlot } from "@/src/components/ad-slot";
+import { ContentSection } from "@/src/components/content-section";
 import { MainLayout } from "@/src/components/main-layout";
 import { PageHeader } from "@/src/components/page-header";
-import { PostCard } from "@/src/components/post-card";
-import { SectionTitle } from "@/src/components/section-title";
-import { feedArticles, topCategoryLabels, type TopCategoryKey } from "@/src/data/mock-content";
-
-function getSectionLabel(slug: string) {
-  return topCategoryLabels[slug as TopCategoryKey] ?? slug;
-}
+import { PostList } from "@/src/components/post-list";
+import { getArticlesByTopCategory, getTopCategoryLabel } from "@/src/data/content-queries";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const section = getSectionLabel(slug);
+  const section = getTopCategoryLabel(slug);
   return {
     title: section,
     description: `${section} 관련 기사 모음입니다.`,
@@ -24,8 +21,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function SectionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const section = getSectionLabel(slug);
-  const articles = feedArticles.filter((article) => article.topCategorySlug === slug);
+  const section = getTopCategoryLabel(slug);
+  const articles = getArticlesByTopCategory(slug);
 
   return (
     <MainLayout>
@@ -37,14 +34,13 @@ export default async function SectionPage({ params }: { params: Promise<{ slug: 
           meta={`${articles.length} stories`}
         />
 
-        <section>
-          <SectionTitle title={`${section} Stories`} />
-          <div className="space-y-5">
-            {articles.map((article) => (
-              <PostCard key={article.slug} article={article} variant="list" />
-            ))}
-          </div>
-        </section>
+        <AdSlot heightClassName="h-[90px]" label="Top Banner" />
+
+        <ContentSection title={`${section} Stories`}>
+          <PostList articles={articles} />
+        </ContentSection>
+
+        <AdSlot heightClassName="h-28" label="Section Sponsor" />
       </div>
     </MainLayout>
   );

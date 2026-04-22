@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import type { ArticleItem } from "@/src/data/mock-content";
+import type { ArticleItem } from "@/src/data/content-types";
 
 type CardVariant = "hero" | "featured" | "list";
 

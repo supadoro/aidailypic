@@ -4,15 +4,12 @@ import { notFound } from "next/navigation";
 
 import { AdSlot } from "@/src/components/ad-slot";
 import { CommentThread } from "@/src/components/comment-thread";
+import { ContentSection } from "@/src/components/content-section";
 import { MainLayout } from "@/src/components/main-layout";
 import { PostCard } from "@/src/components/post-card";
-import { SectionTitle } from "@/src/components/section-title";
 import { TableOfContents } from "@/src/components/table-of-contents";
-import { articleBodySections, comments, feedArticles, featuredArticle } from "@/src/data/mock-content";
-
-function getArticleBySlug(slug: string) {
-  return [featuredArticle, ...feedArticles].find((item) => item.slug === slug);
-}
+import { getArticleBySlug, getArticlesByToolCategory } from "@/src/data/content-queries";
+import { articleBodySections, comments, feedArticles } from "@/src/data/mock-content";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -33,7 +30,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   const tocItems = articleBodySections.map((section) => ({ id: section.id, label: section.heading }));
-  const related = feedArticles.filter((item) => item.toolCategorySlug === article.toolCategorySlug && item.slug !== article.slug).slice(0, 2);
+  const related = getArticlesByToolCategory(article.toolCategorySlug).filter((item) => item.slug !== article.slug).slice(0, 2);
 
   return (
     <MainLayout>
@@ -81,14 +78,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           ))}
         </div>
 
-        <section>
-          <SectionTitle title="Continue Reading" />
+        <ContentSection title="Continue Reading">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {(related.length ? related : feedArticles.slice(0, 2)).map((item) => (
               <PostCard article={item} key={item.slug} variant="featured" />
             ))}
           </div>
-        </section>
+        </ContentSection>
 
         <AdSlot heightClassName="h-32" label="End of Article Sponsor" />
         <CommentThread comments={comments} />
