@@ -1,10 +1,10 @@
 ﻿import Image from "next/image";
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 
 import { AdSlot } from "@/src/components/ad-slot";
 import { CommentThread } from "@/src/components/comment-thread";
 import { ContentSection } from "@/src/components/content-section";
+import { CustomArticleFallback } from "@/src/components/custom-article-fallback";
 import { MainLayout } from "@/src/components/main-layout";
 import { PostCard } from "@/src/components/post-card";
 import { TableOfContents } from "@/src/components/table-of-contents";
@@ -27,7 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
-  if (!article) notFound();
+  if (!article) {
+    return (
+      <MainLayout>
+        <CustomArticleFallback slug={slug} />
+      </MainLayout>
+    );
+  }
 
   const tocItems = articleBodySections.map((section) => ({ id: section.id, label: section.heading }));
   const related = getArticlesByToolCategory(article.toolCategorySlug).filter((item) => item.slug !== article.slug).slice(0, 2);
@@ -92,3 +98,4 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     </MainLayout>
   );
 }
+

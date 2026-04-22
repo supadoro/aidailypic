@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { getClientArticles } from "@/src/data/admin-article-storage";
 import {
   getVisibleToolCategoryOrder,
   readEditorialConfigFromStorage,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
-import { feedArticles, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
+import { topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
 
 function SidebarAdSlot(props: { heightClassName?: string; label?: string }) {
   const { heightClassName = "h-56", label = "Advertisement" } = props;
@@ -43,6 +44,8 @@ function SidebarGroup(props: { title: string; links: Array<{ title: string; href
 }
 
 export function Sidebar() {
+  const allArticles = useMemo(() => getClientArticles(), []);
+
   const [config] = useState<EditorialConfig>(() => {
     return readEditorialConfigFromStorage();
   });
@@ -52,11 +55,11 @@ export function Sidebar() {
 
   const popularLinks = useMemo(
     () =>
-      feedArticles
+      allArticles
         .filter((article) => visibleToolSet.has(article.toolCategorySlug))
         .slice(0, 3)
         .map((article) => ({ title: article.title, href: `/article/${article.slug}` })),
-    [visibleToolSet]
+    [allArticles, visibleToolSet]
   );
 
   const topSectionLinks = useMemo(

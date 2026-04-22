@@ -8,15 +8,16 @@ import { ContentSection } from "@/src/components/content-section";
 import { PageHeader } from "@/src/components/page-header";
 import { PostList } from "@/src/components/post-list";
 import { PostCard } from "@/src/components/post-card";
+import { getClientArticles } from "@/src/data/admin-article-storage";
 import {
   getVisibleToolCategoryOrder,
   readEditorialConfigFromStorage,
   type EditorialConfig,
 } from "@/src/data/editorial-config";
-import { feedArticles, featuredArticle, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
+import { featuredArticle, topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
 
 export function HomeFeed() {
-  const allArticles = useMemo(() => [featuredArticle, ...feedArticles], []);
+  const allArticles = useMemo(() => getClientArticles(), []);
   const articleBySlug = useMemo(() => new Map(allArticles.map((article) => [article.slug, article])), [allArticles]);
 
   const [config] = useState<EditorialConfig>(() => {
@@ -37,14 +38,15 @@ export function HomeFeed() {
     .filter((article) => visibleSet.has(article.toolCategorySlug));
 
   const filledPicks = [...selectedPicks];
-  for (const candidate of feedArticles) {
+  for (const candidate of allArticles) {
     if (filledPicks.length >= 4) break;
+    if (candidate.slug === activeFeatured.slug) continue;
     if (!visibleSet.has(candidate.toolCategorySlug)) continue;
     if (filledPicks.some((item) => item.slug === candidate.slug)) continue;
     filledPicks.push(candidate);
   }
 
-  const latestFeed = feedArticles.filter((article) => visibleSet.has(article.toolCategorySlug));
+  const latestFeed = allArticles.filter((article) => visibleSet.has(article.toolCategorySlug) && article.slug !== activeFeatured.slug);
 
   return (
     <div className="space-y-12">
