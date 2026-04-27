@@ -21,3 +21,11 @@ pnpm-debug.log*
 # env
 .env*
 !.env.example
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
