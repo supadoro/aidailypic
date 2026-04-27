@@ -1,10 +1,5 @@
-﻿import { MainLayout } from "@/src/components/main-layout";
-import { HomeFeed } from "@/src/components/home-feed";
+import { HomeToolDiscovery } from "@/src/components/home-tool-discovery";
 
 export default function HomePage() {
-  return (
-    <MainLayout>
-      <HomeFeed />
-    </MainLayout>
-  );
+  return <HomeToolDiscovery />;
 }

@@ -8,25 +8,25 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://aidailypick.com"),
   title: {
-    default: "AI Daily Pick",
-    template: "%s | AI Daily Pick",
+    default: "AIDailyPick",
+    template: "%s | AIDailyPick",
   },
-  description: "Kling AI, Suno AI, Nanobanana AI, Claud AI 실전 워크플로우를 다루는 에디토리얼 허브.",
+  description: "요즘 뜨는 AI 자동화 툴과 한국 SaaS를 목적별로 정리해주는 큐레이션 & 제휴 플랫폼.",
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "AI Daily Pick",
-    description: "생성형 AI 툴 실전 활용법과 에디토리얼 인사이트를 매일 업데이트합니다.",
+    title: "AIDailyPick",
+    description: "인스타, 스레드, 한국 커뮤니티에서 보이는 AI 자동화 툴과 SaaS를 정리합니다.",
     url: "https://aidailypick.com",
-    siteName: "AI Daily Pick",
+    siteName: "AIDailyPick",
     locale: "ko_KR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Daily Pick",
-    description: "생성형 AI 실전 워크플로우를 다루는 데일리 큐레이션.",
+    title: "AIDailyPick",
+    description: "요즘 뜨는 AI 자동화 툴을 대신 찾아보고 정리합니다.",
   },
 };
 

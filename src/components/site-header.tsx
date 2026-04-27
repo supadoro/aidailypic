@@ -1,21 +1,20 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
-import { topCategoryLabels } from "@/src/data/mock-content";
-
-type HeaderNavItem = {
-  label: string;
-  href: string;
-  activeStartsWith: string;
-};
+const navItems = [
+  { label: "오늘의 픽", href: "/#today", activeStartsWith: "/" },
+  { label: "툴 찾기", href: "/tools", activeStartsWith: "/tools" },
+  { label: "요즘 뜨는 툴", href: "/#trending", activeStartsWith: "/trending" },
+  { label: "새로 나온 툴", href: "/#new", activeStartsWith: "/new" },
+  { label: "툴 홍보하기", href: "/submit", activeStartsWith: "/submit" },
+  { label: "뉴스레터", href: "/#newsletter", activeStartsWith: "/newsletter" },
+];
 
 function isActive(pathname: string, activeStartsWith: string) {
-  if (activeStartsWith === "/") {
-    return pathname === "/";
-  }
+  if (activeStartsWith === "/") return pathname === "/";
   return pathname.startsWith(activeStartsWith);
 }
 
@@ -23,41 +22,24 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const items = useMemo<HeaderNavItem[]>(() => {
-    const sections = Object.entries(topCategoryLabels).map(([slug, label]) => ({
-      label,
-      href: `/section/${slug}`,
-      activeStartsWith: `/section/${slug}`,
-    }));
-
-    return [
-      { label: "Latest", href: "/", activeStartsWith: "/" },
-      { label: "News", href: "/news", activeStartsWith: "/news" },
-      ...sections,
-      { label: "Tools", href: "/tools", activeStartsWith: "/tools" },
-      { label: "Search", href: "/search?q=ai", activeStartsWith: "/search" },
-      { label: "Admin", href: "/admin", activeStartsWith: "/admin" },
-    ];
-  }, []);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/90 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-[1200px] items-center justify-between gap-4 px-4 py-3 md:px-6">
-        <Link className="flex items-center gap-2 text-lg font-extrabold tracking-tight" href="/">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#5148d8] text-white">A</span>
-          aidailypick.com
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#070812]/85 backdrop-blur-xl">
+      <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between gap-4 px-4 py-4 md:px-6">
+        <Link className="flex items-center gap-3" href="/">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#FCAF45_0%,#FD1D6C_45%,#833AB4_100%)] text-sm font-black text-white shadow-[0_10px_35px_rgba(253,29,108,0.28)]">
+            A
+          </span>
+          <span className="text-base font-black text-white">AIDailyPick</span>
         </Link>
 
-        <nav className="hidden items-center gap-5 md:flex">
-          {items.map((item) => {
+        <nav className="hidden items-center gap-5 lg:flex">
+          {navItems.map((item) => {
             const active = isActive(pathname, item.activeStartsWith);
             return (
               <Link
-                key={item.label}
-                className={`text-xs font-bold uppercase tracking-wide transition-colors ${
-                  active ? "text-[#5148d8]" : "text-slate-500 hover:text-[#5148d8]"
-                }`}
+                className={`text-sm font-bold transition ${active ? "text-white" : "text-white/50 hover:text-white"}`}
                 href={item.href}
+                key={item.label}
               >
                 {item.label}
               </Link>
@@ -66,54 +48,36 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <form action="/search" className="hidden md:block">
-            <input
-              aria-label="search"
-              className="rounded-full bg-slate-100 px-4 py-2 text-sm outline-none ring-[#5148d8]/20 transition focus:ring"
-              name="q"
-              placeholder="Search..."
-              type="search"
-            />
-          </form>
-          <button className="rounded-md bg-[#5148d8] px-4 py-2 text-sm font-bold text-white">Subscribe</button>
+          <Link className="hidden rounded-xl border border-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:border-pink-300/50 hover:text-white md:inline-flex" href="/admin">
+            로그인
+          </Link>
+          <Link className="rounded-xl bg-white px-4 py-2 text-sm font-black text-[#111326]" href="/#today">
+            무료로 시작하기
+          </Link>
           <button
             aria-expanded={mobileOpen}
-            className="rounded-md border border-slate-300 px-3 py-2 text-xs font-bold uppercase tracking-wide text-slate-700 md:hidden"
+            className="rounded-xl border border-white/10 px-3 py-2 text-sm font-bold text-white/75 lg:hidden"
             onClick={() => setMobileOpen((prev) => !prev)}
             type="button"
           >
-            Menu
+            메뉴
           </button>
         </div>
       </div>
 
       {mobileOpen ? (
-        <nav className="border-t border-slate-200 bg-white px-4 py-3 md:hidden">
-          <form action="/search" className="mb-3">
-            <input
-              aria-label="mobile-search"
-              className="w-full rounded-lg bg-slate-100 px-3 py-2 text-sm outline-none ring-[#5148d8]/20 transition focus:ring"
-              name="q"
-              placeholder="Search..."
-              type="search"
-            />
-          </form>
-          <div className="flex flex-col gap-2">
-            {items.map((item) => {
-              const active = isActive(pathname, item.activeStartsWith);
-              return (
-                <Link
-                  className={`rounded-md px-2 py-2 text-sm font-bold uppercase tracking-wide ${
-                    active ? "bg-[#eaeff2] text-[#5148d8]" : "text-slate-600"
-                  }`}
-                  href={item.href}
-                  key={item.label}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+        <nav className="border-t border-white/10 bg-[#070812] px-4 py-3 lg:hidden">
+          <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-2">
+            {navItems.map((item) => (
+              <Link
+                className="rounded-xl px-3 py-3 text-sm font-bold text-white/70 hover:bg-white/[0.06] hover:text-white"
+                href={item.href}
+                key={item.label}
+                onClick={() => setMobileOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </nav>
       ) : null}
