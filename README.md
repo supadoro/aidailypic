@@ -51,8 +51,9 @@ Recommended Cloudflare Pages settings:
 
 ```text
 Framework preset: Next.js
-Build command: npm run build
-Environment variable: NODE_VERSION=20
+Build command: npm run cf:build
+Deploy command: npm run cf:deploy
+Environment variable: NODE_VERSION=22
 ```
 
 ## MVP Storage Notice
