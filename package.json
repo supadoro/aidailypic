@@ -1,7 +1,7 @@
 {
-  "name": "aidailypic",
+  "name": "aidailypick",
   "version": "1.0.0",
-  "description": "AI Daily Pic rebuilt from Stitch design references",
+  "description": "AIDailyPick Korean SaaS curation and affiliate platform",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,7 +9,13 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
+  "keywords": [
+    "AIDailyPick",
+    "Korean SaaS",
+    "AI automation",
+    "SaaS curation",
+    "affiliate"
+  ],
   "author": "",
   "license": "ISC",
   "type": "module",
