@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { ContactForm } from "@/src/components/contact-form";
 import { InfoPage, InfoSection } from "@/src/components/info-page";
 
 export const metadata: Metadata = {
@@ -26,8 +27,9 @@ export default function ContactPage() {
       </InfoSection>
 
       <InfoSection title="운영 문의">
-        <p>현재는 MVP 단계라 별도 문의 폼 저장 기능은 아직 연결되어 있지 않습니다.</p>
-        <p>다음 단계에서 이메일 또는 폼 저장 기능을 붙이면 이 페이지에서 바로 문의를 접수할 수 있게 만들 예정입니다.</p>
+        <p>아래 문의 폼을 통해 운영 문의, 제휴 문의, 콘텐츠 수정 요청을 남길 수 있습니다.</p>
+        <p>현재 MVP에서는 이 브라우저의 관리자 페이지 문의함에 저장됩니다.</p>
+        <ContactForm />
       </InfoSection>
 
       <InfoSection title="콘텐츠 수정 요청">

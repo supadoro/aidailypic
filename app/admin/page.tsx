@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { AdminInbox } from "@/src/components/admin-inbox";
 import { AdminToolManager } from "@/src/components/admin-tool-manager";
 
 export const metadata: Metadata = {
@@ -35,7 +36,10 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <AdminToolManager />
+        <div className="space-y-8">
+          <AdminInbox />
+          <AdminToolManager />
+        </div>
       </section>
     </main>
   );
