@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/src/components/json-ld";
 import { SaasToolCard } from "@/src/components/saas-tool-card";
 import { audienceLabels, getRelatedTools, getToolBySlug, saasTools } from "@/src/data/saas-directory";
 
@@ -47,9 +48,47 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
   if (!tool) notFound();
 
   const relatedTools = getRelatedTools(tool);
+  const offer =
+    tool.pricing === "무료체험" || tool.pricing === "Freemium"
+      ? {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "KRW",
+          availability: "https://schema.org/OnlineOnly",
+        }
+      : {
+          "@type": "Offer",
+          priceCurrency: "KRW",
+          availability: "https://schema.org/OnlineOnly",
+        };
+  const softwareJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.name,
+    applicationCategory: tool.categoryLabel,
+    operatingSystem: "Web",
+    description: tool.shortDescription,
+    url: `https://aidailypick.com/tools/${tool.slug}`,
+    offers: offer,
+    audience: {
+      "@type": "Audience",
+      audienceType: tool.bestFor.map((audience) => audienceLabels[audience]).join(", "),
+    },
+    review: tool.verdict
+      ? {
+          "@type": "Review",
+          author: {
+            "@type": "Organization",
+            name: "AIDailyPick",
+          },
+          reviewBody: tool.verdict,
+        }
+      : undefined,
+  };
 
   return (
     <main className="bg-[#070812] text-white">
+      <JsonLd data={softwareJsonLd} />
       <section className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-14 md:px-6 md:py-18 lg:grid-cols-[minmax(0,1fr)_340px]">
         <div>
           <Link className="mb-6 inline-flex text-sm font-bold text-white/50 hover:text-white" href="/tools">

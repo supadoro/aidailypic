@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { JsonLd } from "@/src/components/json-ld";
 import { SaasToolCard } from "@/src/components/saas-tool-card";
 import { categoryFilters, futureCategoryFilters, saasTools } from "@/src/data/saas-directory";
 
@@ -14,9 +15,24 @@ export const metadata: Metadata = {
 export default function ToolsPage() {
   const featuredTools = saasTools.filter((tool) => tool.isFeatured || tool.isTested);
   const sponsoredTools = saasTools.filter((tool) => tool.isSponsored);
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "AIDailyPick SaaS Tool Directory",
+    description: "한국 사용자를 위한 AI 자동화 툴과 SaaS 큐레이션 목록",
+    url: "https://aidailypick.com/tools",
+    numberOfItems: saasTools.length,
+    itemListElement: saasTools.map((tool, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: tool.name,
+      url: `https://aidailypick.com/tools/${tool.slug}`,
+    })),
+  };
 
   return (
     <main className="bg-[#070812] text-white">
+      <JsonLd data={itemListJsonLd} />
       <section className="mx-auto w-full max-w-[1180px] px-4 py-14 md:px-6 md:py-18">
         <div className="max-w-3xl">
           <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-bold text-white/65">
