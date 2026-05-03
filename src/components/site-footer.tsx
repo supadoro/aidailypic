@@ -1,12 +1,12 @@
 import Link from "next/link";
 
 const footerLinks = [
-  { label: "About", href: "#" },
-  { label: "Contact", href: "#" },
-  { label: "Submit Tool", href: "/submit" },
-  { label: "Privacy Policy", href: "#" },
-  { label: "Affiliate Disclosure", href: "#" },
-  { label: "Disclaimer", href: "#" },
+  { label: "AIDailyPick 소개", href: "/" },
+  { label: "툴 찾기", href: "/tools" },
+  { label: "툴 홍보하기", href: "/submit" },
+  { label: "개인정보처리방침", href: "#" },
+  { label: "제휴 안내", href: "#" },
+  { label: "면책 고지", href: "#" },
 ];
 
 export function SiteFooter() {

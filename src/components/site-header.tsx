@@ -51,8 +51,8 @@ export function SiteHeader() {
           <Link className="hidden rounded-xl border border-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:border-pink-300/50 hover:text-white md:inline-flex" href="/admin">
             로그인
           </Link>
-          <Link className="rounded-xl bg-white px-4 py-2 text-sm font-black text-[#111326]" href="/#today">
-            무료로 시작하기
+          <Link className="rounded-xl bg-white px-4 py-2 text-sm font-black text-[#111326]" href="/submit">
+            툴 등록하기
           </Link>
           <button
             aria-expanded={mobileOpen}
