@@ -1,7 +1,6 @@
-﻿import type { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
 
-import { getAllArticles } from "@/src/data/content-queries";
-import { topCategoryLabels, toolCategoryLabels } from "@/src/data/mock-content";
+import { saasTools } from "@/src/data/saas-directory";
 
 const SITE_URL = "https://aidailypick.com";
 
@@ -16,45 +15,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${SITE_URL}/news`,
-      lastModified: now,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
       url: `${SITE_URL}/tools`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.9,
     },
     {
-      url: `${SITE_URL}/search?q=ai`,
+      url: `${SITE_URL}/submit`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/search?q=SaaS`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.6,
+      priority: 0.5,
     },
   ];
 
-  const sectionRoutes: MetadataRoute.Sitemap = Object.keys(topCategoryLabels).map((slug) => ({
-    url: `${SITE_URL}/section/${slug}`,
-    lastModified: now,
-    changeFrequency: "daily",
-    priority: 0.8,
-  }));
-
-  const toolRoutes: MetadataRoute.Sitemap = Object.keys(toolCategoryLabels).map((slug) => ({
-    url: `${SITE_URL}/tools/${slug}`,
+  const toolRoutes: MetadataRoute.Sitemap = saasTools.map((tool) => ({
+    url: `${SITE_URL}/tools/${tool.slug}`,
     lastModified: now,
     changeFrequency: "weekly",
-    priority: 0.8,
+    priority: tool.isFeatured ? 0.85 : 0.75,
   }));
 
-  const articleRoutes: MetadataRoute.Sitemap = getAllArticles().map((article) => ({
-    url: `${SITE_URL}/article/${article.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }));
-
-  return [...staticRoutes, ...sectionRoutes, ...toolRoutes, ...articleRoutes];
+  return [...staticRoutes, ...toolRoutes];
 }

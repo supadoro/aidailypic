@@ -1,101 +1,10 @@
-﻿import Image from "next/image";
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-import { AdSlot } from "@/src/components/ad-slot";
-import { CommentThread } from "@/src/components/comment-thread";
-import { ContentSection } from "@/src/components/content-section";
-import { CustomArticleFallback } from "@/src/components/custom-article-fallback";
-import { MainLayout } from "@/src/components/main-layout";
-import { PostCard } from "@/src/components/post-card";
-import { TableOfContents } from "@/src/components/table-of-contents";
-import { getArticleBySlug, getArticlesByToolCategory } from "@/src/data/content-queries";
-import { articleBodySections, comments, feedArticles } from "@/src/data/mock-content";
+import { getToolBySlug } from "@/src/data/saas-directory";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export default async function LegacyArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = getArticleBySlug(slug);
-  if (!article) return { title: "Article Not Found" };
-  return {
-    title: article.title,
-    description: article.excerpt,
-    alternates: {
-      canonical: `/article/${slug}`,
-    },
-  };
+  const tool = getToolBySlug(slug);
+
+  redirect(tool ? `/tools/${tool.slug}` : "/tools");
 }
-
-export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const article = getArticleBySlug(slug);
-  if (!article) {
-    return (
-      <MainLayout>
-        <CustomArticleFallback slug={slug} />
-      </MainLayout>
-    );
-  }
-
-  const tocItems = articleBodySections.map((section) => ({ id: section.id, label: section.heading }));
-  const related = getArticlesByToolCategory(article.toolCategorySlug).filter((item) => item.slug !== article.slug).slice(0, 2);
-
-  return (
-    <MainLayout>
-      <article className="space-y-8 rounded-2xl bg-white p-8 shadow-sm">
-        <header className="space-y-4">
-          <div className="flex flex-wrap gap-2">
-            <p className="inline-flex rounded-full bg-[#eaeff2] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
-              {article.topCategory}
-            </p>
-            <p className="inline-flex rounded-full bg-[#f0f4f7] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
-              {article.toolCategory}
-            </p>
-          </div>
-          <h1 className="text-4xl font-extrabold leading-tight text-slate-900">{article.title}</h1>
-          <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-            {article.author} / {article.date} / {article.readMinutes} min read
-          </p>
-        </header>
-
-        <AdSlot heightClassName="h-[90px]" label="Top Article Sponsor" />
-
-        <Image
-          alt={article.title}
-          className="h-[360px] w-full rounded-xl object-cover"
-          height={720}
-          sizes="(min-width: 1024px) 720px, 100vw"
-          src={article.image}
-          width={1280}
-        />
-
-        <TableOfContents items={tocItems} />
-
-        <div className="article-prose space-y-8">
-          <p className="text-lg leading-8 text-slate-700">
-            운영 가능한 AI 콘텐츠 시스템의 핵심은 반복 가능한 구조입니다. 도구가 바뀌어도 브리프, 생성, QA, 배포 루프를
-            유지하면 품질과 속도를 동시에 확보할 수 있습니다.
-          </p>
-
-          {articleBodySections.map((section, index) => (
-            <section id={section.id} key={section.id}>
-              <h2 className="mb-3 text-2xl font-bold text-slate-900">{section.heading}</h2>
-              <p className="leading-8 text-slate-700">{section.body}</p>
-              {index === 1 ? <AdSlot heightClassName="h-40" label="Mid Content Sponsor" /> : null}
-            </section>
-          ))}
-        </div>
-
-        <ContentSection title="Continue Reading">
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {(related.length ? related : feedArticles.slice(0, 2)).map((item) => (
-              <PostCard article={item} key={item.slug} variant="featured" />
-            ))}
-          </div>
-        </ContentSection>
-
-        <AdSlot heightClassName="h-32" label="End of Article Sponsor" />
-        <CommentThread comments={comments} />
-      </article>
-    </MainLayout>
-  );
-}
-
