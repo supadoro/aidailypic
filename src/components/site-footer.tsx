@@ -4,9 +4,10 @@ const footerLinks = [
   { label: "AIDailyPick 소개", href: "/" },
   { label: "툴 찾기", href: "/tools" },
   { label: "툴 홍보하기", href: "/submit" },
-  { label: "개인정보처리방침", href: "#" },
-  { label: "제휴 안내", href: "#" },
-  { label: "면책 고지", href: "#" },
+  { label: "문의", href: "/contact" },
+  { label: "개인정보처리방침", href: "/privacy" },
+  { label: "제휴 안내", href: "/affiliate" },
+  { label: "면책 고지", href: "/disclaimer" },
 ];
 
 export function SiteFooter() {
