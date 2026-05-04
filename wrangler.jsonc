@@ -3,13 +3,20 @@
   "name": "aidailypick",
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-05-03",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
-    "directory": ".open-next/assets"
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
   },
   "observability": {
     "enabled": true
   },
+  "routes": [
+    {
+      "pattern": "aidailypick.com",
+      "custom_domain": true
+    }
+  ],
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",

@@ -7,6 +7,7 @@ node_modules/
 .next-prod/
 out_build/
 .open-next/
+.wrangler/
 
 # misc
 .DS_Store
