@@ -1,28 +1,5 @@
 import type { Metadata } from "next";
-
-import { SubmitToolForm } from "@/src/components/submit-tool-form";
-
-const submissionTypes = [
-  "AI 자동화 툴",
-  "한국 SaaS",
-  "마케팅 SaaS",
-  "크리에이터 툴",
-  "생산성 툴",
-  "노코드 툴",
-];
-
-const reviewSteps = [
-  ["1", "기본 정보 확인", "툴 이름, 링크, 카테고리, 한국 사용자가 이해할 만한 설명을 먼저 봅니다."],
-  ["2", "사용 맥락 정리", "누가 쓰면 좋은지, 어떤 업무 시간을 줄이는지, 실제 장점과 한계를 나눠봅니다."],
-  ["3", "큐레이션 반영", "홈, 툴 디렉토리, 추천 섹션, 제휴 영역 중 어울리는 위치를 골라 노출합니다."],
-];
-
-const checklist = [
-  "국내 사용자가 가입하거나 써볼 수 있는 링크가 있나요?",
-  "가격, 무료체험, 데모 여부를 설명할 수 있나요?",
-  "과장된 홍보 문구보다 실제 사용 사례를 말할 수 있나요?",
-  "제휴 링크나 할인 코드가 있다면 함께 제공할 수 있나요?",
-];
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "툴 홍보하기",
@@ -32,80 +9,89 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SubmitToolPage() {
-  return (
-    <main className="bg-[#070812] text-white">
-      <section className="mx-auto grid w-full max-w-[1180px] gap-10 px-4 py-14 md:px-6 md:py-18 lg:grid-cols-[minmax(0,1fr)_380px]">
-        <div>
-          <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-bold text-white/65">
-            Submit Tool
-          </p>
-          <h1 className="max-w-3xl text-4xl font-black leading-tight md:text-6xl">
-            한국 사용자에게 보여줄
-            <span className="block bg-[linear-gradient(135deg,#FCAF45_0%,#FD1D6C_45%,#A855F7_100%)] bg-clip-text text-transparent">
-              좋은 SaaS를 찾고 있어요.
-            </span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-white/60">
-            AIDailyPick은 자동화 툴로 시작하지만, 장기적으로는 한국인이 만든 SaaS와 생산성 도구까지 모으는 큐레이션 플랫폼입니다.
-            현재 MVP에서는 제출 내용이 이 브라우저의 관리자 페이지 제출함에 저장됩니다. 나중에 Cloudflare Function이나 DB를 붙이면 서버 저장으로 확장할 수 있습니다.
-          </p>
+const submissionTypes = [
+  ["가볍게 제보", "잘 맞는 카테고리가 있으면 에디터 기준으로 살펴봅니다."],
+  ["Featured Tool", "홈, 디렉토리, 목적별 페이지에서 먼저 보이는 슬롯을 검토합니다."],
+  ["Sponsored Review", "사용 목적, 장점, 아쉬운 점, 무료 플랜까지 함께 정리하는 리뷰입니다."],
+  ["Newsletter Sponsor", "이번 주 써볼 만한 AI 자동화 툴 메일에 자연스럽게 소개합니다."],
+];
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {submissionTypes.map((type) => (
-              <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4" key={type}>
-                <p className="text-sm font-black text-white">{type}</p>
-                <p className="mt-1 text-xs leading-5 text-white/45">카테고리 확장에 맞춰 등록 가능</p>
-              </div>
-            ))}
+const checklist = ["제품명과 공식 URL", "타깃 사용자", "무료 플랜/무료체험 여부", "가장 잘 해결하는 작업", "원하는 노출 방식", "제휴 링크 또는 캠페인 기간"];
+
+export default function SubmitPage() {
+  return (
+    <main className="app-surface">
+      <section className="mx-auto w-full max-w-[1180px] px-4 py-16 md:px-6 md:py-24">
+        <div className="grid gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase text-pink-500">내 툴 알리기</p>
+            <h1 className="mt-3 max-w-3xl text-4xl font-black leading-tight app-text-primary md:text-5xl">직접 만든 툴이 있다면, 한국 사용자에게 알려보세요.</h1>
+            <p className="mt-5 max-w-2xl text-base leading-8 app-text-secondary">
+              AI 자동화 툴, 한국 SaaS, 생산성 도구라면 좋습니다. 거창한 소개서보다 누가 쓰면 좋은지, 어떤 시간을 줄여주는지를 먼저 봅니다.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link className="rounded-2xl bg-[linear-gradient(135deg,#FF7A18_0%,#FF2D95_45%,#8B5CF6_100%)] px-5 py-3 text-sm font-black text-white shadow-[0_10px_28px_rgba(255,45,149,0.22)]" href="#submit-form">
+                문의 정보 작성하기
+              </Link>
+              <Link className="rounded-2xl border border-[#eadfea] bg-white px-5 py-3 text-sm font-black app-text-secondary shadow-sm hover:border-pink-300/60" href="/contact">
+                운영 문의하기
+              </Link>
+            </div>
           </div>
+
+          <aside className="rounded-[28px] border border-[#eadfea] bg-white p-6 shadow-[var(--shadow-card)]">
+            <p className="text-xs font-black uppercase text-pink-500">Promotion options</p>
+            <div className="mt-4 grid gap-3">
+              {submissionTypes.map(([title, description]) => (
+                <article className="rounded-2xl border border-[#eadfea] bg-[#fff8fb] px-4 py-3" key={title}>
+                  <h2 className="text-sm font-black app-text-primary">{title}</h2>
+                  <p className="mt-1 text-xs leading-5 app-text-muted">{description}</p>
+                </article>
+              ))}
+            </div>
+          </aside>
         </div>
 
-        <aside className="h-fit rounded-3xl border border-white/10 bg-white/[0.055] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.32)]">
-          <p className="text-xs font-black uppercase text-pink-200/80">Creator Friendly</p>
-          <h2 className="mt-2 text-2xl font-black text-white">홍보처럼 보이기보다, 쓸 이유가 보이게.</h2>
-          <p className="mt-3 text-sm leading-6 text-white/55">
-            단순 광고 배너보다 “누가 왜 써야 하는지”가 분명한 툴을 우선 소개합니다.
-          </p>
-          <div className="mt-5 rounded-2xl border border-white/10 bg-[#070812]/70 p-4">
-            <p className="text-[11px] font-bold uppercase text-white/35">Google AdSense</p>
-            <p className="mt-1 text-sm font-semibold text-white/65">제출 페이지 사이드 광고 영역</p>
-          </div>
-        </aside>
-      </section>
-
-      <section className="mx-auto grid w-full max-w-[1180px] gap-8 px-4 py-8 md:px-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <SubmitToolForm />
-
-        <aside className="grid h-fit gap-4">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-            <p className="text-xs font-black uppercase text-pink-200/80">Checklist</p>
-            <h2 className="mt-2 text-xl font-black text-white">제출 전 확인</h2>
-            <div className="mt-4 grid gap-3">
-              {checklist.map((item) => (
-                <div className="flex gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-3" key={item}>
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-pink-300" />
-                  <p className="text-sm leading-6 text-white/60">{item}</p>
-                </div>
-              ))}
+        <section className="mt-10 rounded-[28px] border border-[#eadfea] bg-white p-6 shadow-[var(--shadow-card)] md:p-8" id="submit-form">
+          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
+            <div>
+              <p className="text-xs font-black uppercase text-pink-500">Before submit</p>
+              <h2 className="mt-2 text-3xl font-black app-text-primary">이 정보가 있으면 검토가 빨라집니다</h2>
+              <div className="mt-5 grid gap-2">
+                {checklist.map((item) => (
+                  <p className="rounded-2xl border border-[#eadfea] bg-[#fff8fb] px-4 py-3 text-sm font-bold app-text-secondary" key={item}>
+                    {item}
+                  </p>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-            <p className="text-xs font-black uppercase text-orange-200/80">Review Flow</p>
-            <div className="mt-4 grid gap-4">
-              {reviewSteps.map(([number, title, description]) => (
-                <div className="flex gap-3" key={number}>
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white/10 text-xs font-black text-white">{number}</span>
-                  <div>
-                    <h3 className="text-sm font-black text-white">{title}</h3>
-                    <p className="mt-1 text-xs leading-5 text-white/45">{description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <form className="grid gap-4 rounded-[24px] border border-[#eadfea] bg-[#fff8fb] p-4 md:p-5">
+              <div className="grid gap-4 md:grid-cols-2">
+                <label className="grid gap-2 text-sm font-bold app-text-secondary">
+                  툴 이름
+                  <input className="min-h-12 rounded-xl border border-[#eadfea] bg-white px-4 app-text-primary outline-none focus:border-pink-300/60" name="toolName" placeholder="예: AI Daily Tool" />
+                </label>
+                <label className="grid gap-2 text-sm font-bold app-text-secondary">
+                  공식 URL
+                  <input className="min-h-12 rounded-xl border border-[#eadfea] bg-white px-4 app-text-primary outline-none focus:border-pink-300/60" name="url" placeholder="https://..." type="url" />
+                </label>
+              </div>
+              <label className="grid gap-2 text-sm font-bold app-text-secondary">
+                어떤 사람에게 특히 잘 맞나요?
+                <textarea className="min-h-28 rounded-xl border border-[#eadfea] bg-white px-4 py-3 app-text-primary outline-none focus:border-pink-300/60" name="bestFor" placeholder="예: 상세페이지 문구를 자주 만드는 셀러, 쇼츠 대본을 빠르게 뽑는 크리에이터" />
+              </label>
+              <label className="grid gap-2 text-sm font-bold app-text-secondary">
+                어떤 작업 시간을 줄여주나요?
+                <textarea className="min-h-28 rounded-xl border border-[#eadfea] bg-white px-4 py-3 app-text-primary outline-none focus:border-pink-300/60" name="useCase" placeholder="예: 상품 설명 초안, 고객 문의 답변, 광고 카피 변형, 리포트 요약" />
+              </label>
+              <button className="min-h-12 rounded-xl bg-[linear-gradient(135deg,#FF7A18_0%,#FF2D95_45%,#8B5CF6_100%)] px-5 text-sm font-black text-white shadow-[0_10px_28px_rgba(255,45,149,0.22)]" type="button">
+                문의 정보 확인하기
+              </button>
+              <p className="text-xs leading-5 app-text-muted">현재는 전송 기능 없이 문의 준비 항목을 확인하는 용도입니다. 실제 문의는 운영 문의 페이지와 함께 확인합니다.</p>
+            </form>
           </div>
-        </aside>
+        </section>
       </section>
     </main>
   );
