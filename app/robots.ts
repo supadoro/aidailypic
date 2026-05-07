@@ -1,14 +1,17 @@
 import type { MetadataRoute } from "next";
 
+import { siteUrl } from "@/src/data/seo";
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
+        disallow: ["/admin", "/api", "/search"],
       },
     ],
-    sitemap: "https://aidailypick.com/sitemap.xml",
-    host: "https://aidailypick.com",
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

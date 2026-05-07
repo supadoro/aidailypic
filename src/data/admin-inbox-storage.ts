@@ -1,10 +1,12 @@
 "use client";
 
+export type SubmissionStatus = "new" | "candidate" | "reviewing" | "done" | "featured" | "hold";
+
 export type ToolSubmission = {
   id: string;
   type: "tool";
   createdAt: string;
-  status: "new" | "reviewing" | "done";
+  status: SubmissionStatus;
   toolName: string;
   websiteUrl: string;
   category: string;
@@ -12,21 +14,34 @@ export type ToolSubmission = {
   contactEmail: string;
   summary: string;
   details: string;
+  mediaUrl?: string;
+  publicConsent?: boolean;
 };
 
 export type ContactSubmission = {
   id: string;
   type: "contact";
   createdAt: string;
-  status: "new" | "reviewing" | "done";
+  status: SubmissionStatus;
   name: string;
   email: string;
   topic: string;
   message: string;
 };
 
+export type NewsletterSubmission = {
+  id: string;
+  type: "newsletter";
+  createdAt: string;
+  status: SubmissionStatus;
+  email: string;
+  source: string;
+  interest: string;
+};
+
 const TOOL_SUBMISSIONS_KEY = "aidailypick.tool-submissions";
 const CONTACT_SUBMISSIONS_KEY = "aidailypick.contact-submissions";
+const NEWSLETTER_SUBMISSIONS_KEY = "aidailypick.newsletter-submissions";
 
 function safeParseArray<T>(raw: string | null): T[] {
   if (!raw) return [];
@@ -52,13 +67,18 @@ export function readContactSubmissions(): ContactSubmission[] {
   return safeParseArray<ContactSubmission>(window.localStorage.getItem(CONTACT_SUBMISSIONS_KEY)).filter((item) => item?.id && item?.email);
 }
 
+export function readNewsletterSubmissions(): NewsletterSubmission[] {
+  if (typeof window === "undefined") return [];
+  return safeParseArray<NewsletterSubmission>(window.localStorage.getItem(NEWSLETTER_SUBMISSIONS_KEY)).filter((item) => item?.id && item?.email);
+}
+
 export function createToolSubmission(input: Omit<ToolSubmission, "id" | "type" | "createdAt" | "status">): ToolSubmission {
   const submission: ToolSubmission = {
     ...input,
     id: createId("tool"),
     type: "tool",
     createdAt: new Date().toISOString(),
-    status: "new",
+    status: "candidate",
   };
   const next = [submission, ...readToolSubmissions()];
   window.localStorage.setItem(TOOL_SUBMISSIONS_KEY, JSON.stringify(next));
@@ -78,6 +98,19 @@ export function createContactSubmission(input: Omit<ContactSubmission, "id" | "t
   return submission;
 }
 
+export function createNewsletterSubmission(input: Omit<NewsletterSubmission, "id" | "type" | "createdAt" | "status">): NewsletterSubmission {
+  const submission: NewsletterSubmission = {
+    ...input,
+    id: createId("newsletter"),
+    type: "newsletter",
+    createdAt: new Date().toISOString(),
+    status: "new",
+  };
+  const next = [submission, ...readNewsletterSubmissions()];
+  window.localStorage.setItem(NEWSLETTER_SUBMISSIONS_KEY, JSON.stringify(next));
+  return submission;
+}
+
 export function updateToolSubmissionStatus(id: string, status: ToolSubmission["status"]): void {
   const next = readToolSubmissions().map((item) => (item.id === id ? { ...item, status } : item));
   window.localStorage.setItem(TOOL_SUBMISSIONS_KEY, JSON.stringify(next));
@@ -88,6 +121,11 @@ export function updateContactSubmissionStatus(id: string, status: ContactSubmiss
   window.localStorage.setItem(CONTACT_SUBMISSIONS_KEY, JSON.stringify(next));
 }
 
+export function updateNewsletterSubmissionStatus(id: string, status: NewsletterSubmission["status"]): void {
+  const next = readNewsletterSubmissions().map((item) => (item.id === id ? { ...item, status } : item));
+  window.localStorage.setItem(NEWSLETTER_SUBMISSIONS_KEY, JSON.stringify(next));
+}
+
 export function deleteToolSubmission(id: string): void {
   const next = readToolSubmissions().filter((item) => item.id !== id);
   window.localStorage.setItem(TOOL_SUBMISSIONS_KEY, JSON.stringify(next));
@@ -96,4 +134,9 @@ export function deleteToolSubmission(id: string): void {
 export function deleteContactSubmission(id: string): void {
   const next = readContactSubmissions().filter((item) => item.id !== id);
   window.localStorage.setItem(CONTACT_SUBMISSIONS_KEY, JSON.stringify(next));
+}
+
+export function deleteNewsletterSubmission(id: string): void {
+  const next = readNewsletterSubmissions().filter((item) => item.id !== id);
+  window.localStorage.setItem(NEWSLETTER_SUBMISSIONS_KEY, JSON.stringify(next));
 }

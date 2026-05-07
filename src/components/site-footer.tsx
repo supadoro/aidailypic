@@ -3,7 +3,9 @@ import Link from "next/link";
 const footerLinks = [
   { label: "AIDailyPick 소개", href: "/" },
   { label: "툴 찾기", href: "/tools" },
-  { label: "툴 홍보하기", href: "/submit" },
+  { label: "추천 가이드", href: "/guides" },
+  { label: "런칭 보드", href: "/launch" },
+  { label: "바이브코딩 런칭 제보", href: "/submit" },
   { label: "문의", href: "/contact" },
   { label: "개인정보처리방침", href: "/privacy" },
   { label: "제휴 안내", href: "/affiliate" },
@@ -17,7 +19,7 @@ export function SiteFooter() {
         <div>
           <p className="text-lg font-black text-white">AIDailyPick</p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-white/50">
-            일부 링크는 제휴 링크일 수 있습니다. 링크를 통해 가입하거나 결제해도 사용자에게 추가 비용은 발생하지 않습니다.
+            초보자가 실제로 이해할 수 있는 AI/SaaS 큐레이션을 만듭니다. 일부 링크는 제휴 링크일 수 있으며, 링크를 통해 가입하거나 결제해도 사용자에게 추가 비용은 발생하지 않습니다.
           </p>
         </div>
         <nav className="flex flex-wrap gap-4">

@@ -3,14 +3,13 @@ import Link from "next/link";
 
 import { ContactForm } from "@/src/components/contact-form";
 import { InfoPage, InfoSection } from "@/src/components/info-page";
+import { createPageMetadata } from "@/src/data/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "문의",
-  description: "AIDailyPick 운영, 제휴, 툴 등록 관련 문의 방법을 안내합니다.",
-  alternates: {
-    canonical: "/contact",
-  },
-};
+  description: "AIDailyPick 운영, 제휴, 툴 등록, 콘텐츠 수정 요청 관련 문의를 남겨주세요.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

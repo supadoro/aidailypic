@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { createContactSubmission } from "@/src/data/admin-inbox-storage";
+import { submitToServer } from "@/src/data/submission-api";
 
 const initialForm = {
   name: "",
@@ -21,21 +22,32 @@ export function ContactForm() {
     setForm((prev) => ({ ...prev, [key]: value }));
   };
 
-  const submit = () => {
+  const submit = async () => {
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
       setNotice("이름, 이메일, 문의 내용을 입력해주세요.");
       return;
     }
 
-    createContactSubmission({
+    const payload = {
+      type: "contact",
       name: form.name.trim(),
       email: form.email.trim(),
       topic: form.topic,
       message: form.message.trim(),
-    });
+    };
+    const serverSaved = await submitToServer(payload);
+
+    if (!serverSaved) {
+      createContactSubmission({
+        name: payload.name,
+        email: payload.email,
+        topic: payload.topic,
+        message: payload.message,
+      });
+    }
 
     setForm(initialForm);
-    setNotice("문의가 저장됐습니다. 현재 MVP에서는 이 브라우저의 관리자 페이지 문의함에서 확인할 수 있습니다.");
+    setNotice(serverSaved ? "문의가 서버 저장소에 접수되었습니다." : "문의가 저장됐습니다. 서버 저장소가 없어 현재 브라우저의 관리자 페이지 문의함에서 확인할 수 있습니다.");
   };
 
   return (

@@ -2,17 +2,18 @@
 
 import { SiteFooter } from "@/src/components/site-footer";
 import { SiteHeader } from "@/src/components/site-header";
+import { defaultSeoDescription, siteName, siteUrl } from "@/src/data/seo";
 
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aidailypick.com"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "AIDailyPick",
-    template: "%s | AIDailyPick",
+    default: `${siteName} - AI 자동화 툴과 한국 SaaS 큐레이션`,
+    template: `%s | ${siteName}`,
   },
-  description: "요즘 뜨는 AI 자동화 툴과 한국 SaaS를 목적별로 정리해주는 큐레이션 & 제휴 플랫폼.",
-  applicationName: "AIDailyPick",
+  description: defaultSeoDescription,
+  applicationName: siteName,
   keywords: [
     "AI 자동화 툴",
     "한국 SaaS",
@@ -37,17 +38,17 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "AIDailyPick",
-    description: "인스타, 스레드, 한국 커뮤니티에서 보이는 AI 자동화 툴과 SaaS를 정리합니다.",
-    url: "https://aidailypick.com",
-    siteName: "AIDailyPick",
+    title: `${siteName} - AI 자동화 툴과 한국 SaaS 큐레이션`,
+    description: defaultSeoDescription,
+    url: siteUrl,
+    siteName,
     locale: "ko_KR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AIDailyPick",
-    description: "요즘 뜨는 AI 자동화 툴을 대신 찾아보고 정리합니다.",
+    title: `${siteName} - AI 자동화 툴과 한국 SaaS 큐레이션`,
+    description: defaultSeoDescription,
   },
 };
 

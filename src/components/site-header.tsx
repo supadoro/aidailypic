@@ -7,9 +7,9 @@ import { useState } from "react";
 const navItems = [
   { label: "오늘의 픽", href: "/#today", activeStartsWith: "/" },
   { label: "툴 찾기", href: "/tools", activeStartsWith: "/tools" },
+  { label: "추천 가이드", href: "/guides", activeStartsWith: "/guides" },
   { label: "요즘 뜨는 툴", href: "/#trending", activeStartsWith: "/trending" },
-  { label: "새로 나온 툴", href: "/#new", activeStartsWith: "/new" },
-  { label: "툴 홍보하기", href: "/submit", activeStartsWith: "/submit" },
+  { label: "런칭 보드", href: "/launch", activeStartsWith: "/launch" },
   { label: "뉴스레터", href: "/#newsletter", activeStartsWith: "/newsletter" },
 ];
 
@@ -52,7 +52,7 @@ export function SiteHeader() {
             로그인
           </Link>
           <Link className="rounded-xl bg-white px-4 py-2 text-sm font-black text-[#111326]" href="/submit">
-            툴 등록하기
+            바이브코딩 런칭
           </Link>
           <button
             aria-expanded={mobileOpen}

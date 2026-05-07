@@ -11,6 +11,13 @@
   "observability": {
     "enabled": true
   },
+  "d1_databases": [
+    {
+      "binding": "AIDAILYPICK_DB",
+      "database_name": "aidailypick-db",
+      "database_id": "04e6f22e-dd1a-4932-80d4-5c0b5ef4a155"
+    }
+  ],
   "routes": [
     {
       "pattern": "aidailypick.com",

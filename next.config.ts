@@ -12,6 +12,26 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "content-management-files.canva.com",
+      },
+      {
+        protocol: "https",
+        hostname: "p16-seeyou-sg.ibyteimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "tally.so",
+      },
+      {
+        protocol: "https",
+        hostname: "help.openai.com",
+      },
+      {
+        protocol: "https",
+        hostname: "static.intercomassets.com",
+      },
     ],
   },
 };

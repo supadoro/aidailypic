@@ -1,57 +1,63 @@
 import type { MetadataRoute } from "next";
 
-import { saasTools } from "@/src/data/saas-directory";
-
-const SITE_URL = "https://aidailypick.com";
+import { allCategoryFilters, saasTools } from "@/src/data/saas-directory";
+import { guideCurations } from "@/src/data/guide-curations";
+import { siteUrl } from "@/src/data/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: `${SITE_URL}/`,
+      url: `${siteUrl}/`,
       lastModified: now,
       changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: `${SITE_URL}/tools`,
+      url: `${siteUrl}/tools`,
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/submit`,
+      url: `${siteUrl}/guides`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.82,
+    },
+    {
+      url: `${siteUrl}/launch`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/submit`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/search?q=SaaS`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.5,
-    },
-    {
-      url: `${SITE_URL}/contact`,
+      url: `${siteUrl}/contact`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.4,
     },
     {
-      url: `${SITE_URL}/privacy`,
+      url: `${siteUrl}/privacy`,
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: `${SITE_URL}/affiliate`,
+      url: `${siteUrl}/affiliate`,
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: `${SITE_URL}/disclaimer`,
+      url: `${siteUrl}/disclaimer`,
       lastModified: now,
       changeFrequency: "yearly",
       priority: 0.3,
@@ -59,11 +65,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const toolRoutes: MetadataRoute.Sitemap = saasTools.map((tool) => ({
-    url: `${SITE_URL}/tools/${tool.slug}`,
+    url: `${siteUrl}/tools/${tool.slug}`,
     lastModified: now,
     changeFrequency: "weekly",
     priority: tool.isFeatured ? 0.85 : 0.75,
   }));
 
-  return [...staticRoutes, ...toolRoutes];
+  const categoryRoutes: MetadataRoute.Sitemap = allCategoryFilters.map((category) => ({
+    url: `${siteUrl}/category/${category.id}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.72,
+  }));
+
+  const guideRoutes: MetadataRoute.Sitemap = guideCurations.map((guide) => ({
+    url: `${siteUrl}/guides/${guide.slug}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.78,
+  }));
+
+  return [...staticRoutes, ...categoryRoutes, ...guideRoutes, ...toolRoutes];
 }
