@@ -13,6 +13,9 @@ const initialForm = {
 };
 
 const topics = ["운영 문의", "툴 정보 수정", "제휴 문의", "개인정보 문의", "기타"];
+const labelClass = "grid gap-2 text-sm font-bold text-slate-700";
+const inputClass =
+  "min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none placeholder:text-slate-400 focus:border-[#3182f6] focus:ring-4 focus:ring-[#3182f6]/10";
 
 export function ContactForm() {
   const [form, setForm] = useState(initialForm);
@@ -51,43 +54,43 @@ export function ContactForm() {
   };
 
   return (
-    <div className="rounded-3xl border border-white/10 bg-[#070812]/70 p-5">
+    <div className="contact-form-panel rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)]">
       <div className="mb-5">
-        <p className="text-xs font-black uppercase text-pink-200/80">Contact Form</p>
-        <h2 className="mt-2 text-2xl font-black text-white">문의 남기기</h2>
-        <p className="mt-2 text-sm leading-6 text-white/50">서버 저장 전 MVP 단계라 현재 브라우저 관리자 문의함에 저장됩니다.</p>
+        <p className="text-xs font-black uppercase text-slate-400">Contact Form</p>
+        <h2 className="mt-2 text-2xl font-black text-slate-950">문의 남기기</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-500">보내주신 내용은 운영자가 검토할 문의함에 저장됩니다.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <label className="grid gap-2 text-sm font-bold text-white/70">
+        <label className={labelClass}>
           이름
-          <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none placeholder:text-white/30 focus:border-pink-300/60" onChange={(event) => update("name", event.target.value)} value={form.name} />
+          <input className={inputClass} onChange={(event) => update("name", event.target.value)} value={form.name} />
         </label>
-        <label className="grid gap-2 text-sm font-bold text-white/70">
+        <label className={labelClass}>
           이메일
-          <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none placeholder:text-white/30 focus:border-pink-300/60" onChange={(event) => update("email", event.target.value)} type="email" value={form.email} />
+          <input className={inputClass} onChange={(event) => update("email", event.target.value)} type="email" value={form.email} />
         </label>
       </div>
 
-      <label className="mt-4 grid gap-2 text-sm font-bold text-white/70">
+      <label className={`mt-4 ${labelClass}`}>
         문의 유형
-        <select className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => update("topic", event.target.value)} value={form.topic}>
+        <select className={inputClass} onChange={(event) => update("topic", event.target.value)} value={form.topic}>
           {topics.map((topic) => (
             <option key={topic}>{topic}</option>
           ))}
         </select>
       </label>
 
-      <label className="mt-4 grid gap-2 text-sm font-bold text-white/70">
+      <label className={`mt-4 ${labelClass}`}>
         문의 내용
-        <textarea className="min-h-36 rounded-xl border border-white/10 bg-[#111326] px-4 py-3 text-white outline-none placeholder:text-white/30 focus:border-pink-300/60" onChange={(event) => update("message", event.target.value)} value={form.message} />
+        <textarea className={`${inputClass} min-h-36 py-3`} onChange={(event) => update("message", event.target.value)} value={form.message} />
       </label>
 
-      <button className="mt-5 rounded-xl bg-white px-5 py-3 text-sm font-black text-[#111326]" onClick={submit} type="button">
+      <button className="mt-5 rounded-xl bg-[#3182f6] px-5 py-3 text-sm font-black text-white shadow-[0_8px_24px_rgba(49,130,246,0.18)]" onClick={submit} type="button">
         문의 저장하기
       </button>
 
-      {notice ? <p className="mt-5 rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-semibold text-white/70">{notice}</p> : null}
+      {notice ? <p className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700">{notice}</p> : null}
     </div>
   );
 }

@@ -170,43 +170,43 @@ export function AdminToolManager() {
   };
 
   return (
-    <section className="space-y-8 rounded-3xl border border-white/10 bg-white/[0.055] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.28)] md:p-7">
+    <section className="admin-tool-manager-panel space-y-8 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-7">
       <header className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
         <div>
-          <p className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-black uppercase tracking-wide text-pink-100/75">
+          <p className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-blue-700">
             SaaS Admin
           </p>
-          <h1 className="mt-3 text-3xl font-black text-white">툴 추가/수정/삭제 관리</h1>
-          <p className="mt-2 text-sm leading-6 text-white/55">
+          <h1 className="mt-3 text-3xl font-black text-slate-950">툴 카탈로그 관리</h1>
+          <p className="mt-2 text-sm leading-6 text-slate-500">
             DB 연결 전 단계라 브라우저 localStorage에 저장됩니다. 실제 운영 전에는 이 구조를 서버 저장 방식으로 옮기면 됩니다.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-2 text-center">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3">
-            <p className="text-2xl font-black text-white">{tools.length}</p>
-            <p className="text-xs font-bold text-white/40">노출 툴</p>
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+            <p className="text-2xl font-black text-slate-950">{tools.length}</p>
+            <p className="text-xs font-bold text-slate-500">노출 툴</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3">
-            <p className="text-2xl font-black text-white">{customCount}</p>
-            <p className="text-xs font-bold text-white/40">직접 추가</p>
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+            <p className="text-2xl font-black text-slate-950">{customCount}</p>
+            <p className="text-xs font-bold text-slate-500">직접 추가</p>
           </div>
         </div>
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="space-y-4 rounded-3xl border border-white/10 bg-[#070812]/70 p-5">
+        <div className="admin-tool-editor-panel space-y-4 rounded-3xl border border-slate-200 bg-white p-5">
           <div className="grid gap-4 md:grid-cols-2">
-            <label className="grid gap-2 text-sm font-bold text-white/70">
+            <label className="grid gap-2 text-sm font-bold text-slate-500">
               툴 이름
-              <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))} value={form.name} />
+              <input className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))} value={form.name} />
             </label>
-            <label className="grid gap-2 text-sm font-bold text-white/70">
+            <label className="grid gap-2 text-sm font-bold text-slate-500">
               로고 글자
-              <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, logoText: event.target.value }))} placeholder="예: AI" value={form.logoText} />
+              <input className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, logoText: event.target.value }))} placeholder="예: AI" value={form.logoText} />
             </label>
-            <label className="grid gap-2 text-sm font-bold text-white/70">
+            <label className="grid gap-2 text-sm font-bold text-slate-500">
               카테고리
-              <select className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => updateCategory(event.target.value as SaasCategory)} value={form.category}>
+              <select className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => updateCategory(event.target.value as SaasCategory)} value={form.category}>
                 {categoryOptions.map((category) => (
                   <option key={category.id} value={category.id}>
                     {category.label}
@@ -214,9 +214,9 @@ export function AdminToolManager() {
                 ))}
               </select>
             </label>
-            <label className="grid gap-2 text-sm font-bold text-white/70">
+            <label className="grid gap-2 text-sm font-bold text-slate-500">
               가격
-              <select className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, pricing: event.target.value as SaasTool["pricing"] }))} value={form.pricing}>
+              <select className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, pricing: event.target.value as SaasTool["pricing"] }))} value={form.pricing}>
                 {pricingOptions.map((pricing) => (
                   <option key={pricing}>{pricing}</option>
                 ))}
@@ -224,53 +224,53 @@ export function AdminToolManager() {
             </label>
           </div>
 
-          <label className="grid gap-2 text-sm font-bold text-white/70">
+          <label className="grid gap-2 text-sm font-bold text-slate-500">
             한 줄 설명
-            <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, shortDescription: event.target.value }))} value={form.shortDescription} />
+            <input className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, shortDescription: event.target.value }))} value={form.shortDescription} />
           </label>
 
-          <label className="grid gap-2 text-sm font-bold text-white/70">
+          <label className="grid gap-2 text-sm font-bold text-slate-500">
             커뮤니티 신호
-            <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, sourceSignal: event.target.value }))} placeholder="예: 스레드에서 자주 언급" value={form.sourceSignal} />
+            <input className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, sourceSignal: event.target.value }))} placeholder="예: 스레드에서 자주 언급" value={form.sourceSignal} />
           </label>
 
-          <label className="grid gap-2 text-sm font-bold text-white/70">
+          <label className="grid gap-2 text-sm font-bold text-slate-500">
             제휴/공식 링크
-            <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, affiliateUrl: event.target.value }))} value={form.affiliateUrl} />
+            <input className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, affiliateUrl: event.target.value }))} value={form.affiliateUrl} />
           </label>
 
-          <label className="grid gap-2 text-sm font-bold text-white/70">
+          <label className="grid gap-2 text-sm font-bold text-slate-500">
             태그
-            <input className="min-h-12 rounded-xl border border-white/10 bg-[#111326] px-4 text-white outline-none focus:border-pink-300/60" onChange={(event) => setTagText(event.target.value)} placeholder="쉼표로 구분: 인기, 무료체험, 셀러 추천" value={tagText} />
+            <input className="min-h-12 rounded-xl border border-slate-200 bg-white px-4 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setTagText(event.target.value)} placeholder="쉼표로 구분: 인기, 무료체험, 셀러 추천" value={tagText} />
           </label>
 
           <div className="grid gap-3 md:grid-cols-2">
-            <label className="grid gap-2 text-sm font-bold text-white/70">
+            <label className="grid gap-2 text-sm font-bold text-slate-500">
               좋은 점
-              <textarea className="min-h-28 rounded-xl border border-white/10 bg-[#111326] px-4 py-3 text-white outline-none focus:border-pink-300/60" onChange={(event) => setProsText(event.target.value)} placeholder="줄바꿈으로 여러 개 입력" value={prosText} />
+              <textarea className="min-h-28 rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setProsText(event.target.value)} placeholder="줄바꿈으로 여러 개 입력" value={prosText} />
             </label>
-            <label className="grid gap-2 text-sm font-bold text-white/70">
+            <label className="grid gap-2 text-sm font-bold text-slate-500">
               아쉬운 점
-              <textarea className="min-h-28 rounded-xl border border-white/10 bg-[#111326] px-4 py-3 text-white outline-none focus:border-pink-300/60" onChange={(event) => setConsText(event.target.value)} placeholder="줄바꿈으로 여러 개 입력" value={consText} />
+              <textarea className="min-h-28 rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setConsText(event.target.value)} placeholder="줄바꿈으로 여러 개 입력" value={consText} />
             </label>
           </div>
 
-          <label className="grid gap-2 text-sm font-bold text-white/70">
+          <label className="grid gap-2 text-sm font-bold text-slate-500">
             사용 사례
-            <textarea className="min-h-24 rounded-xl border border-white/10 bg-[#111326] px-4 py-3 text-white outline-none focus:border-pink-300/60" onChange={(event) => setUseCasesText(event.target.value)} placeholder="줄바꿈으로 여러 개 입력" value={useCasesText} />
+            <textarea className="min-h-24 rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setUseCasesText(event.target.value)} placeholder="줄바꿈으로 여러 개 입력" value={useCasesText} />
           </label>
 
-          <label className="grid gap-2 text-sm font-bold text-white/70">
+          <label className="grid gap-2 text-sm font-bold text-slate-500">
             한 줄 평가
-            <textarea className="min-h-24 rounded-xl border border-white/10 bg-[#111326] px-4 py-3 text-white outline-none focus:border-pink-300/60" onChange={(event) => setForm((prev) => ({ ...prev, verdict: event.target.value }))} value={form.verdict} />
+            <textarea className="min-h-24 rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-950 outline-none focus:border-[#3182f6]" onChange={(event) => setForm((prev) => ({ ...prev, verdict: event.target.value }))} value={form.verdict} />
           </label>
 
           <div className="space-y-3">
-            <p className="text-sm font-bold text-white/70">추천 대상</p>
+            <p className="text-sm font-bold text-slate-500">추천 대상</p>
             <div className="flex flex-wrap gap-2">
               {audienceOptions.map((audience) => (
                 <button
-                  className={`rounded-full border px-3 py-2 text-xs font-bold transition ${form.bestFor.includes(audience) ? "border-pink-300/60 bg-pink-300/10 text-white" : "border-white/10 bg-white/[0.04] text-white/45"}`}
+                  className={`rounded-full border px-3 py-2 text-xs font-bold transition ${form.bestFor.includes(audience) ? "border-blue-200 bg-blue-50 text-slate-950" : "border-slate-200 bg-slate-50 text-slate-500"}`}
                   key={audience}
                   onClick={() => toggleAudience(audience)}
                   type="button"
@@ -287,10 +287,10 @@ export function AdminToolManager() {
               ["isTested", "검증됨"],
               ["isSponsored", "스폰서"],
             ].map(([key, label]) => (
-              <label className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2 text-xs font-bold text-white/60" key={key}>
+              <label className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-bold text-slate-500" key={key}>
                 <input
                   checked={Boolean(form[key as keyof ToolFormInput])}
-                  className="h-4 w-4 accent-pink-400"
+                  className="h-4 w-4 accent-[#3182f6]"
                   onChange={(event) => setForm((prev) => ({ ...prev, [key]: event.target.checked }))}
                   type="checkbox"
                 />
@@ -300,39 +300,39 @@ export function AdminToolManager() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <button className="rounded-xl bg-[linear-gradient(135deg,#FF7A18_0%,#FF2D95_45%,#8B5CF6_100%)] px-5 py-3 text-sm font-black text-white" onClick={saveTool} type="button">
+            <button className="rounded-xl bg-[#3182f6] px-5 py-3 text-sm font-black text-white" onClick={saveTool} type="button">
               저장하기
             </button>
-            <button className="rounded-xl border border-white/10 px-5 py-3 text-sm font-bold text-white/60 hover:text-white" onClick={resetForm} type="button">
+            <button className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-slate-500 hover:text-slate-950" onClick={resetForm} type="button">
               입력 초기화
             </button>
-            <button className="rounded-xl border border-rose-300/20 px-5 py-3 text-sm font-bold text-rose-100/70 hover:text-rose-100" onClick={resetAll} type="button">
+            <button className="rounded-xl border border-rose-200 px-5 py-3 text-sm font-bold text-rose-700 hover:text-rose-700" onClick={resetAll} type="button">
               관리자 데이터 초기화
             </button>
           </div>
         </div>
 
         <aside className="space-y-4">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-            <p className="text-xs font-black uppercase text-pink-200/80">Current Tools</p>
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+            <p className="text-xs font-black uppercase text-blue-700">Current Tools</p>
             <div className="mt-4 max-h-[720px] space-y-3 overflow-auto pr-1">
               {tools.map((tool) => (
-                <div className="rounded-2xl border border-white/10 bg-[#070812]/70 p-4" key={tool.slug}>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4" key={tool.slug}>
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm font-black text-white">{tool.name}</p>
-                      <p className="mt-1 text-xs text-white/40">
+                      <p className="text-sm font-black text-slate-950">{tool.name}</p>
+                      <p className="mt-1 text-xs text-slate-500">
                         {tool.categoryLabel} / {tool.slug}
                       </p>
                     </div>
-                    {tool.isSponsored ? <span className="rounded-full bg-orange-300/10 px-2 py-1 text-[10px] font-bold text-orange-100">AD</span> : null}
+                    {tool.isSponsored ? <span className="rounded-full bg-orange-50 px-2 py-1 text-[10px] font-bold text-orange-700">AD</span> : null}
                   </div>
-                  <p className="mt-2 line-clamp-2 text-xs leading-5 text-white/45">{tool.shortDescription}</p>
+                  <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">{tool.shortDescription}</p>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    <button className="rounded-lg bg-white/10 px-3 py-1.5 text-xs font-bold text-white/70" onClick={() => editTool(tool)} type="button">
+                    <button className="rounded-lg bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-500" onClick={() => editTool(tool)} type="button">
                       수정
                     </button>
-                    <button className="rounded-lg bg-rose-300/10 px-3 py-1.5 text-xs font-bold text-rose-100/80" onClick={() => removeTool(tool.slug)} type="button">
+                    <button className="rounded-lg bg-rose-50 px-3 py-1.5 text-xs font-bold text-rose-700" onClick={() => removeTool(tool.slug)} type="button">
                       삭제/숨김
                     </button>
                   </div>
@@ -341,29 +341,29 @@ export function AdminToolManager() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-5">
-            <p className="text-xs font-black uppercase text-orange-200/80">Hidden Base Tools</p>
+          <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+            <p className="text-xs font-black uppercase text-orange-700">Hidden Base Tools</p>
             <div className="mt-4 space-y-2">
               {baseTools.filter((tool) => deletedBaseSlugs.has(tool.slug)).length ? (
                 baseTools
                   .filter((tool) => deletedBaseSlugs.has(tool.slug))
                   .map((tool) => (
-                    <div className="flex items-center justify-between rounded-xl bg-white/[0.04] px-3 py-2" key={`hidden-${tool.slug}`}>
-                      <span className="text-xs font-bold text-white/60">{tool.name}</span>
-                      <button className="rounded-lg bg-emerald-300/10 px-3 py-1 text-xs font-bold text-emerald-100" onClick={() => restoreTool(tool.slug)} type="button">
+                    <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2" key={`hidden-${tool.slug}`}>
+                      <span className="text-xs font-bold text-slate-500">{tool.name}</span>
+                      <button className="rounded-lg bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700" onClick={() => restoreTool(tool.slug)} type="button">
                         복원
                       </button>
                     </div>
                   ))
               ) : (
-                <p className="text-sm text-white/40">숨김 처리된 기본 툴이 없습니다.</p>
+                <p className="text-sm text-slate-500">숨김 처리된 기본 툴이 없습니다.</p>
               )}
             </div>
           </div>
         </aside>
       </div>
 
-      {notice ? <p className="rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-semibold text-white/70">{notice}</p> : null}
+      {notice ? <p className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-500">{notice}</p> : null}
     </section>
   );
 }

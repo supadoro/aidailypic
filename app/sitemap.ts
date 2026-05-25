@@ -27,6 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.82,
     },
     {
+      url: `${siteUrl}/compare`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.82,
+    },
+    {
+      url: `${siteUrl}/methodology`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${siteUrl}/launch`,
       lastModified: now,
       changeFrequency: "weekly",
@@ -78,6 +90,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.72,
   }));
 
+  const categoryAliasRoutes: MetadataRoute.Sitemap = allCategoryFilters.map((category) => ({
+    url: `${siteUrl}/categories/${category.id}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.76,
+  }));
+
   const guideRoutes: MetadataRoute.Sitemap = guideCurations.map((guide) => ({
     url: `${siteUrl}/guides/${guide.slug}`,
     lastModified: now,
@@ -85,5 +104,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.78,
   }));
 
-  return [...staticRoutes, ...categoryRoutes, ...guideRoutes, ...toolRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...categoryAliasRoutes, ...guideRoutes, ...toolRoutes];
 }

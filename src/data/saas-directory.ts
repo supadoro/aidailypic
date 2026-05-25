@@ -47,6 +47,10 @@ export type SaasTool = {
   beginnerTakeaway?: string;
   officialSources?: string[];
   lastCheckedAt?: string;
+  sourceNotes?: string[];
+  beginnerScenario?: string;
+  notFor?: string[];
+  pricingCaution?: string;
   isFeatured?: boolean;
   isSponsored?: boolean;
   isTested?: boolean;
@@ -119,6 +123,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["creator", "marketer", "solo", "operator"],
     sourceSignal: "공식 앱과 웹에서 텍스트, 이미지, 음성 기반 작업을 폭넓게 지원",
+    sourceNotes: [
+      "공식 ChatGPT 웹/앱 기준으로 범용 텍스트, 이미지, 음성 작업 가능 여부를 확인했습니다.",
+      "가격과 사용량 제한은 OpenAI 플랜 정책에 따라 바뀔 수 있어 결제 전 공식 페이지 확인이 필요합니다.",
+    ],
+    beginnerScenario: "처음 쓰는 사람은 블로그 초안, 상품 설명 초안, 고객 답변 초안처럼 결과물을 바로 확인할 수 있는 작업부터 시작하는 것이 좋습니다.",
+    notFor: ["최신 수치나 법률/의학 정보처럼 원문 검증이 필요한 답을 그대로 게시하려는 경우", "브랜드 톤을 학습시키지 않고 완성 카피를 바로 기대하는 경우"],
+    pricingCaution: "무료로 시작할 수 있지만 모델, 파일, 이미지, 사용량 제한은 플랜별로 다릅니다.",
     affiliateUrl: "https://chatgpt.com/",
     reviewUrl: "/tools/chatgpt",
     media: {
@@ -146,6 +157,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["operator", "marketer", "solo"],
     sourceSignal: "공식 Claude 페이지에서 문서, 코드, 콘텐츠 생성과 팀 협업 기능을 제공",
+    sourceNotes: [
+      "Anthropic 도움말 기준으로 Claude는 웹, 데스크톱, 모바일에서 접근할 수 있는 대화형 AI 어시스턴트입니다.",
+      "API 가격과 긴 컨텍스트 과금은 모델과 사용량에 따라 달라지므로 결제 전 공식 가격 문서를 확인해야 합니다.",
+    ],
+    beginnerScenario: "긴 회의록, 기획서, 고객 응대 문서를 붙여 넣고 요약, 구조화, 말투 정리부터 시도하면 장점이 잘 드러납니다.",
+    notFor: ["이미지 편집이나 디자인 제작을 Claude 하나로 해결하려는 경우", "출처 확인 없이 긴 문서 요약 결과를 그대로 외부에 게시하려는 경우"],
+    pricingCaution: "무료로 시작할 수 있지만 메시지 한도, 모델 접근, API 과금은 플랜과 사용량에 따라 달라집니다.",
     affiliateUrl: "https://claude.ai/",
     reviewUrl: "/tools/claude",
     isTested: true,
@@ -166,6 +184,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["marketer", "operator", "solo"],
     sourceSignal: "공식 도움말에서 출처 기반 답변 엔진으로 설명",
+    sourceNotes: [
+      "공식 Perplexity 페이지와 도움말 기준으로 출처 기반 답변과 검색형 리서치 흐름을 확인했습니다.",
+      "답변 자체보다 함께 제시되는 출처를 확인하는 용도로 볼 때 신뢰도가 높아집니다.",
+    ],
+    beginnerScenario: "시장조사나 콘텐츠 소재를 찾을 때 질문을 던지고, 답변보다 출처 링크를 먼저 열어 원문을 확인하는 방식으로 쓰기 좋습니다.",
+    notFor: ["출처 확인 없이 답변 문장만 복사해 콘텐츠로 쓰려는 경우", "국내 커뮤니티 반응처럼 검색 노출이 약한 정보를 완전히 대체하려는 경우"],
+    pricingCaution: "무료 사용 범위와 Pro 검색 제한은 수시로 바뀔 수 있어 공식 가격 페이지 확인이 필요합니다.",
     affiliateUrl: "https://www.perplexity.ai/",
     reviewUrl: "/tools/perplexity",
     media: {
@@ -193,6 +218,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["creator", "marketer", "solo"],
     sourceSignal: "공식 Magic Studio 페이지에서 AI 디자인, 영상, 브랜드 생성 기능을 제공",
+    sourceNotes: [
+      "공식 Canva AI/Magic Studio 페이지 기준으로 디자인 생성, 템플릿, 영상/이미지 편집 기능을 확인했습니다.",
+      "상업적 사용 조건은 템플릿, 이미지, 음악 등 소재별 라이선스를 따로 확인해야 합니다.",
+    ],
+    beginnerScenario: "인스타 카드뉴스, 광고 배너, 쇼츠 썸네일처럼 템플릿을 고른 뒤 문구만 바꾸는 작업부터 시작하면 진입 장벽이 낮습니다.",
+    notFor: ["브랜드 고유성이 중요한 메인 비주얼을 템플릿만으로 해결하려는 경우", "인쇄물이나 광고 소재의 라이선스 검토를 생략하려는 경우"],
+    pricingCaution: "무료 템플릿과 Pro 소재가 섞여 있어 다운로드 전 유료 요소 포함 여부를 확인해야 합니다.",
     affiliateUrl: "https://www.canva.com/canva-ai/",
     reviewUrl: "/tools/canva",
     media: {
@@ -220,6 +252,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["creator", "marketer", "seller", "solo"],
     sourceSignal: "공식 사이트에서 53만 개 이상 템플릿과 AI 프레젠테이션 기능을 소개",
+    sourceNotes: [
+      "미리캔버스 공식 AI 프레젠테이션 페이지 기준으로 주제 입력, PDF 업로드, 템플릿 선택, 편집/다운로드 흐름을 확인했습니다.",
+      "공식 안내에서 PPTX, PDF 등 내보내기와 AI 이미지/배경 제거 같은 보조 기능을 소개합니다.",
+    ],
+    beginnerScenario: "강의 자료나 상품 소개 슬라이드처럼 목차가 필요한 작업에서 주제를 넣고 AI 초안을 만든 뒤, 한국어 문구와 이미지만 다듬는 방식이 좋습니다.",
+    notFor: ["브랜드 가이드가 엄격한 대기업 제안서를 템플릿만으로 완성하려는 경우", "상업적 사용 조건을 확인하지 않고 외부 광고 소재로 바로 쓰려는 경우"],
+    pricingCaution: "무료 AI 프레젠테이션 생성량과 다운로드 조건은 플랜별 제한이 있으므로 작업 전 공식 가격/기능 안내를 확인해야 합니다.",
     affiliateUrl: "https://www.miricanvas.com/",
     reviewUrl: "/tools/miricanvas",
     isFeatured: true,
@@ -241,6 +280,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["creator", "marketer", "seller"],
     sourceSignal: "공식 사이트에서 AI 영상 편집, 이미지 생성, TTS 기능을 제공",
+    sourceNotes: [
+      "공식 CapCut 페이지 기준으로 숏폼 편집, 자막, 템플릿, AI 영상 기능을 확인했습니다.",
+      "모바일/웹/데스크톱 기능 제공 범위가 다를 수 있어 실제 작업 환경에서 다시 확인해야 합니다.",
+    ],
+    beginnerScenario: "처음에는 긴 영상을 가져와 자동 자막을 붙이고, 릴스/쇼츠 비율로 자른 뒤 템플릿을 최소한으로 적용하는 흐름이 현실적입니다.",
+    notFor: ["정교한 색보정, 사운드 믹싱, 긴 편집 프로젝트가 필요한 경우", "브랜드 영상에서 템플릿 느낌을 완전히 피해야 하는 경우"],
+    pricingCaution: "무료 기능과 Pro 효과/소재가 함께 노출될 수 있어 내보내기 전 유료 요소를 확인해야 합니다.",
     affiliateUrl: "https://www.capcut.com/",
     reviewUrl: "/tools/capcut",
     media: {
@@ -268,6 +314,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["creator", "marketer"],
     sourceSignal: "공식 사이트에서 긴 영상을 숏폼 클립으로 바꾸는 AI 클리핑 기능을 강조",
+    sourceNotes: [
+      "OpusClip 공식 페이지 기준으로 긴 영상을 짧은 클립으로 나누고, 자막, 리프레임, B-roll 보조 기능을 제공하는 흐름을 확인했습니다.",
+      "지원 언어와 입력 소스, 무료 크레딧/업그레이드 조건은 공식 페이지와 앱 안내 기준으로 다시 확인해야 합니다.",
+    ],
+    beginnerScenario: "이미 유튜브 영상, 인터뷰, 강의 녹화가 있다면 먼저 1개 영상을 넣고 AI가 뽑은 클립 후보의 후킹과 자막 품질을 비교해보는 방식이 현실적입니다.",
+    notFor: ["원본 영상이 없거나 숏폼 기획부터 새로 해야 하는 경우", "한국어 억양, 전문 용어, 자막 싱크를 사람이 검수할 시간이 전혀 없는 경우"],
+    pricingCaution: "무료 크레딧과 고급 기능 제공 범위는 시점과 플랜에 따라 달라질 수 있습니다.",
     affiliateUrl: "https://www.opusclip.io/",
     reviewUrl: "/tools/opusclip",
     isFeatured: true,
@@ -288,6 +341,13 @@ export const saasTools: SaasTool[] = [
     pricing: "무료체험",
     bestFor: ["creator", "marketer", "solo"],
     sourceSignal: "공식 페이지에서 Threads, LinkedIn, X 예약 발행과 AI 글쓰기 지원을 제공",
+    sourceNotes: [
+      "Typefully 공식 페이지 기준으로 X, LinkedIn, Bluesky, Threads, Mastodon 작성/예약/동시 발행 흐름을 확인했습니다.",
+      "도움말 기준으로 캘린더, 예약 슬롯, 자연스러운 게시 시간, API를 통한 초안/예약/발행 기능을 제공합니다.",
+    ],
+    beginnerScenario: "개인 브랜딩을 시작하는 사람은 한 주치 LinkedIn/Threads 초안을 먼저 캘린더에 넣고, 발행 전 AI 리라이팅으로 문장을 다듬는 방식이 좋습니다.",
+    notFor: ["인스타그램 이미지 중심 운영만 필요한 경우", "예약 발행보다 댓글 응대, DM 자동화, 광고 분석이 핵심인 경우"],
+    pricingCaution: "무료 체험 이후 플랫폼 연결 수, 예약량, 분석/팀 기능은 플랜별로 확인해야 합니다.",
     affiliateUrl: "https://typefully.com/",
     reviewUrl: "/tools/typefully",
     isFeatured: true,
@@ -309,6 +369,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["creator", "marketer", "operator"],
     sourceSignal: "공식 사이트에서 게시물 예약, 댓글 관리, 분석, AI Assistant 기능을 제공",
+    sourceNotes: [
+      "Buffer 공식 가격 페이지 기준으로 무료 플랜은 최대 3개 채널 연결과 채널당 예약 게시물 제한을 제공합니다.",
+      "공식 안내에서 Instagram, Threads, TikTok, LinkedIn 등 주요 채널 연결과 AI Assistant, 기본 분석, 커뮤니티 inbox를 소개합니다.",
+    ],
+    beginnerScenario: "SNS 채널이 2~3개인 1인 사업자라면 무료 플랜에서 콘텐츠 캘린더와 예약 발행 흐름을 먼저 시험해보는 것이 좋습니다.",
+    notFor: ["국내 플랫폼 중심 운영이나 카카오/네이버 채널 자동화가 핵심인 경우", "대형 브랜드 수준의 고급 리포트와 승인 워크플로가 필요한 경우"],
+    pricingCaution: "무료 플랜은 연결 채널과 예약 게시물 수 제한이 있고, 고급 분석/팀 기능은 유료 플랜 조건을 확인해야 합니다.",
     affiliateUrl: "https://buffer.com/",
     reviewUrl: "/tools/buffer",
     isTested: true,
@@ -329,6 +396,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["operator", "marketer", "solo"],
     sourceSignal: "공식 도움말에서 8,000개 이상 앱과 AI 워크플로 구축 기능을 설명",
+    sourceNotes: [
+      "Zapier 공식 가격/도움말 기준으로 Free 플랜은 Zaps, Tables, Forms와 월 100 tasks, 2-step Zap 제한을 제공합니다.",
+      "공식 가격 페이지 기준으로 유료 플랜에서는 다단계 Zap, 프리미엄 앱, Webhooks, 팀 협업 기능이 단계적으로 열립니다.",
+    ],
+    beginnerScenario: "처음에는 폼 제출이 들어오면 시트에 저장하고 이메일/슬랙 알림을 보내는 2-step 자동화부터 만들면 task 소모와 구조를 이해하기 쉽습니다.",
+    notFor: ["월 100 task를 금방 넘길 만큼 빈번한 운영 자동화가 필요한 경우", "국내 서비스나 사내 API처럼 Zapier 앱 목록에 없는 연동이 핵심인 경우"],
+    pricingCaution: "무료 플랜은 100 tasks/month와 2-step Zap 제한이 있어, 반복 횟수가 늘면 유료 플랜 비용을 먼저 계산해야 합니다.",
     affiliateUrl: "https://zapier.com/",
     reviewUrl: "/tools/zapier",
     isFeatured: true,
@@ -350,6 +424,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["operator", "marketer", "solo"],
     sourceSignal: "공식 사이트에서 3,000개 이상 앱과 시각적 AI 자동화 구축을 제공",
+    sourceNotes: [
+      "Make 공식 제품/가격 페이지 기준으로 visual-first 자동화, 3,000개 이상 앱, AI 앱/에이전트 연결 흐름을 확인했습니다.",
+      "Free 플랜은 월 1,000 credits와 15분 최소 실행 간격을 제공하며, 각 모듈 액션은 credit으로 계산됩니다.",
+    ],
+    beginnerScenario: "처음에는 폼 응답을 받아 시트에 저장하고 AI로 요약한 뒤 알림을 보내는 짧은 시나리오를 시각적으로 연결해보는 것이 좋습니다.",
+    notFor: ["자동화 구조를 그림으로 이해하는 시간이 전혀 없고 바로 템플릿만 켜고 싶은 경우", "실시간에 가까운 실행 주기가 필요한 경우"],
+    pricingCaution: "Make는 작업량을 credits로 계산하므로 모듈 수가 많거나 실행 빈도가 높은 시나리오는 월 credit 소모를 먼저 추산해야 합니다.",
     affiliateUrl: "https://www.make.com/en",
     reviewUrl: "/tools/make",
     isFeatured: true,
@@ -370,6 +451,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["operator", "solo", "marketer"],
     sourceSignal: "공식 사이트에서 무료 폼과 무제한 제출을 강조",
+    sourceNotes: [
+      "공식 Tally 페이지 기준으로 노션형 폼 작성, 응답 수집, 자동화 연동 가능성을 확인했습니다.",
+      "결제, 고급 커스텀 도메인, 팀 기능은 플랜별 제한을 확인해야 합니다.",
+    ],
+    beginnerScenario: "바이브코딩 SaaS 메이커는 대기자 신청, 베타 피드백, 툴 제보 폼처럼 가벼운 수집 페이지부터 만들기 좋습니다.",
+    notFor: ["예약, 결제, CRM까지 한 번에 처리하는 복잡한 운영 플로우가 필요한 경우", "브랜드 디자인을 픽셀 단위로 맞춰야 하는 경우"],
+    pricingCaution: "무료로 시작하기 좋지만 브랜딩 제거, 커스텀 도메인, 고급 기능은 유료 조건을 확인해야 합니다.",
     affiliateUrl: "https://tally.so/",
     reviewUrl: "/tools/tally",
     media: {
@@ -396,6 +484,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["marketer", "solo", "operator", "creator"],
     sourceSignal: "공식 페이지에서 프레젠테이션, 웹사이트, 문서 생성 기능을 제공",
+    sourceNotes: [
+      "Gamma 공식 가격/도움말 기준으로 Free 플랜은 AI 생성, 기본 이미지 모델, 프롬프트당 최대 10 cards 생성 흐름을 제공합니다.",
+      "공식 가격 페이지 기준으로 PDF, PPTX, PNG, Google Slides 내보내기를 지원하지만 브랜딩 제거와 고급 AI 사용량은 유료 조건을 확인해야 합니다.",
+    ],
+    beginnerScenario: "제안서나 강의안을 만들 때 먼저 목차와 핵심 메시지를 한 문단으로 넣고, 생성된 슬라이드의 순서와 문구를 사람이 다시 정리하는 방식이 좋습니다.",
+    notFor: ["브랜드 가이드와 도표 규칙이 엄격한 기업용 덱을 그대로 완성하려는 경우", "정확한 수치, 인용, 법적 표현을 AI 초안 그대로 제출하려는 경우"],
+    pricingCaution: "무료 플랜의 AI credits와 브랜딩/고급 이미지 모델 제한은 작업량에 직접 영향을 주므로 공식 플랜을 확인해야 합니다.",
     affiliateUrl: "https://gamma.app/ai-presentation-maker",
     reviewUrl: "/tools/gamma",
     isFeatured: true,
@@ -416,6 +511,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["solo", "creator", "marketer"],
     sourceSignal: "공식 사이트에서 AI 사이트 생성, CMS, 분석, SEO 기능을 제공",
+    sourceNotes: [
+      "Framer 공식 가격 페이지 기준으로 무료 플랜은 Framer 탐색과 템플릿 제작에 적합하고, 커스텀 도메인은 유료 플랜이 필요합니다.",
+      "유료 플랜에서 CMS, SEO, 호스팅, 분석, staging/rollback, 권한 관리 같은 웹사이트 운영 기능이 단계적으로 제공됩니다.",
+    ],
+    beginnerScenario: "바이브코딩 SaaS 메이커는 먼저 템플릿이나 AI 생성으로 랜딩페이지를 만들고, 대기자 모집 CTA와 가격/데모 섹션부터 검증하는 흐름이 좋습니다.",
+    notFor: ["회원가입, 대시보드, 결제 로직이 포함된 실제 SaaS 앱 전체를 만들려는 경우", "웹 디자인 편집 개념을 배울 시간이 전혀 없는 경우"],
+    pricingCaution: "커스텀 도메인, CMS 규모, editor 수, 분석/스테이징 기능은 플랜별 제한과 추가 비용을 확인해야 합니다.",
     affiliateUrl: "https://www.framer.com/",
     reviewUrl: "/tools/framer",
     pros: ["디자인 퀄리티가 높은 랜딩페이지를 만들기 좋습니다.", "CMS와 SEO, 분석을 한곳에서 다룰 수 있습니다.", "스타트업과 크리에이터 포트폴리오에 잘 맞습니다."],
@@ -435,6 +537,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["solo", "creator", "marketer"],
     sourceSignal: "공식 페이지에서 AI 웹사이트 생성, 템플릿, 디지털 상품 판매 기능을 제공",
+    sourceNotes: [
+      "Typedream 공식 페이지 기준으로 AI 사이트 생성, 템플릿, 드래그앤드롭 편집, 커스텀 도메인, SEO/메타데이터, 내장 분석 흐름을 확인했습니다.",
+      "공식 가격 안내 기준으로 Free 플랜은 제한된 공개 페이지와 Typedream 도메인/배지가 있고, 커스텀 도메인과 무제한 페이지는 유료 플랜 확인이 필요합니다.",
+    ],
+    beginnerScenario: "혼자 만든 템플릿, 전자책, 베타 SaaS를 소개할 때 랜딩페이지와 이메일 수집 폼을 먼저 열고 반응을 보는 용도로 시작하기 좋습니다.",
+    notFor: ["복잡한 CMS, 다국어 사이트, 앱형 인터랙션이 많은 서비스가 필요한 경우", "국내 결제/정산/세금계산서 흐름까지 한 번에 해결하려는 경우"],
+    pricingCaution: "커스텀 도메인, 배지 제거, 페이지 수, 디지털 상품 판매 수수료는 플랜별 조건을 확인해야 합니다.",
     affiliateUrl: "https://landing.typedream.com/",
     reviewUrl: "/tools/typedream",
     pros: ["아이디어를 빠르게 랜딩페이지로 바꾸기 좋습니다.", "디지털 상품과 링크인바이오 흐름까지 연결됩니다.", "초기 제품 검증용으로 가볍습니다."],
@@ -454,6 +563,13 @@ export const saasTools: SaasTool[] = [
     pricing: "유료",
     bestFor: ["operator", "solo", "marketer"],
     sourceSignal: "공식 페이지에서 AI 검색, 회의록, 문서 작성, 데이터베이스 자동화 기능을 제공",
+    sourceNotes: [
+      "Notion 공식 AI 페이지 기준으로 워크스페이스/연결 앱 검색, 회의록, 문서 작성, 리서치, 데이터베이스 자동 채우기 기능을 확인했습니다.",
+      "공식 안내 기준으로 Notion AI는 Business와 Enterprise 플랜에 포함되며, 그 외 워크스페이스는 제한된 체험 사용량이 제공됩니다.",
+    ],
+    beginnerScenario: "이미 노션에 회의록, 프로젝트 문서, 고객 메모가 쌓여 있다면 먼저 회의록 요약과 데이터베이스 요약/자동 채우기부터 시험하는 것이 좋습니다.",
+    notFor: ["노션을 문서 허브로 쓰지 않는 팀이 AI 기능만 보고 새로 도입하려는 경우", "외부 출처 검증이 필요한 리서치를 Notion AI 답변만으로 끝내려는 경우"],
+    pricingCaution: "Business/Enterprise 포함 여부, 체험 사용량, 일시적 사용량 제한은 워크스페이스 플랜과 정책에 따라 달라질 수 있습니다.",
     affiliateUrl: "https://www.notion.com/ai",
     reviewUrl: "/tools/notion-ai",
     isTested: true,
@@ -474,6 +590,13 @@ export const saasTools: SaasTool[] = [
     pricing: "Freemium",
     bestFor: ["operator", "seller", "marketer"],
     sourceSignal: "공식 사이트에서 AI 메신저와 반복 문의 자동화, CRM 마케팅 기능을 제공",
+    sourceNotes: [
+      "채널톡 공식 페이지 기준으로 Inbox, Voice, Documents, Marketing, Team Messenger, ALF AI 상담 기능을 확인했습니다.",
+      "공식 가격 안내 기준으로 무료 플랜은 팀 메신저와 라이브 채팅을 제공하고, 유료 플랜/좌석/워크플로/마케팅/ALF 사용량은 별도 과금 구조를 따릅니다.",
+    ],
+    beginnerScenario: "문의가 늘기 시작한 쇼핑몰이나 SaaS는 먼저 라이브 채팅을 붙이고, 반복 문의가 쌓인 뒤 ALF와 문서 기반 답변을 검토하는 흐름이 현실적입니다.",
+    notFor: ["문의량이 매우 적어 이메일이나 카카오 채널만으로 충분한 초기 단계", "지식베이스를 정리하지 않은 상태에서 AI 상담 품질을 바로 기대하는 경우"],
+    pricingCaution: "기본/오퍼레이터 좌석, MU, Workflow, Marketing, ALF 참여량, 문자/카카오 메시지 비용이 따로 계산될 수 있습니다.",
     affiliateUrl: "https://channel.io/",
     reviewUrl: "/tools/channel-talk",
     isFeatured: true,
@@ -495,6 +618,13 @@ export const saasTools: SaasTool[] = [
     pricing: "문의",
     bestFor: ["solo", "operator", "seller"],
     sourceSignal: "국내 온라인 비즈니스의 결제 연동 후보로 자주 검토되는 PG 서비스",
+    sourceNotes: [
+      "토스페이먼츠 공식 수수료 페이지 기준으로 가입비, 연관리비, 카드/가상계좌/간편결제/계좌이체 등 결제수단별 수수료를 확인했습니다.",
+      "공식 결제위젯 페이지 기준으로 결제 UI 커스텀, 간편결제 ON/OFF, 프로모션 노출, API/SDK 기반 연동 흐름을 제공합니다.",
+    ],
+    beginnerScenario: "바이브코딩 SaaS나 디지털 상품 판매자는 먼저 테스트 결제와 결제위젯 연동 흐름을 붙이고, 실제 판매 전 PG 심사와 사업자 조건을 확인하는 것이 좋습니다.",
+    notFor: ["사업자/상품 심사 준비 없이 즉시 실결제를 받고 싶은 경우", "개발자 없이 정기결제, 환불, 영수증, 정산까지 모두 자동화하려는 경우"],
+    pricingCaution: "공식 기준 가입비 220,000원, 연관리비 110,000원, 일반 카드 3.4% 등 결제수단별 수수료와 VAT/계약 조건을 별도 확인해야 합니다.",
     affiliateUrl: "https://www.tosspayments.com/",
     reviewUrl: "/tools/toss-payments",
     pros: ["국내 사용자에게 익숙한 결제 경험을 줄 수 있습니다.", "온라인 판매와 SaaS 결제 연동에 활용도가 높습니다.", "개발자 문서와 연동 흐름이 비교적 잘 정리되어 있습니다."],
@@ -514,6 +644,13 @@ export const saasTools: SaasTool[] = [
     pricing: "무료체험",
     bestFor: ["operator", "solo"],
     sourceSignal: "공식 사이트에서 전자서명과 AI 계약 관리 솔루션을 소개",
+    sourceNotes: [
+      "모두싸인 공식 가격 페이지 기준으로 PERSONAL, TEAM, TEAM PRO, 맞춤형/연동형 플랜과 서명 요청 건수, 계정 수, 템플릿 제한을 확인했습니다.",
+      "공식 모두싸인 캐비닛 안내 기준으로 AI 계약 관리, 계약서 통합 보관, 핵심 데이터 자동 추출, OCR, 검색, 일정 리마인더 기능을 제공합니다.",
+    ],
+    beginnerScenario: "프리랜서나 작은 팀은 먼저 NDA, 용역계약, 강사계약처럼 반복되는 계약서 1~2종을 템플릿화하고 서명 요청 흐름을 줄이는 것부터 시작하기 좋습니다.",
+    notFor: ["월 계약 건수가 매우 적어 이메일 첨부와 수기 서명으로 충분한 경우", "계약 검토의 법률 판단까지 AI가 대신해주길 기대하는 경우"],
+    pricingCaution: "PERSONAL 월 9,900원, TEAM/TEAM PRO의 서명 요청 건수와 계정 수, API/엔터프라이즈 조건은 공식 가격표 기준으로 다시 확인해야 합니다.",
     affiliateUrl: "https://modusign.co.kr/",
     reviewUrl: "/tools/modusign",
     isTested: true,
@@ -526,7 +663,12 @@ export const saasTools: SaasTool[] = [
 
 export function getToolReviewStatus(tool: SaasTool): ReviewStatus {
   if (tool.reviewStatus) return tool.reviewStatus;
+  if (hasCompleteReviewFields(tool)) return "official-info";
   return tool.isTested ? "official-info" : "watchlist";
+}
+
+export function hasCompleteReviewFields(tool: SaasTool): boolean {
+  return Boolean(tool.sourceNotes?.length && tool.beginnerScenario && tool.notFor?.length && tool.pricingCaution);
 }
 
 export function getToolEvidenceLabel(tool: SaasTool): string {

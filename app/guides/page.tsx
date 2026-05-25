@@ -29,43 +29,45 @@ export default function GuidesPage() {
   };
 
   return (
-    <main className="bg-[#070812] text-white">
+    <main className="guides-clean-index bg-[#f8fafc] text-slate-950">
       <JsonLd data={listJsonLd} />
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-14 md:px-6 md:py-18">
-        <div className="max-w-3xl">
-          <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-black uppercase tracking-wide text-pink-100/75">
+      <section className="mx-auto w-full max-w-[1080px] px-4 py-12 md:px-6 md:py-16">
+        <div className="max-w-2xl">
+          <p className="mb-4 inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-black uppercase tracking-wide text-[#3182f6]">
             Guides
           </p>
-          <h1 className="text-4xl font-black leading-tight md:text-6xl">
-            저장해두기 좋은
-            <span className="block bg-[linear-gradient(135deg,#FCAF45_0%,#FD1D6C_45%,#A855F7_100%)] bg-clip-text text-transparent">
-              AI/SaaS 추천 리스트
-            </span>
-          </h1>
-          <p className="mt-5 text-base leading-8 text-white/60">
-            인스타, 스레드, 블로그에서 바로 공유하기 좋은 목적별 큐레이션입니다. 툴을 하나씩 찾기보다 “내 상황”에 맞는 조합으로 먼저 봅니다.
+          <h1 className="text-3xl font-black leading-tight md:text-5xl">상황별로 바로 고르는 AI/SaaS 가이드</h1>
+          <p className="mt-4 text-base leading-7 text-slate-600">
+            처음 쓰는 사람도 한 번에 너무 많은 툴을 보지 않도록, 목적별로 필요한 조합만 짧게 묶었습니다. 각 가이드는 추천 이유와 주의할 점을 함께 봅니다.
           </p>
+          <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold text-slate-500">
+            <span className="rounded-full border border-slate-200 bg-white px-3 py-1">목적별 선택</span>
+            <span className="rounded-full border border-slate-200 bg-white px-3 py-1">초보자 첫 단계</span>
+            <Link className="rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-[#3182f6]" href="/methodology">
+              검수 기준
+            </Link>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto grid w-full max-w-[1180px] gap-4 px-4 pb-20 md:grid-cols-2 md:px-6">
+      <section className="mx-auto grid w-full max-w-[1080px] gap-3 px-4 pb-20 md:grid-cols-2 md:px-6">
         {guideCurations.map((guide) => (
           <Link
-            className="group rounded-3xl border border-white/10 bg-white/[0.055] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.24)] transition hover:-translate-y-1 hover:border-pink-300/45"
+            className="group rounded-lg border border-slate-200 bg-white p-5 shadow-[0_8px_24px_rgba(15,23,42,0.04)] transition hover:-translate-y-0.5 hover:border-[#3182f6]/30"
             href={`/guides/${guide.slug}`}
             key={guide.slug}
           >
-            <p className="text-xs font-black uppercase text-orange-200/80">{guide.angle}</p>
-            <h2 className="mt-3 text-2xl font-black text-white">{guide.title}</h2>
-            <p className="mt-3 text-sm leading-6 text-white/58">{guide.hook}</p>
+            <p className="text-xs font-black uppercase text-[#3182f6]">{guide.angle}</p>
+            <h2 className="mt-3 text-xl font-black text-slate-950">{guide.title}</h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600">{guide.hook}</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {guide.hashtags.slice(0, 4).map((tag) => (
-                <span className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1 text-[11px] font-bold text-white/50" key={tag}>
+                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-bold text-slate-500" key={tag}>
                   {tag}
                 </span>
               ))}
             </div>
-            <p className="mt-5 text-sm font-black text-pink-100/80 group-hover:text-white">{guide.cta} →</p>
+            <p className="mt-5 text-sm font-black text-[#3182f6]">{guide.cta}</p>
           </Link>
         ))}
       </section>

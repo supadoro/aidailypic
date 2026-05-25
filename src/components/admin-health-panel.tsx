@@ -46,16 +46,16 @@ export function AdminHealthPanel() {
   }, [refresh]);
 
   return (
-    <section className="rounded-3xl border border-white/10 bg-white/[0.055] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.28)] md:p-7">
+    <section className="admin-health-panel rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] md:p-7">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-black uppercase tracking-wide text-emerald-100/75">
+          <p className="inline-flex rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-emerald-700">
             Setup Health
           </p>
-          <h2 className="mt-3 text-2xl font-black text-white">운영 연결 상태</h2>
-          <p className="mt-2 text-sm leading-6 text-white/55">배포 후 관리자 보안과 서버 저장소 연결 여부를 확인합니다.</p>
+          <h2 className="mt-3 text-2xl font-black text-slate-950">운영 연결 상태</h2>
+          <p className="mt-2 text-sm leading-6 text-slate-500">배포 후 관리자 보안과 서버 저장소 연결 여부를 확인합니다.</p>
         </div>
-        <button className="rounded-xl border border-white/10 px-4 py-2 text-sm font-bold text-white/65 hover:text-white" onClick={() => void refresh()} type="button">
+        <button className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:border-[#3182f6]/40 hover:text-[#3182f6]" onClick={() => void refresh()} type="button">
           다시 확인
         </button>
       </div>
@@ -63,22 +63,22 @@ export function AdminHealthPanel() {
       <div className="mt-5 grid gap-3 md:grid-cols-3">
         {checks.length ? (
           checks.map((check) => (
-            <div className="rounded-2xl border border-white/10 bg-[#070812]/70 p-4" key={check.id}>
+            <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4" key={check.id}>
               <div className="flex items-center justify-between gap-3">
-                <h3 className="text-sm font-black text-white">{check.label}</h3>
+                <h3 className="text-sm font-black text-slate-950">{check.label}</h3>
                 <span
                   className={`rounded-full border px-3 py-1 text-xs font-black ${
-                    check.ok ? "border-emerald-200/20 bg-emerald-300/10 text-emerald-100" : "border-amber-200/20 bg-amber-300/10 text-amber-100"
+                    check.ok ? "border-emerald-200 bg-emerald-50 text-emerald-700" : "border-amber-200 bg-amber-50 text-amber-700"
                   }`}
                 >
                   {check.ok ? "연결됨" : "확인 필요"}
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-white/50">{check.description}</p>
+              <p className="mt-3 text-sm leading-6 text-slate-500">{check.description}</p>
             </div>
           ))
         ) : (
-          <p className="rounded-2xl border border-white/10 bg-[#070812]/70 p-4 text-sm text-white/45">{isLoading ? "운영 상태를 확인하고 있습니다." : notice}</p>
+          <p className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-sm text-slate-500">{isLoading ? "운영 상태를 확인하고 있습니다." : notice}</p>
         )}
       </div>
     </section>

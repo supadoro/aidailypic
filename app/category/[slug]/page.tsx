@@ -8,6 +8,7 @@ import {
   allCategoryFilters,
   getCategoryBySlug,
   getToolsByCategory,
+  hasCompleteReviewFields,
   type SaasCategory,
 } from "@/src/data/saas-directory";
 import { createPageMetadata } from "@/src/data/seo";
@@ -153,6 +154,15 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const copy = getCopy(category);
   const tools = getToolsByCategory(category.id as SaasCategory);
   const featuredTools = tools.filter((tool) => tool.isFeatured || tool.isTested);
+  const deepReviewedTools = tools.filter(hasCompleteReviewFields);
+  const watchlistTools = tools.filter((tool) => !hasCompleteReviewFields(tool));
+  const toolsToShow = (deepReviewedTools.length ? deepReviewedTools : featuredTools.length ? featuredTools : tools).slice(0, 6);
+  const categoryTrustBrief = [
+    ["카드 읽는 법", "각 카드의 Review Notes에서 첫 사용, 추천 제외, 가격 주의, 공식 근거를 먼저 확인하세요."],
+    ["깊게 검수한 리뷰만", `${deepReviewedTools.length}개는 출처, 첫 사용 장면, 추천 제외 조건, 가격 주의가 채워진 리뷰입니다.`],
+    ["후보는 관찰 목록", `${watchlistTools.length}개는 아직 검토 예정 후보라 확신 추천으로 보지 않습니다.`],
+    ["결제 전 공식 가격", "무료체험과 가격 조건은 바뀔 수 있어 결제 전 공식 가격과 기능 제한을 다시 확인하세요."],
+  ];
   const faqItems = getCategoryFaq(copy, tools.length);
   const listJsonLd = {
     "@context": "https://schema.org",
@@ -206,119 +216,126 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   };
 
   return (
-    <main className="bg-[#070812] text-white">
+    <main className="toss-clean bg-[#f8fafc] text-slate-950">
       <JsonLd data={listJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={faqJsonLd} />
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-14 md:px-6 md:py-18">
-        <Link className="mb-6 inline-flex text-sm font-bold text-white/50 hover:text-white" href="/tools">
-          ← 툴 디렉토리로
-        </Link>
-        <div className="max-w-3xl">
-          <p className="mb-4 inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-black uppercase tracking-wide text-pink-100/75">
-            Category
-          </p>
-          <h1 className="text-4xl font-black leading-tight md:text-6xl">{copy.title}</h1>
-          <p className="mt-5 text-base leading-8 text-white/60">{copy.description}</p>
+
+      <section className="mx-auto grid w-full max-w-[1120px] gap-8 px-5 pb-10 pt-10 md:px-6 md:pt-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.7fr)] lg:items-start">
+        <div>
+          <Link className="mb-6 inline-flex text-sm font-bold text-slate-500 hover:text-slate-950" href="/tools">
+            ← 툴 찾기로
+          </Link>
+          <div className="mb-5 flex flex-wrap gap-2">
+            {["처음 볼 기준", "공식 근거", "가격 주의"].map((label) => (
+              <span className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-black text-slate-500" key={label}>
+                {label}
+              </span>
+            ))}
+          </div>
+          <h1 className="max-w-2xl text-4xl font-black leading-tight text-slate-950 md:text-6xl">{copy.title}</h1>
+          <p className="mt-4 max-w-xl text-base font-semibold leading-7 text-slate-500 md:text-lg">{copy.description}</p>
         </div>
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-            <p className="text-2xl font-black text-white">{tools.length}</p>
-            <p className="mt-1 text-xs font-bold text-white/45">등록 툴</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-            <p className="text-2xl font-black text-white">{featuredTools.length}</p>
-            <p className="mt-1 text-xs font-bold text-white/45">먼저 볼 만한 툴</p>
-          </div>
-          <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
-            <p className="text-2xl font-black text-white">{category.hint}</p>
-            <p className="mt-1 text-xs font-bold text-white/45">탐색 기준</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-8 md:px-6">
-        <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/[0.045] p-6 md:grid-cols-3">
-          {copy.guide.map((item, index) => (
-            <div key={item}>
-              <p className="text-xs font-black uppercase text-pink-200/70">Check {index + 1}</p>
-              <p className="mt-2 text-sm leading-6 text-white/58">{item}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-8 md:px-6">
-        <div className="grid gap-5 rounded-2xl border border-white/10 bg-white/[0.045] p-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-          <div>
-            <p className="mb-2 text-xs font-black uppercase text-pink-200/80">Selection Standard</p>
-            <h2 className="text-2xl font-black md:text-3xl">{category.label} 비교 기준</h2>
-            <p className="mt-3 text-sm leading-6 text-white/55">
-              같은 카테고리라도 좋은 도구의 기준은 다릅니다. 처음에는 기능 수보다 실제 업무 시간을 줄이는 지점이 명확한지부터 확인하세요.
-            </p>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-3">
+        <aside className="rounded-[28px] border border-slate-100 bg-white p-5 shadow-[0_18px_48px_rgba(2,32,71,0.07)]">
+          <p className="text-xs font-black uppercase text-[#3182f6]">Category Status</p>
+          <div className="mt-4 grid grid-cols-3 gap-3">
             {[
-              ["도입 난이도", "가입 후 첫 결과물을 만드는 데 걸리는 시간"],
-              ["업무 연결성", "이미 쓰는 문서, 폼, CRM, SNS, 결제 흐름과의 연결"],
-              ["운영 비용", "무료 범위, 팀 요금, 자동화가 늘 때의 추가 비용"],
-            ].map(([title, description]) => (
-              <div className="rounded-2xl border border-white/10 bg-[#070812]/70 p-4" key={title}>
-                <h3 className="text-sm font-black text-white">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-white/52">{description}</p>
+              [`${tools.length}`, "전체"],
+              [`${deepReviewedTools.length}`, "검수"],
+              [`${watchlistTools.length}`, "대기"],
+            ].map(([value, label]) => (
+              <div className="rounded-2xl bg-slate-50 p-4" key={label}>
+                <p className="text-2xl font-black text-slate-950">{value}</p>
+                <p className="mt-1 text-xs font-bold text-slate-500">{label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-sm font-semibold leading-6 text-slate-500">숫자는 참고용입니다. 먼저 검수된 후보와 결제 전 확인할 점을 보세요.</p>
+        </aside>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1120px] px-5 py-6 md:px-6">
+        <div className="category-purpose-brief rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] md:p-6">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="mb-2 text-xs font-black uppercase text-[#3182f6]">Category Trust Brief</p>
+              <h2 className="text-2xl font-black text-slate-950 md:text-3xl">이 목록은 이렇게 읽으세요</h2>
+            </div>
+            <Link className="w-fit rounded-2xl border border-slate-100 px-4 py-3 text-sm font-black text-slate-600 hover:border-slate-200 hover:text-slate-950" href="/methodology">
+              검수 기준
+            </Link>
+          </div>
+          <div className="mt-5 grid gap-3 md:grid-cols-4">
+            {categoryTrustBrief.map(([title, description]) => (
+              <div className="rounded-2xl bg-slate-50 p-4" key={title}>
+                <h3 className="text-sm font-black text-slate-950">{title}</h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">{description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-8 md:px-6">
-        <div className="mb-6 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      <section className="mx-auto w-full max-w-[1120px] px-5 py-6 md:px-6">
+        <div className="grid gap-4 rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] md:grid-cols-3">
+          {copy.guide.map((item, index) => (
+            <div className="rounded-2xl bg-slate-50 p-4" key={item}>
+              <p className="text-xs font-black uppercase text-[#3182f6]">Check {index + 1}</p>
+              <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">{item}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-[1120px] px-5 py-6 md:px-6">
+        <div className="mb-5 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="mb-2 text-xs font-black uppercase text-pink-200/80">Recommended</p>
-            <h2 className="text-2xl font-black md:text-3xl">먼저 볼 만한 {category.label}</h2>
+            <p className="mb-2 text-xs font-black uppercase text-[#3182f6]">Recommended</p>
+            <h2 className="text-2xl font-black text-slate-950 md:text-3xl">먼저 볼 후보</h2>
           </div>
-          <p className="max-w-xl text-sm leading-6 text-white/55">검토 여부, 무료체험, 사용 목적이 분명한지 기준으로 먼저 보여줍니다.</p>
+          <p className="max-w-xl text-sm font-semibold leading-6 text-slate-500">출처와 첫 사용 장면이 채워진 후보를 우선 보여줍니다. 많은 목록보다 검수된 작은 묶음이 먼저입니다.</p>
         </div>
         {tools.length ? (
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {(featuredTools.length ? featuredTools : tools).map((tool) => (
+            {toolsToShow.map((tool) => (
               <SaasToolCard key={tool.id} tool={tool} />
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-8 text-center">
-            <p className="text-sm font-bold text-white/60">아직 등록된 툴이 없습니다. 좋은 툴을 알고 있다면 제보해주세요.</p>
-            <Link className="mt-4 inline-flex rounded-xl bg-white px-4 py-3 text-sm font-black text-[#111326]" href="/submit">
+          <div className="rounded-3xl border border-slate-100 bg-white p-8 text-center shadow-[0_8px_24px_rgba(2,32,71,0.04)]">
+            <p className="text-sm font-bold text-slate-500">아직 등록된 툴이 없습니다. 좋은 툴을 알고 있다면 제보해주세요.</p>
+            <Link className="mt-4 inline-flex rounded-2xl bg-[#3182f6] px-4 py-3 text-sm font-black text-white" href="/submit">
               툴 제보하기
             </Link>
           </div>
         )}
       </section>
 
-      <section className="mx-auto w-full max-w-[1180px] px-4 pb-20 pt-8 md:px-6">
-        <div className="mb-8">
-          <p className="mb-2 text-xs font-black uppercase text-pink-200/80">FAQ</p>
-          <h2 className="text-2xl font-black md:text-3xl">{category.label} 자주 묻는 질문</h2>
-          <div className="mt-4 grid gap-3">
-            {faqItems.map((item) => (
-              <details className="rounded-2xl border border-white/10 bg-white/[0.045] p-5" key={item.question}>
-                <summary className="cursor-pointer text-sm font-black text-white">{item.question}</summary>
-                <p className="mt-3 text-sm leading-6 text-white/58">{item.answer}</p>
-              </details>
-            ))}
-          </div>
+      <section className="mx-auto w-full max-w-[1120px] px-5 py-6 md:px-6">
+        <div className="grid gap-3 md:grid-cols-3">
+          {faqItems.map((item) => (
+            <details className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)]" key={item.question}>
+              <summary className="cursor-pointer text-sm font-black text-slate-950">{item.question}</summary>
+              <p className="mt-3 text-sm font-semibold leading-6 text-slate-500">{item.answer}</p>
+            </details>
+          ))}
         </div>
-        <div className="rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(255,122,24,0.14)_0%,rgba(255,45,149,0.13)_45%,rgba(139,92,246,0.14)_100%)] p-6">
-          <p className="text-sm font-black text-white">{category.label} 툴을 운영 중인가요?</p>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-white/58">
-            제품명, 공식 URL, 무료체험 여부, 가장 잘 줄여주는 업무 시간을 알려주시면 카테고리에 맞게 검토하겠습니다.
-          </p>
-          <Link className="mt-5 inline-flex rounded-xl bg-white px-4 py-3 text-sm font-black text-[#111326]" href="/submit">
-            툴 등록 신청하기
+      </section>
+
+      <section className="mx-auto grid w-full max-w-[1120px] gap-3 px-5 pb-16 pt-4 md:grid-cols-3 md:px-6">
+        <Link className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/submit">
+          <p className="text-base font-black text-slate-950">{category.label} 툴 제보</p>
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">공식 URL과 첫 사용 장면을 함께 보내주세요.</p>
+        </Link>
+        <Link className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/tools">
+          <p className="text-base font-black text-slate-950">다른 목적 보기</p>
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">목록보다 목적을 먼저 고르는 흐름으로 돌아갑니다.</p>
+        </Link>
+        <Link className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/launch">
+          <p className="text-base font-black text-slate-950">신규 런칭 보기</p>
+          <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">요즘 올라온 국내 SaaS 후보를 확인합니다.</p>
           </Link>
-        </div>
       </section>
     </main>
   );

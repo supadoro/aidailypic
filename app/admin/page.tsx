@@ -34,30 +34,30 @@ export default async function AdminPage() {
 
   if (!isAuthorized) {
     return (
-      <main className="flex min-h-[calc(100vh-160px)] items-center bg-[#070812] px-4 py-16 text-white">
+      <main className="flex min-h-[calc(100vh-160px)] items-center bg-[#f8fafc] px-4 py-16 text-slate-950">
         <AdminLoginForm />
       </main>
     );
   }
 
   return (
-    <main className="bg-[#070812] text-white">
+    <main className="admin-operating-shell bg-[#f8fafc] text-slate-950">
       <section className="mx-auto w-full max-w-[1180px] px-4 py-10 md:px-6">
         <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-black uppercase tracking-wide text-white/55">
+            <p className="inline-flex rounded-full border border-[#3182f6]/15 bg-[#3182f6]/10 px-4 py-2 text-xs font-black uppercase tracking-wide text-[#3182f6]">
               Admin MVP
             </p>
-            <h1 className="mt-4 text-4xl font-black md:text-5xl">AIDailyPick 운영 관리자</h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-white/55">
+            <h1 className="mt-4 text-4xl font-black md:text-5xl">AIDailyPick 운영 작업대</h1>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500">
               툴 제안, 문의, 뉴스레터 구독 신청을 확인하고, 툴 데이터를 추가/수정하는 운영 연습용 화면입니다.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Link className="rounded-xl border border-white/10 px-4 py-2 text-sm font-bold text-white/65 hover:text-white" href="/tools">
+            <Link className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:border-[#3182f6]/40 hover:text-[#3182f6]" href="/tools">
               툴 디렉토리 보기
             </Link>
-            <Link className="rounded-xl bg-white px-4 py-2 text-sm font-black text-[#111326]" href="/submit">
+            <Link className="rounded-xl bg-[#3182f6] px-4 py-2 text-sm font-black text-white shadow-[0_8px_24px_rgba(49,130,246,0.18)]" href="/submit">
               제출 페이지 보기
             </Link>
             {isDevelopmentBypass ? null : <AdminLogoutButton />}
@@ -65,16 +65,16 @@ export default async function AdminPage() {
         </div>
 
         <div className="space-y-8">
-          <section className="rounded-3xl border border-white/10 bg-white/[0.055] p-5 shadow-[0_24px_90px_rgba(0,0,0,0.28)] md:p-7">
-            <p className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-black uppercase tracking-wide text-pink-100/75">
+          <section className="admin-launch-checklist rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] md:p-7">
+            <p className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-black uppercase tracking-wide text-slate-500">
               Launch Checklist
             </p>
-            <h2 className="mt-3 text-2xl font-black text-white">실제 운영 전 꼭 바꿀 것</h2>
+            <h2 className="mt-3 text-2xl font-black text-slate-950">실제 운영 전 꼭 바꿀 것</h2>
             <div className="mt-5 grid gap-3 md:grid-cols-2">
               {launchChecklist.map(([title, description]) => (
-                <div className="rounded-2xl border border-white/10 bg-[#070812]/70 p-4" key={title}>
-                  <h3 className="text-sm font-black text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/52">{description}</p>
+                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4" key={title}>
+                  <h3 className="text-sm font-black text-slate-950">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
                 </div>
               ))}
             </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { applyToolSubmissionEdit, type ToolSubmissionEditInput } from "@/src/data/tool-submission-editor";
+
 export type SubmissionStatus = "new" | "candidate" | "reviewing" | "done" | "featured" | "hold";
 
 export type ToolSubmission = {
@@ -113,6 +115,11 @@ export function createNewsletterSubmission(input: Omit<NewsletterSubmission, "id
 
 export function updateToolSubmissionStatus(id: string, status: ToolSubmission["status"]): void {
   const next = readToolSubmissions().map((item) => (item.id === id ? { ...item, status } : item));
+  window.localStorage.setItem(TOOL_SUBMISSIONS_KEY, JSON.stringify(next));
+}
+
+export function updateToolSubmission(id: string, edit: ToolSubmissionEditInput): void {
+  const next = readToolSubmissions().map((item) => (item.id === id ? applyToolSubmissionEdit(item, edit) : item));
   window.localStorage.setItem(TOOL_SUBMISSIONS_KEY, JSON.stringify(next));
 }
 

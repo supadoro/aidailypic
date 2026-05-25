@@ -11,105 +11,94 @@ export const metadata: Metadata = createPageMetadata({
   keywords: ["바이브코딩 SaaS", "SaaS 홍보", "AI 툴 홍보", "한국 SaaS 등록", "툴 제보"],
 });
 
-const submissionTypes = [
-  ["무료 제보", "데모와 타깃 사용자가 명확한 툴은 런칭 후보로 검토합니다."],
-  ["초보자 테스트 리뷰", "처음 쓰는 사람 기준으로 막히는 지점, 무료 범위, 한계를 같이 정리합니다."],
-  ["런칭 스폰서", "홈, 뉴스레터, SNS 소재로 묶어 초기 사용자에게 노출합니다."],
-  ["피드백 리포트", "사용자가 처음 만나는 화면, 가격, CTA, 온보딩의 막히는 지점을 정리합니다."],
-];
-
-const checklist = [
-  "실제로 열리는 데모 URL",
-  "누가 쓰면 좋은지 한 문장",
-  "무료 플랜/무료체험/가격",
-  "바이브코딩에 사용한 도구",
-  "첫 사용자가 얻는 결과물/스크린샷",
-  "원하는 소개 방식",
+const submitChecklist = [
+  ["01", "데모 링크", "사용자가 실제로 열어볼 수 있는 공식 페이지나 데모 URL"],
+  ["02", "가격/무료 범위", "무료로 가능한 일, 유료 전환 기준, 베타 종료 여부"],
+  ["03", "제품 화면", "공식 스크린샷, 데모 GIF, 공개 가능한 이미지"],
 ];
 
 const reviewRules = [
-  ["받고 싶은 툴", "바이브코딩으로 만든 AI 툴, 노코드 SaaS, 업무 자동화, 마케팅/셀러/크리에이터용 작은 제품"],
-  ["우선 검토", "로그인 없이 데모를 볼 수 있거나, 가격/무료 범위/타깃 사용자가 명확한 제품"],
-  ["보류 가능", "랜딩페이지만 있고 제품이 없거나, 성과 보장/과장 문구가 강하거나, 실제 사용 흐름을 확인하기 어려운 제품"],
+  ["먼저 봅니다", "링크가 열리는지, 첫 결과물이 보이는지, 가격 정보가 숨겨져 있지 않은지 확인합니다."],
+  ["좋게 봅니다", "타깃 사용자가 분명하고, 초보자가 따라 할 수 있는 데모 흐름이 있는 제품을 우선 검토합니다."],
+  ["보류합니다", "랜딩만 있고 제품 확인이 어렵거나, 성과 보장 표현이 강하면 공개 후보에서 제외합니다."],
+];
+
+const reviewFlow = [
+  ["접수", "제출 내용은 검토 전 후보로 들어갑니다."],
+  ["확인", "데모, 가격, 제품 화면, 공개 동의를 분리해서 봅니다."],
+  ["공개", "소개 완료 상태가 된 항목만 런칭 보드에 노출합니다."],
 ];
 
 export default function SubmitPage() {
   return (
-    <main className="bg-[#070812] text-white">
-      <section className="mx-auto w-full max-w-[1180px] px-4 py-16 md:px-6 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center">
+    <main className="toss-clean bg-[#f8fafc] text-slate-950">
+      <section className="mx-auto w-full max-w-[1120px] px-4 py-12 md:px-6 md:py-16">
+        <div className="maker-submit-hero grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end">
           <div>
-            <p className="inline-flex rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-xs font-black uppercase tracking-wide text-pink-100/75">
-              Launch Board
-            </p>
-            <h1 className="mt-5 max-w-3xl text-4xl font-black leading-tight text-white md:text-6xl">
-              바이브코딩으로 SaaS를 만들었다면,
-              <span className="block bg-[linear-gradient(135deg,#FCAF45_0%,#FD1D6C_45%,#A855F7_100%)] bg-clip-text text-transparent">
-                첫 사용자에게 보여주세요.
-              </span>
+            <p className="text-sm font-black text-[#3182f6]">바이브코딩 SaaS 제보</p>
+            <h1 className="mt-3 max-w-3xl text-[2.25rem] font-black leading-tight tracking-normal text-slate-950 md:text-[3.5rem]">
+              내 SaaS, 3가지만 보내주세요.
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-white/60">
-              AIDailyPick은 바이브코딩으로 만든 작은 AI/SaaS 툴을 광고 문구처럼 올리지 않습니다. 초보자가 실제로 이해할 수 있게
-              용도, 데모 가능 여부, 무료 범위, 막히는 지점을 같이 정리합니다.
+            <p className="mt-4 max-w-2xl text-base leading-7 text-slate-600">
+              AIDailyPick은 제보된 툴을 바로 추천처럼 올리지 않습니다. 링크, 가격, 제품 화면을 먼저 확인하고 초보자가 판단할 수 있는 소개로 정리합니다.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link className="rounded-2xl bg-[linear-gradient(135deg,#FF7A18_0%,#FF2D95_45%,#8B5CF6_100%)] px-5 py-3 text-sm font-black text-white shadow-[0_10px_28px_rgba(255,45,149,0.22)]" href="#submit-form">
-                런칭 제보하기
+            <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+              <Link className="rounded-2xl bg-[#3182f6] px-5 py-3 text-center text-sm font-black text-white shadow-[0_8px_24px_rgba(49,130,246,0.22)]" href="#submit-form">
+                제보 작성하기
               </Link>
-              <Link className="rounded-2xl border border-white/10 px-5 py-3 text-sm font-black text-white/70 hover:border-pink-300/60 hover:text-white" href="/affiliate">
-                소개 방식 보기
-              </Link>
-              <Link className="rounded-2xl border border-white/10 px-5 py-3 text-sm font-black text-white/70 hover:border-pink-300/60 hover:text-white" href="/contact">
-                운영 문의하기
+              <Link className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-center text-sm font-black text-slate-700 hover:border-[#3182f6]/40 hover:text-[#3182f6]" href="/methodology">
+                검수 기준 보기
               </Link>
             </div>
           </div>
 
-          <aside className="rounded-3xl border border-white/10 bg-white/[0.055] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.28)]">
-            <p className="text-xs font-black uppercase text-orange-200/80">For Makers</p>
+          <aside className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.05)]">
+            <p className="text-xs font-black uppercase text-slate-400">Review Promise</p>
+            <h2 className="mt-2 text-xl font-black text-slate-950">광고보다 확인을 먼저 합니다</h2>
             <div className="mt-4 grid gap-3">
-              {submissionTypes.map(([title, description]) => (
-                <article className="rounded-2xl border border-white/10 bg-[#070812]/70 px-4 py-3" key={title}>
-                  <h2 className="text-sm font-black text-white">{title}</h2>
-                  <p className="mt-1 text-xs leading-5 text-white/50">{description}</p>
+              {reviewRules.map(([title, description]) => (
+                <article className="rounded-2xl border border-slate-100 bg-slate-50 p-4" key={title}>
+                  <h3 className="text-sm font-black text-slate-950">{title}</h3>
+                  <p className="mt-1 text-xs leading-5 text-slate-500">{description}</p>
                 </article>
               ))}
             </div>
           </aside>
         </div>
 
-        <section className="mt-10 grid gap-4 md:grid-cols-3">
-          {reviewRules.map(([title, description]) => (
-            <article className="rounded-3xl border border-white/10 bg-white/[0.045] p-5" key={title}>
-              <h2 className="text-base font-black text-white">{title}</h2>
-              <p className="mt-3 text-sm leading-6 text-white/52">{description}</p>
+        <section className="maker-submit-checklist mt-8 grid gap-3 md:grid-cols-3">
+          {submitChecklist.map(([step, title, description]) => (
+            <article className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)]" key={title}>
+              <p className="text-xs font-black text-[#3182f6]">{step}</p>
+              <h2 className="mt-2 text-lg font-black text-slate-950">{title}</h2>
+              <p className="mt-2 text-sm leading-6 text-slate-500">{description}</p>
             </article>
           ))}
         </section>
 
-        <section className="mt-10 grid gap-8 lg:grid-cols-[0.8fr_1.2fr]" id="submit-form">
-          <div className="rounded-3xl border border-white/10 bg-white/[0.045] p-6 md:p-7">
-            <p className="text-xs font-black uppercase text-pink-200/80">Before Launch</p>
-            <h2 className="mt-2 text-3xl font-black text-white">이 정보가 있으면 소개가 훨씬 쉬워집니다</h2>
-            <div className="mt-5 grid gap-2">
-              {checklist.map((item) => (
-                <p className="rounded-2xl border border-white/10 bg-[#070812]/70 px-4 py-3 text-sm font-bold text-white/65" key={item}>
-                  {item}
-                </p>
+        <section className="mt-8 grid gap-6 lg:grid-cols-[340px_minmax(0,1fr)]" id="submit-form">
+          <div className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] md:p-6">
+            <p className="text-xs font-black uppercase text-slate-400">Before Submit</p>
+            <h2 className="mt-2 text-2xl font-black leading-tight text-slate-950">폼은 짧게, 근거는 분리해서 받습니다</h2>
+            <p className="mt-3 text-sm leading-7 text-slate-500">
+              과장된 홍보 문구보다 실제 확인 가능한 자료가 중요합니다. 아래 흐름을 기준으로 공개 후보를 나눕니다.
+            </p>
+            <div className="mt-5 grid gap-3">
+              {reviewFlow.map(([title, description], index) => (
+                <article className="grid grid-cols-[2rem_1fr] gap-3 rounded-2xl bg-slate-50 p-4" key={title}>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-black text-[#3182f6] shadow-[0_4px_12px_rgba(2,32,71,0.06)]">
+                    {index + 1}
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-black text-slate-950">{title}</h3>
+                    <p className="mt-1 text-xs leading-5 text-slate-500">{description}</p>
+                  </div>
+                </article>
               ))}
             </div>
-            <div className="mt-5 rounded-2xl border border-cyan-300/20 bg-cyan-300/10 p-4">
-              <p className="text-sm font-black text-cyan-100">신뢰도를 높이는 자료</p>
-              <p className="mt-2 text-xs leading-5 text-cyan-100/65">
-                공식 스크린샷, 데모 GIF, 가격 페이지, 온보딩 링크가 있으면 소개문을 광고처럼 쓰지 않고 사실 기반으로 정리하기 쉽습니다.
-              </p>
-            </div>
-            <div className="mt-6 rounded-2xl border border-orange-300/20 bg-orange-300/10 p-4">
-              <p className="text-sm font-black text-orange-100">MVP 저장 안내</p>
-              <p className="mt-2 text-xs leading-5 text-orange-100/65">
-                제출 내용은 서버 저장소가 연결되면 관리자 제출함에 저장됩니다. AIDailyPick은 제보된 모든 툴을 추천으로 표시하지 않고, 검토 전 후보로 분리합니다.
-              </p>
-            </div>
+            <Link className="mt-5 inline-flex text-sm font-black text-[#3182f6]" href="/launch">
+              런칭 보드 보기
+            </Link>
           </div>
 
           <SubmitToolForm />
