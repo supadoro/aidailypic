@@ -933,3 +933,54 @@ npx wrangler d1 execute aidailypick-db --command="SELECT tool_slug, source, clic
   - `https://aidailypick.com/tools` 응답 `200`
   - `https://aidailypick.com/compare` 응답 `200`
   - `https://aidailypick.com/methodology` 응답 `200`
+
+## 2026-05-27 리뷰 말투 편집 메모 배포 확인 결과
+
+- 배포 버전: `b0dd1532-336c-4c31-8f83-8593b57c6752`
+- 적용 범위:
+  - 첫 화면 노출 툴에 `reviewVoice` 필드를 추가해 쇼핑몰 후기처럼 빠르게 읽히는 한 줄 메모 제공
+  - 홈 추천 목록, 일반 툴 카드, 슬라이드형 툴 카드, 툴 상세 페이지에 리뷰 말투 메모 노출
+  - 실제 사용자 후기를 꾸며낸 것처럼 보이지 않도록 `편집 메모`와 고지 문구를 함께 표시
+  - ChatGPT, Claude, Perplexity, Canva, CapCut, OpusClip, Tally에 첫 리뷰 말투 메모 적용
+- 검증:
+  - `node scripts\review-voice.test.mjs`
+  - `node scripts\toss-home-funnel.test.mjs`
+  - `node scripts\tool-card-trust.test.mjs`
+  - `node scripts\tool-detail-clean-ux.test.mjs`
+  - `node scripts\home-discovery-media.test.mjs`
+  - `node scripts\official-media-coverage.test.mjs`
+  - `node scripts\slide-redesign.test.mjs`
+  - `node scripts\tools-page-clean-ux.test.mjs`
+  - `node scripts\tool-detail-slide-layout.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/` 응답 `200`, HTML에 `후기 보듯 3개만 보세요`, `쇼핑몰 후기처럼 바로 이해되는 메모` 포함
+  - `https://aidailypick.com/tools` 응답 `200`, HTML에 `리뷰 말투 메모`, `실제 사용자 후기가 아니라 편집 메모` 포함
+  - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `후기처럼 읽는 편집 메모`, `처음엔 이것저것 다 시키기보다` 포함
+
+## 2026-05-26 공식 미디어 보강 배포 확인 결과
+
+- 배포 버전: `eccad4cc-89b6-4947-b022-de6505f7164a`
+- 적용 범위:
+  - 주요 SaaS 카드 14개에 공식 페이지 또는 공식 CDN 기반 `media` 메타데이터 추가
+  - ChatGPT 기존 `help.openai.com/logo.png` 이미지 403 문제를 OpenAI 공식 아트 카드 이미지로 교체
+  - OpusClip, Typedream 외부 링크를 현재 확인된 공식 도메인으로 정리
+  - `next.config.ts`에 공식 이미지 호스트 허용 목록 추가
+  - 홈 첫 화면 추천 3개 행에 공식 이미지 썸네일을 표시하고, 미디어가 없는 툴은 기존 이니셜 fallback 유지
+- 검증:
+  - `node scripts\official-media-coverage.test.mjs`
+  - `node scripts\home-discovery-media.test.mjs`
+  - `node scripts\slide-redesign.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/?v=eccad4cc` 응답 `200`, HTML에 `AI 툴, 처음이면 목적부터 고르세요`, `home-tool-row-media` 포함
+  - `https://aidailypick.com/tools?v=eccad4cc` 응답 `200`, HTML에 `slide-tool-card`, `OpenAI official ChatGPT Images preview image` 포함
+  - 인앱 브라우저 로컬 확인에서 홈 첫 화면 썸네일 3개와 `/tools` 슬라이드 이미지 6개 모두 로드 성공

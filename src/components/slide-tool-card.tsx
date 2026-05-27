@@ -21,6 +21,7 @@ export function SlideToolCard({ tool, priority = false }: SlideToolCardProps) {
   const features = (tool.useCases?.length ? tool.useCases : tool.tags).slice(0, 3);
   const tags = Array.from(new Set([tool.categoryLabel, tool.pricing, ...tool.tags])).slice(0, 4);
   const audienceText = tool.bestFor.map((key) => audienceLabels[key]).join(" · ");
+  const reviewVoiceText = tool.reviewVoice ?? tool.beginnerTakeaway ?? tool.verdict ?? tool.shortDescription;
   const decisionText = tool.beginnerTakeaway ?? tool.verdict ?? tool.shortDescription;
   const cautionText = tool.pricingCaution ?? tool.notFor?.[0] ?? "결제 전 공식 가격과 기능 제한을 확인하세요.";
 
@@ -90,9 +91,11 @@ export function SlideToolCard({ tool, priority = false }: SlideToolCardProps) {
             </div>
           </div>
           <div className="rounded-2xl border border-[#E5E7EB] bg-white p-4">
-            <p className="text-xs font-black text-[#2563EB]">한 줄 판단</p>
-            <p className="mt-2 text-sm font-semibold leading-6 text-[#4B5563]">{decisionText}</p>
+            <p className="text-xs font-black text-[#2563EB]">리뷰 말투 메모</p>
+            <p className="mt-2 text-sm font-semibold leading-6 text-[#4B5563]">{reviewVoiceText}</p>
+            <p className="mt-2 text-[11px] font-semibold leading-4 text-[#9CA3AF]">실제 사용자 후기가 아니라 편집 메모입니다.</p>
           </div>
+          <p className="text-xs font-semibold leading-5 text-[#6B7280]">한 줄 판단: {decisionText}</p>
           <p className="text-xs font-semibold leading-5 text-[#6B7280]">주의: {cautionText}</p>
         </div>
 

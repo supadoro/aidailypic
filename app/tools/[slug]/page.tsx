@@ -84,6 +84,7 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
   const evidenceSummary = getToolEvidenceSummary(tool);
   const checkedAt = tool.lastCheckedAt ?? "공식 정보 기준";
   const decisionCards = getDecisionCards(tool);
+  const reviewVoice = tool.reviewVoice ?? tool.beginnerTakeaway ?? tool.verdict;
   const faqItems = [
     {
       question: `${tool.name}은 어떤 사람에게 잘 맞나요?`,
@@ -208,6 +209,17 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
           </div>
         </div>
       </section>
+
+      {reviewVoice ? (
+        <section className="mx-auto w-full max-w-[1180px] px-5 py-6 md:px-6">
+          <div className="review-voice-panel rounded-[28px] border border-[#E5E7EB] bg-white p-6 shadow-[0_12px_34px_rgba(2,32,71,0.05)] md:p-8">
+            <p className="text-xs font-black uppercase tracking-[0.08em] text-[#2563EB]">Review Voice</p>
+            <h2 className="mt-2 text-2xl font-black text-[#111827]">후기처럼 읽는 편집 메모</h2>
+            <p className="mt-4 rounded-2xl bg-[#F8FAFC] p-5 text-base font-semibold leading-8 text-[#374151]">“{reviewVoice}”</p>
+            <p className="mt-3 text-xs font-semibold leading-5 text-[#6B7280]">실제 사용자 후기를 꾸며낸 문장이 아니라, 처음 쓰는 사람이 바로 이해하도록 AIDailyPick이 다시 쓴 요약입니다.</p>
+          </div>
+        </section>
+      ) : null}
 
       <section className="tool-detail-facts mx-auto w-full max-w-[1180px] px-5 py-6 md:px-6">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
