@@ -28,7 +28,9 @@ test("first-screen tools have review-like editorial voice copy", () => {
 
   for (const slug of firstScreenSlugs) {
     const block = getToolBlock(source, slug);
-    assert.match(block, /reviewVoice:\s*"/, `${slug} should include reviewVoice`);
+    const reviewMatch = block.match(/reviewVoice:\s*"([^"]+)"/);
+    assert.ok(reviewMatch, `${slug} should include reviewVoice`);
+    assert.ok(reviewMatch[1].length >= 90, `${slug} reviewVoice should read like a thoughtful review, not a short slogan`);
     assert.doesNotMatch(block, /실제 사용자|구매자|리뷰 작성자/, `${slug} should not pretend to be a real user review`);
   }
 });
@@ -39,20 +41,22 @@ test("home and cards show review voice as editorial memo, not fake testimonials"
   const slideCard = readFileSync(slideCardPath, "utf8");
 
   assert.match(home, /tool\.reviewVoice/);
-  assert.match(home, /편집 메모/);
-  assert.match(card, /리뷰 말투 메모/);
-  assert.match(card, /실제 사용자 후기가 아니라/);
+  assert.match(home, /처음 보는 사람이 이해하기 쉽도록/);
+  assert.match(card, /처음 보는 사람용 리뷰/);
+  assert.match(card, /가짜 사용 후기가 아니라/);
   assert.match(card, /tool\.reviewVoice/);
-  assert.match(slideCard, /리뷰 말투 메모/);
-  assert.match(slideCard, /실제 사용자 후기가 아니라 편집 메모/);
+  assert.match(slideCard, /처음 보는 사람용 리뷰/);
+  assert.match(slideCard, /가짜 사용 후기가 아니라 직접 풀어쓴 리뷰 요약/);
   assert.match(slideCard, /tool\.reviewVoice/);
+  assert.doesNotMatch(home + card + slideCard, /후기 보듯|쇼핑몰 후기처럼|리뷰 말투/);
 });
 
 test("tool detail page includes a clear review-voice panel and disclosure", () => {
   const source = readFileSync(detailPath, "utf8");
 
   assert.match(source, /review-voice-panel/);
-  assert.match(source, /후기처럼 읽는 편집 메모/);
-  assert.match(source, /실제 사용자 후기를 꾸며낸 문장이 아니라/);
+  assert.match(source, /처음 보는 사람용 정성 리뷰/);
+  assert.match(source, /툴을 모르는 사람도 이해하도록/);
   assert.match(source, /tool\.reviewVoice/);
+  assert.doesNotMatch(source, /후기처럼 읽는|리뷰 말투/);
 });

@@ -117,7 +117,7 @@ export function HomeToolDiscovery() {
             AI 툴, 처음이면 목적부터 고르세요
           </h1>
           <p className="mt-4 max-w-xl text-base font-semibold leading-7 text-slate-500 md:text-lg">
-            목록을 오래 읽지 않아도 됩니다. 지금 하려는 일 하나만 고르면, 쇼핑몰 후기처럼 바로 이해되는 메모로 3개만 보여드릴게요.
+            툴 이름을 몰라도 괜찮습니다. 지금 하려는 일 하나만 고르면, 처음 보는 사람도 이해할 수 있게 풀어쓴 정성 리뷰 3개만 보여드릴게요.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -155,7 +155,7 @@ export function HomeToolDiscovery() {
           <div className="mb-4 flex items-start justify-between gap-3">
             <div>
               <p className="text-xs font-black uppercase text-[#3182f6]">{searchMatches.length ? "Search Result" : "Start Here"}</p>
-              <h2 className="mt-1 text-2xl font-black text-slate-950">후기 보듯 3개만 보세요</h2>
+              <h2 className="mt-1 text-2xl font-black text-slate-950">처음 봐도 이해되는 3개</h2>
             </div>
             <Link className="rounded-full bg-slate-50 px-3 py-2 text-xs font-black text-slate-500 hover:bg-blue-50 hover:text-[#3182f6]" href={selectedPurpose.href}>
               가이드
@@ -170,7 +170,7 @@ export function HomeToolDiscovery() {
 
           <div className="mt-5 rounded-2xl bg-slate-50 p-4">
             <p className="text-sm font-black text-slate-950">{selectedPurpose.description}</p>
-            <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">실제 사용자를 사칭한 후기가 아니라, 처음 쓰는 사람 기준으로 다시 쓴 AIDailyPick 편집 메모입니다.</p>
+            <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">가짜 사용 후기가 아니라, 처음 보는 사람이 이해하기 쉽도록 AIDailyPick이 직접 풀어쓴 리뷰 요약입니다.</p>
           </div>
         </aside>
       </section>

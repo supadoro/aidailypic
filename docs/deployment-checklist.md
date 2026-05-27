@@ -962,6 +962,30 @@ npx wrangler d1 execute aidailypick-db --command="SELECT tool_slug, source, clic
   - `https://aidailypick.com/tools` 응답 `200`, HTML에 `리뷰 말투 메모`, `실제 사용자 후기가 아니라 편집 메모` 포함
   - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `후기처럼 읽는 편집 메모`, `처음엔 이것저것 다 시키기보다` 포함
 
+## 2026-05-27 처음 보는 사람용 정성 리뷰 카피 배포 확인 결과
+
+- 배포 버전: `b3865269-9b28-4bf1-97d0-ea6fec4be38b`
+- 적용 범위:
+  - `후기 보듯`, `쇼핑몰 후기처럼`, `리뷰 말투`처럼 표면적인 표현을 화면 카피에서 제거
+  - ChatGPT, Claude, Perplexity, Canva, CapCut, OpusClip, Tally의 `reviewVoice`를 더 긴 정성 리뷰 문장으로 재작성
+  - 툴을 처음 보는 사람이 `무슨 툴인지`, `언제 쓰는지`, `좋은 점`, `아쉬운 점`을 한 번에 이해하도록 설명 구조 변경
+  - 홈/툴 목록/툴 상세의 라벨을 `처음 보는 사람용 리뷰`, `처음 보는 사람용 정성 리뷰`로 변경
+  - 가짜 사용 후기를 꾸며낸 것처럼 보이지 않도록 `직접 풀어쓴 리뷰 요약` 고지 유지
+- 검증:
+  - `node scripts\review-voice.test.mjs`
+  - `node scripts\toss-home-funnel.test.mjs`
+  - `node scripts\tool-card-trust.test.mjs`
+  - `node scripts\tool-detail-clean-ux.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/` 응답 `200`, HTML에 `처음 봐도 이해되는 3개`, `툴 이름을 몰라도 괜찮습니다`, `처음 보는 사람도 이해할 수 있게 풀어쓴 정성 리뷰` 포함
+  - `https://aidailypick.com/tools` 응답 `200`, HTML에 `처음 보는 사람용 리뷰`, `가짜 사용 후기가 아니라 직접 풀어쓴 리뷰 요약` 포함
+  - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `처음 보는 사람용 정성 리뷰`, `ChatGPT는 쉽게 말하면 글, 아이디어, 질문 답변을 대신 초안으로 만들어주는 AI 대화 도구입니다` 포함
+
 ## 2026-05-26 공식 미디어 보강 배포 확인 결과
 
 - 배포 버전: `eccad4cc-89b6-4947-b022-de6505f7164a`
