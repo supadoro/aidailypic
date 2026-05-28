@@ -24,6 +24,13 @@ export function SlideToolCard({ tool, priority = false }: SlideToolCardProps) {
   const reviewVoiceText = tool.reviewVoice ?? tool.beginnerTakeaway ?? tool.verdict ?? tool.shortDescription;
   const decisionText = tool.beginnerTakeaway ?? tool.verdict ?? tool.shortDescription;
   const cautionText = tool.pricingCaution ?? tool.notFor?.[0] ?? "결제 전 공식 가격과 기능 제한을 확인하세요.";
+  const primaryUseCase = features[0] ?? tool.beginnerScenario ?? tool.shortDescription;
+  const notForText = tool.notFor?.[0] ?? cautionText;
+  const decisionRows = [
+    { label: "이런 분께", value: audienceText, tone: "border-[#DBEAFE] bg-[#EFF6FF] text-[#1D4ED8]" },
+    { label: "먼저 써볼 일", value: primaryUseCase, tone: "border-[#DCFCE7] bg-[#F0FDF4] text-[#15803D]" },
+    { label: "조심할 점", value: notForText, tone: "border-[#FED7AA] bg-[#FFF7ED] text-[#C2410C]" },
+  ];
 
   return (
     <article className="slide-tool-card saas-slide-panel grid gap-0 overflow-hidden rounded-[28px] md:grid-cols-[minmax(240px,0.9fr)_minmax(0,1.25fr)_minmax(220px,0.7fr)]">
@@ -76,10 +83,15 @@ export function SlideToolCard({ tool, priority = false }: SlideToolCardProps) {
 
       <aside className="slide-tool-action flex flex-col justify-between bg-[#F8FAFC] p-6 md:p-7">
         <div className="space-y-4">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.08em] text-[#9CA3AF]">추천 대상</p>
-            <p className="mt-2 text-base font-black leading-6 text-[#111827]">{audienceText}</p>
+          <div className="sns-decision-strip grid gap-2.5">
+            {decisionRows.map((row) => (
+              <div className={`rounded-2xl border p-4 ${row.tone}`} key={row.label}>
+                <p className="text-[11px] font-black">{row.label}</p>
+                <p className="mt-1 line-clamp-2 text-sm font-bold leading-5 text-[#111827]">{row.value}</p>
+              </div>
+            ))}
           </div>
+
           <div className="grid grid-cols-2 gap-3 md:grid-cols-1">
             <div className="rounded-2xl border border-[#E5E7EB] bg-white p-4">
               <p className="text-xs font-bold text-[#6B7280]">가격</p>
@@ -96,6 +108,7 @@ export function SlideToolCard({ tool, priority = false }: SlideToolCardProps) {
             <p className="mt-2 text-[11px] font-semibold leading-4 text-[#9CA3AF]">광고 후기처럼 꾸미지 않고 헷갈릴 포인트를 먼저 풀었습니다.</p>
           </div>
           <p className="text-xs font-semibold leading-5 text-[#6B7280]">한 줄 판단: {decisionText}</p>
+          <p className="text-xs font-semibold leading-5 text-[#6B7280]">추천 대상: {audienceText}</p>
           <p className="text-xs font-semibold leading-5 text-[#6B7280]">주의: {cautionText}</p>
         </div>
 

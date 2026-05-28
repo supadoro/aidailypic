@@ -1033,6 +1033,29 @@ npx wrangler d1 execute aidailypick-db --command="SELECT tool_slug, source, clic
   - `https://aidailypick.com/tools/toss-payments` 응답 `200`, HTML에 `토스페이먼츠는 국내 고객에게 결제를 받아야 할 때`, `버튼 하나 붙이면 바로 돈 받는 도구라고 생각하면 안 됩니다` 포함
   - `https://aidailypick.com/tools` 응답 `200`, HTML에 `가볍게 읽는 추천 리뷰`, `인스타/스레드` 포함
 
+## 2026-05-29 SNS형 판단 카드 배포 확인 결과
+
+- 배포 버전: `d85a6171-611d-4b8f-af5d-d885b50fe46d`
+- 적용 범위:
+  - 큰 툴 카드 우측 영역에 `이런 분께`, `먼저 써볼 일`, `조심할 점` 3칸 판단 요약 추가
+  - 처음 보는 사용자가 긴 리뷰를 읽기 전에 대상, 첫 사용 장면, 주의점을 바로 확인할 수 있도록 재구성
+  - 인스타/스레드형 추천 리뷰 톤은 유지하되 과한 커뮤체와 가짜 사용자 후기 표현은 제외
+  - `scripts/social-decision-card.test.mjs` 추가로 판단 카드 구조와 금지어 기준을 고정
+- 검증:
+  - `node scripts\social-decision-card.test.mjs`
+  - `node scripts\review-voice.test.mjs`
+  - `node scripts\slide-redesign.test.mjs`
+  - `node scripts\tool-detail-slide-layout.test.mjs`
+  - `node scripts\tool-card-trust.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/tools` 응답 `200`, HTML에 `sns-decision-strip`, `이런 분께`, `먼저 써볼 일`, `조심할 점`, `가볍게 읽는 추천 리뷰` 포함
+  - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `이런 분께`, `먼저 써볼 일`, `조심할 점`, `가볍게 읽는 추천 리뷰` 포함
+
 ## 2026-05-26 공식 미디어 보강 배포 확인 결과
 
 - 배포 버전: `eccad4cc-89b6-4947-b022-de6505f7164a`
