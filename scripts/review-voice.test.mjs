@@ -8,7 +8,27 @@ const cardPath = "src/components/saas-tool-card.tsx";
 const slideCardPath = "src/components/slide-tool-card.tsx";
 const detailPath = "app/tools/[slug]/page.tsx";
 
-const firstScreenSlugs = ["chatgpt", "claude", "perplexity", "canva", "capcut", "opusclip", "tally"];
+const priorityReviewSlugs = [
+  "chatgpt",
+  "claude",
+  "perplexity",
+  "canva",
+  "miricanvas",
+  "capcut",
+  "opusclip",
+  "typefully",
+  "buffer",
+  "zapier",
+  "make",
+  "tally",
+  "gamma",
+  "framer",
+  "typedream",
+  "notion-ai",
+  "channel-talk",
+  "toss-payments",
+  "modusign",
+];
 const bannedSlang = /개꿀|미쳤다|레전드|ㄷㄷ|안 쓰면 손해|사기급|찐템/;
 
 function getToolBlock(source, slug) {
@@ -22,16 +42,16 @@ function getToolBlock(source, slug) {
   return source.slice(blockStart, blockEnd === -1 ? arrayEnd : blockEnd);
 }
 
-test("first-screen tools have review-like editorial voice copy", () => {
+test("priority reviewed tools have Korean social recommendation copy", () => {
   const source = readFileSync(directoryPath, "utf8");
 
   assert.match(source, /reviewVoice\?: string/);
 
-  for (const slug of firstScreenSlugs) {
+  for (const slug of priorityReviewSlugs) {
     const block = getToolBlock(source, slug);
     const reviewMatch = block.match(/reviewVoice:\s*"([^"]+)"/);
     assert.ok(reviewMatch, `${slug} should include reviewVoice`);
-    assert.ok(reviewMatch[1].length >= 90, `${slug} reviewVoice should read like a thoughtful review, not a short slogan`);
+    assert.ok(reviewMatch[1].length >= 90, `${slug} reviewVoice should read like a useful social recommendation, not a short slogan`);
     assert.doesNotMatch(reviewMatch[1], bannedSlang, `${slug} should avoid exaggerated community slang`);
     assert.doesNotMatch(block, /실제 사용자|구매자|리뷰 작성자/, `${slug} should not pretend to be a real user review`);
   }

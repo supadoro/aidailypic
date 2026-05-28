@@ -1009,6 +1009,30 @@ npx wrangler d1 execute aidailypick-db --command="SELECT tool_slug, source, clic
   - `https://aidailypick.com/tools` 응답 `200`, HTML에 `가볍게 읽는 추천 리뷰`, `광고 후기처럼 꾸미지 않고` 포함
   - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `ChatGPT 처음이면 이걸`, `대화로 쓰는 초안 도우미` 포함
 
+## 2026-05-29 검수 툴 전체 추천 리뷰 톤 확장 배포 확인 결과
+
+- 배포 버전: `b4dddd5b-7a21-486a-ba5d-c4ce93897811`
+- 적용 범위:
+  - 미리캔버스, Typefully, Buffer, Zapier, Make, Gamma, Framer, Typedream, Notion AI, 채널톡, 토스페이먼츠, 모두싸인에 `reviewVoice` 추가
+  - 검수된 주요 툴 전체가 인스타/스레드형 추천 리뷰 톤을 유지하도록 테스트 기준 확장
+  - 각 리뷰는 `어떤 툴인지`, `누가 쓰면 좋은지`, `처음엔 어떻게 써볼지`, `조심할 점`을 짧고 자연스럽게 설명
+  - 과한 커뮤체와 과장 표현 금지 기준 유지
+- 검증:
+  - `node scripts\review-voice.test.mjs`
+  - `node scripts\tool-card-trust.test.mjs`
+  - `node scripts\tools-page-clean-ux.test.mjs`
+  - `node scripts\tool-detail-clean-ux.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/tools/miricanvas` 응답 `200`, HTML에 `미리캔버스는 한국어 템플릿이 익숙해서`, `상세페이지나 카드뉴스` 포함
+  - `https://aidailypick.com/tools/zapier` 응답 `200`, HTML에 `Zapier는 반복 업무를 앱끼리 이어주는 자동화 툴`, `딱 한 가지 반복 작업만 줄여보는` 포함
+  - `https://aidailypick.com/tools/toss-payments` 응답 `200`, HTML에 `토스페이먼츠는 국내 고객에게 결제를 받아야 할 때`, `버튼 하나 붙이면 바로 돈 받는 도구라고 생각하면 안 됩니다` 포함
+  - `https://aidailypick.com/tools` 응답 `200`, HTML에 `가볍게 읽는 추천 리뷰`, `인스타/스레드` 포함
+
 ## 2026-05-26 공식 미디어 보강 배포 확인 결과
 
 - 배포 버전: `eccad4cc-89b6-4947-b022-de6505f7164a`
