@@ -91,9 +91,9 @@ export function SlideToolCard({ tool, priority = false }: SlideToolCardProps) {
             </div>
           </div>
           <div className="rounded-2xl border border-[#E5E7EB] bg-white p-4">
-            <p className="text-xs font-black text-[#2563EB]">처음 보는 사람용 리뷰</p>
+            <p className="text-xs font-black text-[#2563EB]">가볍게 읽는 추천 리뷰</p>
             <p className="mt-2 text-sm font-semibold leading-6 text-[#4B5563]">{reviewVoiceText}</p>
-            <p className="mt-2 text-[11px] font-semibold leading-4 text-[#9CA3AF]">가짜 사용 후기가 아니라 직접 풀어쓴 리뷰 요약입니다.</p>
+            <p className="mt-2 text-[11px] font-semibold leading-4 text-[#9CA3AF]">광고 후기처럼 꾸미지 않고 헷갈릴 포인트를 먼저 풀었습니다.</p>
           </div>
           <p className="text-xs font-semibold leading-5 text-[#6B7280]">한 줄 판단: {decisionText}</p>
           <p className="text-xs font-semibold leading-5 text-[#6B7280]">주의: {cautionText}</p>

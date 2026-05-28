@@ -24,14 +24,14 @@ export function SaasToolCard(props: SaasToolCardProps) {
   const pricingText = tool.pricingCaution;
   const officialSourceText = tool.sourceNotes?.[0] ?? tool.evidenceSummary ?? tool.sourceSignal;
   const trustRows = [
-    { label: "정성 리뷰", value: reviewVoiceText, tone: "text-slate-950" },
+    { label: "추천글 요약", value: reviewVoiceText, tone: "text-slate-950" },
     { label: "맞는 사람", value: `${audienceText}`, tone: "text-emerald-700" },
     { label: "첫 사용", value: firstUseText, tone: "text-[#3182f6]" },
     { label: "추천 제외", value: notForText, tone: "text-orange-700" },
     { label: "가격 주의", value: pricingText, tone: "text-amber-700" },
     { label: "공식 근거", value: officialSourceText, tone: "text-sky-700" },
   ].filter((row): row is { label: string; value: string; tone: string } => Boolean(row.value));
-  const visibleTrustRows = compact ? trustRows.filter((row) => ["정성 리뷰", "가격 주의"].includes(row.label)).slice(0, 2) : trustRows.slice(0, 4);
+  const visibleTrustRows = compact ? trustRows.filter((row) => ["추천글 요약", "가격 주의"].includes(row.label)).slice(0, 2) : trustRows.slice(0, 4);
 
   return (
     <article className="group rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] transition duration-300 hover:-translate-y-0.5 hover:border-[#3182f6]/30 hover:shadow-[0_16px_38px_rgba(49,130,246,0.10)]">
@@ -93,8 +93,8 @@ export function SaasToolCard(props: SaasToolCardProps) {
       </div>
 
       <div className="mt-4 border-t border-slate-100 pt-4">
-        <p className="text-[11px] font-black uppercase tracking-[0.08em] text-slate-400">처음 보는 사람용 리뷰</p>
-        {!compact ? <p className="mt-1 text-[11px] font-semibold leading-4 text-slate-400">가짜 사용 후기가 아니라, 툴을 모르는 사람도 이해하도록 직접 풀어쓴 리뷰 요약입니다.</p> : null}
+        <p className="text-[11px] font-black uppercase tracking-[0.08em] text-slate-400">가볍게 읽는 추천 리뷰</p>
+        {!compact ? <p className="mt-1 text-[11px] font-semibold leading-4 text-slate-400">광고 후기처럼 꾸미지 않고, 처음 쓰는 사람이 헷갈릴 포인트를 먼저 풀었습니다.</p> : null}
         <div className="mt-3 space-y-2.5">
           {visibleTrustRows.map((row) => (
             <p className={`text-xs leading-5 text-slate-500 ${compact ? "line-clamp-2" : ""}`} key={row.label}>

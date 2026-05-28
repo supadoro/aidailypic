@@ -986,6 +986,29 @@ npx wrangler d1 execute aidailypick-db --command="SELECT tool_slug, source, clic
   - `https://aidailypick.com/tools` 응답 `200`, HTML에 `처음 보는 사람용 리뷰`, `가짜 사용 후기가 아니라 직접 풀어쓴 리뷰 요약` 포함
   - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `처음 보는 사람용 정성 리뷰`, `ChatGPT는 쉽게 말하면 글, 아이디어, 질문 답변을 대신 초안으로 만들어주는 AI 대화 도구입니다` 포함
 
+## 2026-05-29 인스타/스레드형 추천 리뷰 톤 배포 확인 결과
+
+- 배포 버전: `5cdb20c0-22af-4e32-b2ba-339d5bffecf6`
+- 적용 범위:
+  - 리뷰 카피를 무거운 `정성 리뷰` 톤에서 한국 인스타/스레드 추천글처럼 가볍게 읽히는 말투로 변경
+  - `후기 보듯`, `쇼핑몰 후기처럼`, `리뷰 말투`, `정성 리뷰` 같은 표면적 표현을 실제 화면 코드에서 제거
+  - ChatGPT, Claude, Perplexity, Canva, CapCut, OpusClip, Tally의 추천 리뷰 문장을 `써볼 만한 상황`, `좋은 점`, `주의할 점` 중심으로 재작성
+  - 과한 커뮤체와 과장 표현은 사용하지 않도록 테스트에 금지어 기준 추가
+- 검증:
+  - `node scripts\review-voice.test.mjs`
+  - `node scripts\toss-home-funnel.test.mjs`
+  - `node scripts\tool-card-trust.test.mjs`
+  - `node scripts\tool-detail-clean-ux.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/` 응답 `200`, HTML에 `처음 봐도 감 오는 3개`, `툴 이름 몰라도 괜찮아요`, `인스타/스레드 추천글처럼` 포함
+  - `https://aidailypick.com/tools` 응답 `200`, HTML에 `가볍게 읽는 추천 리뷰`, `광고 후기처럼 꾸미지 않고` 포함
+  - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `ChatGPT 처음이면 이걸`, `대화로 쓰는 초안 도우미` 포함
+
 ## 2026-05-26 공식 미디어 보강 배포 확인 결과
 
 - 배포 버전: `eccad4cc-89b6-4947-b022-de6505f7164a`

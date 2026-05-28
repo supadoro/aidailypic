@@ -213,10 +213,10 @@ export default async function ToolDetailPage({ params }: { params: Promise<{ slu
       {reviewVoice ? (
         <section className="mx-auto w-full max-w-[1180px] px-5 py-6 md:px-6">
           <div className="review-voice-panel rounded-[28px] border border-[#E5E7EB] bg-white p-6 shadow-[0_12px_34px_rgba(2,32,71,0.05)] md:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.08em] text-[#2563EB]">Plain Review</p>
-            <h2 className="mt-2 text-2xl font-black text-[#111827]">처음 보는 사람용 정성 리뷰</h2>
+            <p className="text-xs font-black uppercase tracking-[0.08em] text-[#2563EB]">Insta-style Pick</p>
+            <h2 className="mt-2 text-2xl font-black text-[#111827]">가볍게 읽는 추천 리뷰</h2>
             <p className="mt-4 rounded-2xl bg-[#F8FAFC] p-5 text-base font-semibold leading-8 text-[#374151]">{reviewVoice}</p>
-            <p className="mt-3 text-xs font-semibold leading-5 text-[#6B7280]">가짜 사용 후기를 꾸며낸 문장이 아니라, 툴을 모르는 사람도 이해하도록 AIDailyPick이 직접 풀어쓴 리뷰 요약입니다.</p>
+            <p className="mt-3 text-xs font-semibold leading-5 text-[#6B7280]">광고 후기처럼 꾸민 문장이 아니라, 처음 쓰는 사람이 헷갈릴 포인트를 먼저 풀어쓴 AIDailyPick 요약입니다.</p>
           </div>
         </section>
       ) : null}
