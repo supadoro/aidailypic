@@ -1056,6 +1056,32 @@ npx wrangler d1 execute aidailypick-db --command="SELECT tool_slug, source, clic
   - `https://aidailypick.com/tools` 응답 `200`, HTML에 `sns-decision-strip`, `이런 분께`, `먼저 써볼 일`, `조심할 점`, `가볍게 읽는 추천 리뷰` 포함
   - `https://aidailypick.com/tools/chatgpt` 응답 `200`, HTML에 `이런 분께`, `먼저 써볼 일`, `조심할 점`, `가볍게 읽는 추천 리뷰` 포함
 
+## 2026-06-01 홈/카드 가독성 개선 배포 확인 결과
+
+- 배포 버전: `931229f8-584f-4929-a6c3-a4e0485bfe24`
+- 적용 범위:
+  - 홈 첫 화면을 `오늘 할 일 하나만 고르세요` 중심의 짧은 선택 흐름으로 재구성
+  - 추천 영역을 `오늘의 3픽` 이미지 카드로 변경하고, 카드 설명을 1줄로 제한
+  - 일반 툴 카드의 긴 검수 메모를 `Quick Pick` 요약으로 축소
+  - `/tools` 첫 검수 카드 노출을 6개에서 3개로 줄이고 반복 판단 문구 제거
+  - `scripts/readability-redesign.test.mjs` 추가로 글 과밀 방지 기준을 고정
+- 검증:
+  - `node scripts\readability-redesign.test.mjs`
+  - `node scripts\home-discovery-media.test.mjs`
+  - `node scripts\tool-card-trust.test.mjs`
+  - `node scripts\tools-page-clean-ux.test.mjs`
+  - `node scripts\review-voice.test.mjs`
+  - `npm.cmd run typecheck`
+  - `npm.cmd run lint`
+  - `npm.cmd run build`
+  - `npm.cmd run cf:build`
+  - `npm.cmd run cf:deploy`
+- 라이브 확인:
+  - `https://aidailypick.com/` 응답 `200`, HTML에 `오늘 할 일 하나만 고르세요`, `오늘의 3픽`, `home-visual-pick-card` 포함
+  - `https://aidailypick.com/` HTML에 이전 긴 안내 문구 `광고 후기처럼 꾸미지 않고` 미포함
+  - `https://aidailypick.com/tools` 응답 `200`, HTML에 `처음 보는 사람도 바로 판단할 수 있게 3개만` 포함
+  - `https://aidailypick.com/tools` HTML에 반복 문구 `한 줄 판단:`, `추천 대상:`, `주의:` 미포함
+
 ## 2026-05-26 공식 미디어 보강 배포 확인 결과
 
 - 배포 버전: `eccad4cc-89b6-4947-b022-de6505f7164a`

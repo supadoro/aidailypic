@@ -63,12 +63,13 @@ test("home and cards show review voice as editorial memo, not fake testimonials"
   const slideCard = readFileSync(slideCardPath, "utf8");
 
   assert.match(home, /tool\.reviewVoice/);
-  assert.match(home, /인스타\/스레드 추천글처럼/);
-  assert.match(card, /가볍게 읽는 추천 리뷰/);
-  assert.match(card, /광고 후기처럼 꾸미지 않고/);
+  assert.match(home, /home-visual-pick-card/);
+  assert.match(home, /오늘의 3픽/);
+  assert.match(card, /Quick Pick/);
+  assert.match(card, /quickRows/);
   assert.match(card, /tool\.reviewVoice/);
   assert.match(slideCard, /가볍게 읽는 추천 리뷰/);
-  assert.match(slideCard, /광고 후기처럼 꾸미지 않고/);
+  assert.match(slideCard, /line-clamp-3/);
   assert.match(slideCard, /tool\.reviewVoice/);
   assert.doesNotMatch(home + card + slideCard, /후기 보듯|쇼핑몰 후기처럼|리뷰 말투|정성 리뷰/);
   assert.doesNotMatch(home + card + slideCard, bannedSlang);

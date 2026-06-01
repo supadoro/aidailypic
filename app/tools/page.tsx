@@ -103,10 +103,10 @@ export default function ToolsPage() {
             <p className="mb-2 text-xs font-black uppercase text-[#3182f6]">Reviewed</p>
             <h2 className="text-2xl font-black text-slate-950 md:text-3xl">근거가 채워진 후보</h2>
           </div>
-          <p className="max-w-xl text-sm font-semibold leading-6 text-slate-500">출처, 첫 사용 장면, 추천 제외 조건, 가격 주의가 있는 툴만 먼저 보여줍니다.</p>
+          <p className="max-w-xl text-sm font-semibold leading-6 text-slate-500">처음 보는 사람도 바로 판단할 수 있게 3개만 먼저 보여줍니다.</p>
         </div>
         <div className="grid gap-5">
-          {reviewedTools.slice(0, 6).map((tool, index) => (
+          {reviewedTools.slice(0, 3).map((tool, index) => (
             <SlideToolCard key={tool.id} priority={index === 0} tool={tool} />
           ))}
         </div>

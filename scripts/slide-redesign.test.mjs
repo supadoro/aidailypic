@@ -33,7 +33,9 @@ test("tool introduction card uses a responsive three-panel slide layout", () => 
   assert.match(source, /slide-tool-content/);
   assert.match(source, /slide-tool-action/);
   assert.match(source, /md:grid-cols-\[minmax\(240px,0\.9fr\)_minmax\(0,1\.25fr\)_minmax\(220px,0\.7fr\)\]/);
-  assert.match(source, /추천 대상/);
+  assert.match(source, /이런 분께/);
+  assert.match(source, /먼저 써볼 일/);
+  assert.match(source, /조심할 점/);
   assert.match(source, /가격/);
   assert.match(source, /난이도/);
 });

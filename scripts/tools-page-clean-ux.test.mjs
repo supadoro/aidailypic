@@ -13,7 +13,7 @@ test("tools page continues the purpose-first Toss-like flow", () => {
   assert.match(source, /처음이면 하나만 고르세요/);
   assert.match(source, /추천 3개만 보기/);
   assert.match(source, /priorityPaths/);
-  assert.match(source, /reviewedTools\.slice\(0, 6\)/);
+  assert.match(source, /reviewedTools\.slice\(0, 3\)/);
   assert.doesNotMatch(source, /Tool Directory/);
   assert.doesNotMatch(source, /bg-\[#070812\]/);
   assert.doesNotMatch(source, /bg-\[linear-gradient/);

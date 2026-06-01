@@ -46,35 +46,40 @@ const trustLabels = ["초보자 기준", "공식 근거", "광고 분리"];
 
 function ToolRow(props: { tool: SaasTool }) {
   const { tool } = props;
+  const primaryUseCase = tool.useCases?.[0] ?? tool.categoryLabel;
+  const reviewLine = tool.reviewVoice ?? tool.beginnerTakeaway ?? tool.verdict ?? tool.shortDescription;
 
   return (
     <Link
-      className="group flex items-center justify-between gap-4 rounded-2xl border border-slate-100 bg-white px-4 py-4 shadow-[0_8px_24px_rgba(2,32,71,0.04)] transition hover:-translate-y-0.5 hover:border-[#3182f6]/30 hover:shadow-[0_12px_30px_rgba(49,130,246,0.10)]"
+      className="home-visual-pick-card group block overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-[0_10px_30px_rgba(2,32,71,0.06)] transition hover:-translate-y-0.5 hover:border-[#3182f6]/30 hover:shadow-[0_16px_38px_rgba(49,130,246,0.12)]"
       href={tool.reviewUrl}
     >
-      <div className="flex min-w-0 items-center gap-3">
-        <span className="home-tool-row-media relative flex h-14 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 text-sm font-black text-slate-700">
-          {tool.media ? (
-            <Image
-              alt={tool.media.imageAlt}
-              className="object-cover"
-              fill
-              sizes="64px"
-              src={tool.media.imageUrl}
-            />
-          ) : (
-            <span>{tool.logoText}</span>
-          )}
+      <span className="home-tool-row-media relative flex h-32 w-full items-center justify-center overflow-hidden bg-slate-50 text-sm font-black text-slate-700">
+        {tool.media ? (
+          <Image
+            alt={tool.media.imageAlt}
+            className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            fill
+            sizes="(min-width: 1024px) 360px, 100vw"
+            src={tool.media.imageUrl}
+          />
+        ) : (
+          <span>{tool.logoText}</span>
+        )}
+        <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-black text-[#3182f6] shadow-sm">
+          {getToolEvidenceLabel(tool)}
         </span>
-        <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <p className="text-base font-black text-slate-950">{tool.name}</p>
-            <span className="rounded-full bg-blue-50 px-2 py-1 text-[11px] font-black text-[#3182f6]">{getToolEvidenceLabel(tool)}</span>
+      </span>
+      <div className="p-4">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <p className="truncate text-lg font-black text-slate-950">{tool.name}</p>
+            <p className="mt-0.5 text-xs font-black text-[#3182f6]">{primaryUseCase}</p>
           </div>
-          <p className="mt-1 line-clamp-2 text-sm font-semibold leading-5 text-slate-500">{tool.reviewVoice ?? tool.beginnerTakeaway ?? tool.verdict ?? tool.shortDescription}</p>
+          <span className="shrink-0 rounded-full bg-[#3182f6] px-3 py-1.5 text-xs font-black text-white">보기</span>
         </div>
+        <p className="mt-3 line-clamp-1 text-sm font-semibold text-slate-500">{reviewLine}</p>
       </div>
-      <span className="shrink-0 text-sm font-black text-[#3182f6] transition group-hover:translate-x-0.5">보기</span>
     </Link>
   );
 }
@@ -103,7 +108,7 @@ export function HomeToolDiscovery() {
 
   return (
     <main className="toss-clean min-h-screen bg-[#f8fafc] text-slate-950">
-      <section className="mx-auto grid w-full max-w-[1120px] gap-8 px-5 pb-8 pt-10 md:px-6 md:pb-12 md:pt-16 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.75fr)] lg:items-start">
+      <section className="mx-auto grid w-full max-w-[1120px] gap-8 px-5 pb-8 pt-10 md:px-6 md:pb-12 md:pt-16 lg:grid-cols-[minmax(0,0.9fr)_minmax(400px,0.78fr)] lg:items-start">
         <div className="toss-purpose-selector">
           <div className="mb-5 flex flex-wrap gap-2">
             {trustLabels.map((label) => (
@@ -114,10 +119,10 @@ export function HomeToolDiscovery() {
           </div>
 
           <h1 className="max-w-2xl text-4xl font-black leading-tight tracking-normal text-slate-950 md:text-6xl">
-            AI 툴, 처음이면 목적부터 고르세요
+            오늘 할 일 하나만 고르세요
           </h1>
           <p className="mt-4 max-w-xl text-base font-semibold leading-7 text-slate-500 md:text-lg">
-            툴 이름 몰라도 괜찮아요. 지금 하려는 일 하나만 고르면, 인스타/스레드 추천글처럼 가볍게 읽히는 리뷰 3개만 보여드릴게요.
+            글쓰기, 쇼츠, 상세페이지 중 하나만 누르면 써볼 만한 툴 3개만 바로 보여드릴게요.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -125,7 +130,7 @@ export function HomeToolDiscovery() {
               const active = item.id === selectedPurpose.id;
               return (
                 <button
-                  className={`min-h-32 rounded-3xl border p-5 text-left transition ${
+                  className={`min-h-24 rounded-3xl border p-5 text-left transition ${
                     active
                       ? "border-[#3182f6] bg-white shadow-[0_14px_36px_rgba(49,130,246,0.14)]"
                       : "border-slate-100 bg-white/70 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-slate-200 hover:bg-white"
@@ -135,7 +140,7 @@ export function HomeToolDiscovery() {
                   type="button"
                 >
                   <span className={`text-lg font-black ${active ? "text-[#3182f6]" : "text-slate-950"}`}>{item.label}</span>
-                  <span className="mt-2 block text-sm font-bold text-slate-500">{item.shortLabel}</span>
+                  <span className="mt-2 block line-clamp-1 text-sm font-bold text-slate-500">{item.shortLabel}</span>
                 </button>
               );
             })}
@@ -155,7 +160,7 @@ export function HomeToolDiscovery() {
           <div className="mb-4 flex items-start justify-between gap-3">
             <div>
               <p className="text-xs font-black uppercase text-[#3182f6]">{searchMatches.length ? "Search Result" : "Start Here"}</p>
-              <h2 className="mt-1 text-2xl font-black text-slate-950">처음 봐도 감 오는 3개</h2>
+              <h2 className="mt-1 text-2xl font-black text-slate-950">오늘의 3픽</h2>
             </div>
             <Link className="rounded-full bg-slate-50 px-3 py-2 text-xs font-black text-slate-500 hover:bg-blue-50 hover:text-[#3182f6]" href={selectedPurpose.href}>
               가이드
@@ -168,25 +173,22 @@ export function HomeToolDiscovery() {
             ))}
           </div>
 
-          <div className="mt-5 rounded-2xl bg-slate-50 p-4">
-            <p className="text-sm font-black text-slate-950">{selectedPurpose.description}</p>
-            <p className="mt-2 text-xs font-semibold leading-5 text-slate-500">광고 후기처럼 꾸미지 않고, 처음 쓰는 사람이 헷갈릴 포인트를 먼저 풀어쓴 요약입니다.</p>
+          <div className="mt-4 flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+            <p className="line-clamp-1 text-sm font-black text-slate-950">{selectedPurpose.description}</p>
+            <span className="ml-3 shrink-0 text-xs font-black text-slate-400">3개만</span>
           </div>
         </aside>
       </section>
 
       <section className="mx-auto grid w-full max-w-[1120px] gap-3 px-5 pb-16 md:grid-cols-3 md:px-6">
-        <Link className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/submit">
-          <p className="text-base font-black text-slate-950">내 SaaS 제보하기</p>
-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">바이브코딩으로 만든 툴은 초보자 관점으로 소개합니다.</p>
+        <Link className="flex items-center justify-between rounded-3xl border border-slate-100 bg-white p-5 text-base font-black text-slate-950 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/submit">
+          내 SaaS 제보하기 <span className="text-[#3182f6]">→</span>
         </Link>
-        <Link className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/tools">
-          <p className="text-base font-black text-slate-950">전체 툴 보기</p>
-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">목적을 정한 뒤 필요할 때 목록으로 넘어갑니다.</p>
+        <Link className="flex items-center justify-between rounded-3xl border border-slate-100 bg-white p-5 text-base font-black text-slate-950 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/tools">
+          전체 툴 보기 <span className="text-[#3182f6]">→</span>
         </Link>
-        <Link className="rounded-3xl border border-slate-100 bg-white p-5 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/launch">
-          <p className="text-base font-black text-slate-950">신규 런칭 보기</p>
-          <p className="mt-2 text-sm font-semibold leading-6 text-slate-500">요즘 올라온 국내 SaaS 후보만 가볍게 확인합니다.</p>
+        <Link className="flex items-center justify-between rounded-3xl border border-slate-100 bg-white p-5 text-base font-black text-slate-950 shadow-[0_8px_24px_rgba(2,32,71,0.04)] hover:border-[#3182f6]/30" href="/launch">
+          신규 런칭 보기 <span className="text-[#3182f6]">→</span>
         </Link>
       </section>
     </main>

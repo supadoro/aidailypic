@@ -8,26 +8,27 @@ function readComponent() {
   return readFileSync(componentPath, "utf8");
 }
 
-test("tool cards surface review evidence instead of only promotional tags", () => {
+test("tool cards surface compact trust cues instead of long evidence blocks", () => {
   const source = readComponent();
 
-  assert.match(source, /첫 사용/);
-  assert.match(source, /공식 근거/);
-  assert.match(source, /추천 제외/);
-  assert.match(source, /가격 주의/);
-  assert.match(source, /beginnerScenario/);
-  assert.match(source, /sourceNotes/);
+  assert.match(source, /quickRows/);
+  assert.match(source, /한 줄/);
+  assert.match(source, /대상/);
+  assert.match(source, /주의/);
   assert.match(source, /notFor/);
   assert.match(source, /pricingCaution/);
+  assert.doesNotMatch(source, /공식 근거/);
+  assert.doesNotMatch(source, /visibleTrustRows/);
 });
 
-test("tool cards keep stronger trust cues visible even in compact directory cards", () => {
+test("tool cards keep the compact summary short in directory cards", () => {
   const source = readComponent();
   const compactIndex = source.indexOf("compact");
-  const notForIndex = source.indexOf("notFor");
-  const pricingIndex = source.indexOf("pricingCaution");
+  const quickRowsIndex = source.indexOf("quickRows");
+  const visibleQuickRowsIndex = source.indexOf("visibleQuickRows");
 
   assert.equal(compactIndex >= 0, true);
-  assert.equal(notForIndex > compactIndex, true);
-  assert.equal(pricingIndex > compactIndex, true);
+  assert.equal(quickRowsIndex > compactIndex, true);
+  assert.equal(visibleQuickRowsIndex > quickRowsIndex, true);
+  assert.match(source, /quickRows\.slice\(0, compact \? 2 : 3\)/);
 });
